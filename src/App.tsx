@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Typography, CssBaseline, Container, Box } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
+
+import theme from './theme';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box pt={5}>
+        <Container maxWidth="md">
+          <CssBaseline />
+          <Typography variant="h3" align="center" gutterBottom>
+            Mobile Framework Comparison
+          </Typography>
+          <Typography align="center">Hello there</Typography>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 }
 
