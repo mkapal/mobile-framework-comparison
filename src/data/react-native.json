@@ -1,0 +1,6 @@
+{
+  "name": "React Native",
+  "features": {
+    "platforms": ["ios"]
+  }
+}

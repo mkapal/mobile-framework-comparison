@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "platforms": {
+          "type": "array",
+          "checkbox": "true",
+          "minItems": 1,
+          "title": "Which platforms should be supported?",
+          "items": {
+            "type": "string",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Android",
+                "enum": ["android"]
+              },
+              {
+                "type": "string",
+                "title": "iOS",
+                "enum": ["ios"]
+              },
+              {
+                "type": "string",
+                "title": "Windows Phone",
+                "enum": ["windows-phone"]
+              }
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["platforms"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["name", "features"],
+  "additionalProperties": false
+}
