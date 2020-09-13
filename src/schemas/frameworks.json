@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
+  "required": ["name", "features"],
   "properties": {
     "name": {
       "type": "string"
@@ -10,36 +11,66 @@
       "properties": {
         "platforms": {
           "type": "array",
-          "checkbox": "true",
           "minItems": 1,
           "title": "Which platforms should be supported?",
           "items": {
-            "type": "string",
-            "anyOf": [
-              {
-                "type": "string",
-                "title": "Android",
-                "enum": ["android"]
-              },
-              {
-                "type": "string",
-                "title": "iOS",
-                "enum": ["ios"]
-              },
-              {
-                "type": "string",
-                "title": "Windows Phone",
-                "enum": ["windows-phone"]
-              }
-            ]
+            "$ref": "#/definitions/operating-system"
           },
           "uniqueItems": true
+        },
+        "distribution": {
+          "type": "object",
+          "minItems": 0,
+          "title": "Distribution channels",
+          "properties": {
+            "app-store": {
+              "type": "array",
+              "title": "App store",
+              "items": {
+                "$ref": "#/definitions/operating-system"
+              },
+              "uniqueItems": true,
+              "additionalItems": false
+            },
+            "url": {
+              "type": "array",
+              "title": "URL",
+              "items": {
+                "$ref": "#/definitions/operating-system"
+              },
+              "uniqueItems": true,
+              "additionalItems": false
+            }
+          },
+          "required": ["app-store", "url"],
+          "additionalProperties": false
         }
       },
-      "required": ["platforms"],
-      "additionalProperties": false
+      "required": ["platforms", "distribution"],
+      "additionalProperties": false,
+      "definitions": {
+        "operating-system": {
+          "type": "string",
+          "anyOf": [
+            {
+              "type": "string",
+              "title": "Android",
+              "enum": ["android"]
+            },
+            {
+              "type": "string",
+              "title": "iOS",
+              "enum": ["ios"]
+            },
+            {
+              "type": "string",
+              "title": "Windows Phone",
+              "enum": ["windows-phone"]
+            }
+          ]
+        }
+      }
     }
   },
-  "required": ["name", "features"],
   "additionalProperties": false
 }
