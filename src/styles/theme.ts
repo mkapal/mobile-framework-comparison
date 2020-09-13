@@ -1,6 +1,15 @@
+import * as CSS from 'csstype';
 import { darken, lighten } from 'polished';
 
 export type Theme = {
+  shared: {
+    focus: {
+      position: CSS.Property.Position;
+      outline: CSS.Property.Outline;
+      boxShadow: CSS.Property.BoxShadow;
+      zIndex: CSS.Property.ZIndex;
+    };
+  };
   color: {
     text: {
       primary: string;
@@ -23,9 +32,17 @@ export type Theme = {
 
 export type Variant = 'primary' | 'secondary' | 'success' | 'danger';
 
-const TONAL_OFFSET = 0.2;
+const TONAL_OFFSET = 0.1;
 
 export const defaultTheme: Theme = {
+  shared: {
+    focus: {
+      position: 'relative',
+      outline: 0,
+      boxShadow: '0 0 0 3px rgba(21, 156, 228, 0.4)',
+      zIndex: 1,
+    },
+  },
   color: {
     text: {
       primary: '#111',
