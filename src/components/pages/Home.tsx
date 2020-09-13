@@ -8,6 +8,9 @@ export function Home() {
     <div>
       <Link to="/questions">Go to questions</Link>
       <Button>Hello world</Button>
+      <Button variant="secondary">Hello world</Button>
+      <Button variant="success">Hello world</Button>
+      <Button variant="danger">Hello world</Button>
     </div>
   );
 }

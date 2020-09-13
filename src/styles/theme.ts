@@ -1,3 +1,5 @@
+import { darken, lighten } from 'polished';
+
 export type Theme = {
   color: {
     text: {
@@ -8,32 +10,20 @@ export type Theme = {
       primary: string;
       secondary: string;
     };
-    primary: {
-      light: string;
-      main: string;
-      dark: string;
-      contrastColor: string;
-    };
-    secondary: {
-      light: string;
-      main: string;
-      dark: string;
-      contrastColor: string;
-    };
-    success: {
-      light: string;
-      main: string;
-      dark: string;
-      contrastColor: string;
-    };
-    danger: {
-      light: string;
-      main: string;
-      dark: string;
-      contrastColor: string;
+    variant: {
+      [key in Variant]: {
+        light: string;
+        main: string;
+        dark: string;
+        contrastColor: string;
+      };
     };
   };
 };
+
+export type Variant = 'primary' | 'secondary' | 'success' | 'danger';
+
+const TONAL_OFFSET = 0.2;
 
 export const defaultTheme: Theme = {
   color: {
@@ -45,29 +35,31 @@ export const defaultTheme: Theme = {
       primary: '#fafafa',
       secondary: '#fff',
     },
-    primary: {
-      light: '#4c91cb',
-      main: '#3276b1',
-      dark: '#2e5d85',
-      contrastColor: '#fff',
-    },
-    secondary: {
-      light: '#cacaca',
-      main: '#b8b8b8',
-      dark: '#a4a4a4',
-      contrastColor: '#000',
-    },
-    success: {
-      light: '#759675',
-      main: '#598059',
-      dark: '#3d5d3d',
-      contrastColor: '#fff',
-    },
-    danger: {
-      light: '#d05555',
-      main: '#be3c3c',
-      dark: '#9d3030',
-      contrastColor: '#fff',
+    variant: {
+      primary: {
+        light: lighten(TONAL_OFFSET, '#3276b1'),
+        main: '#3276b1',
+        dark: darken(TONAL_OFFSET, '#3276b1'),
+        contrastColor: '#fff',
+      },
+      secondary: {
+        light: lighten(TONAL_OFFSET, '#b8b8b8'),
+        main: '#b8b8b8',
+        dark: darken(TONAL_OFFSET, '#b8b8b8'),
+        contrastColor: '#000',
+      },
+      success: {
+        light: lighten(TONAL_OFFSET, '#598059'),
+        main: '#598059',
+        dark: darken(TONAL_OFFSET, '#598059'),
+        contrastColor: '#fff',
+      },
+      danger: {
+        light: lighten(TONAL_OFFSET, '#be3c3c'),
+        main: '#be3c3c',
+        dark: darken(TONAL_OFFSET, '#be3c3c'),
+        contrastColor: '#fff',
+      },
     },
   },
 };
