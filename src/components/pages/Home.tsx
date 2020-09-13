@@ -9,8 +9,12 @@ export function Home() {
       <Link to="/questions">Go to questions</Link>
       <Button>Hello world</Button>
       <Button variant="secondary">Hello world</Button>
-      <Button variant="success">Hello world</Button>
-      <Button variant="danger">Hello world</Button>
+      <Button m={2} variant="success">
+        Hello world
+      </Button>
+      <Button m={1} variant="danger">
+        Hello world
+      </Button>
     </div>
   );
 }

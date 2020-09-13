@@ -28,6 +28,7 @@ export type Theme = {
       };
     };
   };
+  space: number[];
 };
 
 export type Variant = 'primary' | 'secondary' | 'success' | 'danger';
@@ -79,4 +80,5 @@ export const defaultTheme: Theme = {
       },
     },
   },
+  space: [0, 4, 8, 16, 32],
 };

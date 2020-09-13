@@ -1,15 +1,15 @@
 import { css } from '@emotion/core';
 import { darken } from 'polished';
+import { margin, MarginProps } from 'styled-system';
 
 import { styled, Variant } from '../../styles';
 
 type Props = {
   variant?: Variant;
-};
+} & MarginProps;
 
 export const Button = styled.button<Props>(
   ({ theme: { color, shared }, variant = 'primary' }) => css`
-    margin: 0;
     padding: 10px;
     color: ${color.variant[variant].contrastColor};
     font-size: 0.875rem;
@@ -27,4 +27,5 @@ export const Button = styled.button<Props>(
       ${shared.focus}
     }
   `,
+  margin,
 );
