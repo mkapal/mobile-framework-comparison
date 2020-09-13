@@ -1,9 +1,15 @@
 import React from 'react';
 
+import { PageLayout } from '../PageLayout';
+
 export function Questions() {
   const handleSubmitForm = () => {
     console.log('submitted');
   };
 
-  return <form onSubmit={handleSubmitForm}>form</form>;
+  return (
+    <PageLayout>
+      <form onSubmit={handleSubmitForm}>form</form>
+    </PageLayout>
+  );
 }

@@ -1,27 +1,22 @@
-import { css, Global } from '@emotion/core';
-import { ThemeProvider } from 'emotion-theming';
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Layout } from './components';
-import { defaultTheme, Theme } from './styles';
-
-import './styles/global.css';
+import './global.css';
+import { Home, Questions } from './components/pages';
+import './icons';
 
 function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Global<Theme>
-        styles={({ color }) => css`
-          body {
-            background: ${color.background};
-          }
-        `}
-      />
-      <Router>
-        <Layout />
-      </Router>
-    </ThemeProvider>
+    <Router>
+      <Switch>
+        <Route path="/questions">
+          <Questions />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
