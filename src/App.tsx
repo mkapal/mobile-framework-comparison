@@ -1,14 +1,23 @@
+import { css, Global } from '@emotion/core';
+import { ThemeProvider } from 'emotion-theming';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core/styles';
-
-import theme from './theme';
 
 import { Layout } from './components';
+import { defaultTheme, Theme } from './styles/theme';
+
+import './styles/global.css';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={defaultTheme}>
+      <Global<Theme>
+        styles={({ color }) => css`
+          body {
+            background: ${color.background};
+          }
+        `}
+      />
       <Router>
         <Layout />
       </Router>

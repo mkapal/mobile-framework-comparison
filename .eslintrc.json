@@ -1,0 +1,74 @@
+{
+  "extends": [
+    "react-app",
+    "prettier"
+  ],
+  "plugins": [
+    "sort-destructure-keys"
+  ],
+  "rules": {
+    "@typescript-eslint/array-type": [
+      "error",
+      {
+        "default": "array"
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "@typescript-eslint/prefer-optional-chain": "warn",
+    "arrow-body-style": ["warn", "as-needed"],
+    "import/no-extraneous-dependencies": "warn",
+    "import/order": [
+      "warn",
+      {
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+    "object-shorthand": "warn",
+    "no-case-declarations": "warn",
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "no-else-return": "warn",
+    "no-param-reassign": "warn",
+    "no-var": "warn",
+    "prefer-const": "warn",
+    "react/jsx-boolean-value": "warn",
+    "react/jsx-curly-brace-presence": "error",
+    "react/jsx-key": "warn",
+    "react/jsx-sort-props": "warn",
+    "react/no-danger": "error",
+    "react/no-array-index-key": "warn",
+    "react/prefer-stateless-function": "warn",
+    "react/self-closing-comp": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "sort-destructure-keys/sort-destructure-keys": "warn",
+    "yoda": "warn"
+  },
+  "overrides": [
+    {
+      "files": [ "*.ts" ],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "error",
+        "@typescript-eslint/explicit-function-return-type": "error"
+      }
+    },
+    {
+      "files": [ "src/scripts/**/*.js" ],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}
