@@ -3,8 +3,8 @@ import React from 'react';
 
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders copyright text', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const copyrightElement = getByText(/Created by Martin Kapal/i);
+  expect(copyrightElement).toBeInTheDocument();
 });
