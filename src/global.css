@@ -3,3 +3,9 @@
 #root {
   height: 100%;
 }
+
+.ant-checkbox-group-item {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

@@ -8,12 +8,15 @@ const Layout = styled.div`
   align-items: center;
   height: inherit;
   padding: 32px;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    rgb(230, 230, 230) 0%,
-    rgb(255, 255, 255) 50%,
-    rgb(230, 230, 230) 100%
-  );
+`;
+
+const Inner = styled.div`
+  width: 100%;
+  max-width: 900px;
+`;
+
+const Content = styled.div`
+  padding: 32px;
 `;
 
 type Props = {
@@ -23,10 +26,13 @@ type Props = {
 export function PageLayout({ children }: Props) {
   return (
     <Layout>
-      <nav>
-        <Link to="/">Homepage</Link>
-      </nav>
-      {children}
+      <Inner>
+        <nav>
+          <Link to="/">Homepage</Link>
+          <Link to="/questions">Questions</Link>
+        </nav>
+        <Content>{children}</Content>
+      </Inner>
     </Layout>
   );
 }
