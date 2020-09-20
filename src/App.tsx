@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './global.css';
-import { Home, Questions } from './components/pages';
+import { Home, Form } from './components/pages';
 import './icons';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/questions">
-          <Questions />
+          <Form />
         </Route>
         <Route path="/">
           <Home />

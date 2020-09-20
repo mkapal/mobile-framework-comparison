@@ -5,25 +5,25 @@ import { Question } from '../molecules';
 
 export function StepOne() {
   return (
-    <div>
-      <Question fieldName="os" title="Platform support">
+    <>
+      <Question name="os" title="Platform support">
         <Checkbox.Group
-          name="os"
+          name="os.value"
           options={[
             { label: 'iOS', value: 'ios' },
             { label: 'Android', value: 'android' },
           ]}
         />
       </Question>
-      <Question fieldName="lang" title="Programming language">
+      <Question name="lang" title="Programming language">
         <Checkbox.Group
-          name="lang"
+          name="lang.value"
           options={[
             { label: 'C#', value: 'csharp' },
             { label: 'JavaScript', value: 'js' },
           ]}
         />
       </Question>
-    </div>
+    </>
   );
 }
