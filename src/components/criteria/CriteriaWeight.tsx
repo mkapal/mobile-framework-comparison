@@ -1,7 +1,7 @@
 import { Slider } from 'formik-antd';
 import React from 'react';
 
-import { ErrorMessage } from '../criteria';
+import { ErrorMessage } from './index';
 
 type Props = {
   name: string;
@@ -10,7 +10,7 @@ type Props = {
 const tooltips: { [k: number]: string } = {
   0: 'not important',
   1: 'less important',
-  2: 'important',
+  2: 'more important',
   3: 'very important',
 };
 

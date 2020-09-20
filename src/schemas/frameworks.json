@@ -1,75 +1,68 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "required": ["name", "features"],
+  "required": ["name", "platforms", "distribution"],
   "properties": {
     "name": {
       "type": "string"
     },
-    "features": {
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "title": "Which platforms should be supported?",
+      "items": {
+        "$ref": "#/definitions/operating-system"
+      },
+      "uniqueItems": true
+    },
+    "distribution": {
       "type": "object",
+      "minItems": 0,
+      "title": "Distribution channels",
       "properties": {
-        "platforms": {
+        "app-store": {
           "type": "array",
-          "minItems": 1,
-          "title": "Which platforms should be supported?",
+          "title": "App store",
           "items": {
             "$ref": "#/definitions/operating-system"
           },
-          "uniqueItems": true
+          "uniqueItems": true,
+          "additionalItems": false
         },
-        "distribution": {
-          "type": "object",
-          "minItems": 0,
-          "title": "Distribution channels",
-          "properties": {
-            "app-store": {
-              "type": "array",
-              "title": "App store",
-              "items": {
-                "$ref": "#/definitions/operating-system"
-              },
-              "uniqueItems": true,
-              "additionalItems": false
-            },
-            "url": {
-              "type": "array",
-              "title": "URL",
-              "items": {
-                "$ref": "#/definitions/operating-system"
-              },
-              "uniqueItems": true,
-              "additionalItems": false
-            }
+        "url": {
+          "type": "array",
+          "title": "URL",
+          "items": {
+            "$ref": "#/definitions/operating-system"
           },
-          "required": ["app-store", "url"],
-          "additionalProperties": false
+          "uniqueItems": true,
+          "additionalItems": false
         }
       },
-      "required": ["platforms", "distribution"],
-      "additionalProperties": false,
-      "definitions": {
-        "operating-system": {
+      "required": ["app-store", "url"],
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "operating-system": {
+      "type": "string",
+      "anyOf": [
+        {
           "type": "string",
-          "anyOf": [
-            {
-              "type": "string",
-              "title": "Android",
-              "enum": ["android"]
-            },
-            {
-              "type": "string",
-              "title": "iOS",
-              "enum": ["ios"]
-            },
-            {
-              "type": "string",
-              "title": "Windows Phone",
-              "enum": ["windows-phone"]
-            }
-          ]
+          "title": "Android",
+          "enum": ["android"]
+        },
+        {
+          "type": "string",
+          "title": "iOS",
+          "enum": ["ios"]
+        },
+        {
+          "type": "string",
+          "title": "Windows Phone",
+          "enum": ["windows-phone"]
         }
-      }
+      ]
     }
   },
   "additionalProperties": false

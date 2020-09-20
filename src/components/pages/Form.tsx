@@ -1,25 +1,26 @@
 import { Steps } from 'antd';
 import { Formik } from 'formik';
 import { Form as FormikAntdForm, SubmitButton } from 'formik-antd';
+import isEmpty from 'lodash/isEmpty';
 import React, { ReactElement, useState } from 'react';
 import * as Yup from 'yup';
 
+import {
+  Criterion,
+  OperatingSystem,
+  ProgrammingLanguage,
+  programmingLanguages,
+} from '../../types';
 import { PageLayout } from '../PageLayout';
 import { Box } from '../atoms';
 import { StepOne, StepTwo } from '../criteria';
-import { Question } from '../molecules';
 
 const { Step } = Steps;
 
-type Question<Value> = {
-  value: Value;
-  weight: 0 | 1 | 2 | 3 | 4 | 5;
-};
-
 export type FormValues = {
-  os: Question<('ios' | 'android')[]>;
-  lang: Question<('csharp' | 'js' | 'dotnet')[]>;
-  questionTwo: Question<'one' | 'two' | 'three'>;
+  os: Criterion<OperatingSystem[]>;
+  lang: Criterion<ProgrammingLanguage[]>;
+  questionTwo: Criterion<'one' | 'two' | 'three'>;
 };
 
 const initialValues: FormValues = {
@@ -55,6 +56,12 @@ const validationSchema = Yup.object().shape({
       .required('Select an option.'),
     weight: Yup.number().required('Select a weight for this criterion.'),
   }),
+  lang: Yup.object().shape({
+    value: Yup.array()
+      .of(Yup.string().oneOf(programmingLanguages, 'Select a valid platform.'))
+      .required('Select an option.'),
+    weight: Yup.number().required('Select a weight for this criterion.'),
+  }),
   questionTwo: Yup.object().shape({
     value: Yup.string().required('Select an option.'),
     weight: Yup.number().required('Select a weight for this criterion.'),
@@ -84,12 +91,14 @@ export function Form() {
           }}
           validationSchema={validationSchema}
         >
-          <FormikAntdForm>
-            <Box mb={3}>{steps[step].component}</Box>
-            <Box>
-              <SubmitButton>Submit</SubmitButton>
-            </Box>
-          </FormikAntdForm>
+          {({ errors }) => (
+            <FormikAntdForm>
+              <Box mb={3}>{steps[step].component}</Box>
+              <Box>
+                <SubmitButton disabled={!isEmpty(errors)}>Submit</SubmitButton>
+              </Box>
+            </FormikAntdForm>
+          )}
         </Formik>
       </Box>
     </PageLayout>

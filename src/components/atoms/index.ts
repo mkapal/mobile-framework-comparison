@@ -1,3 +1,3 @@
 export { Box } from './Box';
-export { CriteriaWeight } from './CriteriaWeight';
+export { CriteriaWeight } from '../criteria/CriteriaWeight';
 export { QuestionTitle } from './QuestionTitle';
