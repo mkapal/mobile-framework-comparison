@@ -1,69 +1,64 @@
-import styled from '@emotion/styled';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Space, Typography } from 'antd';
+import { Box, Button, Typography } from '@material-ui/core';
+import { green, grey } from '@material-ui/core/colors';
+import { styled } from '@material-ui/core/styles';
+import {
+  Android,
+  Apple,
+  PhoneAndroidTwoTone,
+  PhoneIphoneTwoTone,
+} from '@material-ui/icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const { Title } = Typography;
+const Layout = styled('div')({
+  padding: 32,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  height: 'inherit',
+  background:
+    'linear-gradient(rgb(230, 230, 230) 0%, rgb(255, 255, 255) 50%, rgb(230, 230, 230) 100%)',
+});
 
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  height: inherit;
-  padding: 32px;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    rgb(230, 230, 230) 0%,
-    rgb(255, 255, 255) 50%,
-    rgb(230, 230, 230) 100%
-  );
-`;
-
-const Main = styled.main`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  justify-content: center;
-  color: gray;
-  text-align: center;
-`;
 export function Home() {
   return (
     <Layout>
-      <Main>
-        <Space>
-          <FontAwesomeIcon color="#444" icon="mobile-alt" size="6x" />
-          <FontAwesomeIcon color="#444" icon="tablet-alt" size="8x" />
-          <Space direction="vertical">
-            <FontAwesomeIcon
-              color="#8e8e93"
-              icon={['fab', 'apple']}
-              size="5x"
-            />
-            <FontAwesomeIcon
-              color="#3DDC84"
-              icon={['fab', 'android']}
-              size="5x"
-            />
-          </Space>
-        </Space>
-        <Title>Cross-Platform Mobile Framework Recommendation System</Title>
-        <p>Get a ranked list of recommended mobile frameworks</p>
-        <Link to="/questions">
-          <Button size="large" type="primary">
-            Start filling questions
-          </Button>
-        </Link>
-      </Main>
-      <Footer>Created by Martin Kapal</Footer>
+      <Box
+        display="flex"
+        flex={1}
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
+        <Box>
+          <Apple style={{ color: grey[500], fontSize: 40 }} />
+          <PhoneIphoneTwoTone style={{ color: grey[900], fontSize: 100 }} />
+          <PhoneAndroidTwoTone style={{ color: grey[900], fontSize: 100 }} />
+          <Android style={{ color: green['A400'], fontSize: 40 }} />
+        </Box>
+        <Typography variant="subtitle1">
+          Mobile Framework Recommendation System
+        </Typography>
+        <Box mb={4}>
+          <Typography variant="body1">
+            Get a ranked list of recommended cross-platform mobile frameworks
+          </Typography>
+        </Box>
+        <Button
+          component={Link}
+          variant="contained"
+          color="primary"
+          to="/questions"
+        >
+          Start filling questions
+        </Button>
+      </Box>
+      <Box display="flex" justifyContent="center" textAlign="center">
+        <Typography variant="body2" color="textSecondary">
+          Created by Martin Kapal
+        </Typography>
+      </Box>
     </Layout>
   );
 }

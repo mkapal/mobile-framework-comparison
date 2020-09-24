@@ -1,8 +1,10 @@
 {
   "name": "React Native",
-  "platforms": ["ios"],
-  "distribution": {
-    "app-store": ["ios"],
-    "url": ["android"]
+  "infrastructure": {
+    "platforms": ["ios"],
+    "distribution": ["app-store"]
+  },
+  "development": {
+    "test": ["url"]
   }
 }

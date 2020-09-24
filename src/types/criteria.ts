@@ -1,4 +1,4 @@
-import { definitions } from '../schemas/frameworks.json';
+// import { definitions } from '../schemas/frameworks.json';
 
 type Option<Value> = {
   label: string;
@@ -22,9 +22,9 @@ export const programmingLanguages: ProgrammingLanguage[] = programmingLanguageOp
 
 export type OperatingSystem = 'ios' | 'android';
 
-export const operatingSystemOptions: Option<OperatingSystem>[] = definitions[
-  'operating-system'
-].anyOf.map((os) => ({
-  label: os.title,
-  value: os.enum[0] as OperatingSystem,
-}));
+// export const operatingSystemOptions: Option<OperatingSystem>[] = definitions[
+//   'operating-system'
+// ].anyOf.map((os) => ({
+//   label: os.title,
+//   value: os.enum[0] as OperatingSystem,
+// }));

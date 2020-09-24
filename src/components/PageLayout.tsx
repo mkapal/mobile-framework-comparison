@@ -1,38 +1,42 @@
-import styled from '@emotion/styled';
+import { Box, Container, Link } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: inherit;
-  padding: 32px;
-`;
-
-const Inner = styled.div`
-  width: 100%;
-  max-width: 900px;
-`;
-
-const Content = styled.div`
-  padding: 32px;
-`;
+import { Link as RouterLink } from 'react-router-dom';
 
 type Props = {
   children?: ReactNode;
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
+
 export function PageLayout({ children }: Props) {
+  const classes = useStyles();
+
   return (
-    <Layout>
-      <Inner>
-        <nav>
-          <Link to="/">Homepage</Link>
-          <Link to="/questions">Questions</Link>
-        </nav>
-        <Content>{children}</Content>
-      </Inner>
-    </Layout>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      height="inherit"
+      padding={4}
+    >
+      <Container maxWidth="md">
+        <Box component="nav" mb={4} className={classes.root}>
+          <Link component={RouterLink} to="/">
+            Home
+          </Link>
+          <Link component={RouterLink} to="/questions">
+            Questions
+          </Link>
+        </Box>
+        <Box>{children}</Box>
+      </Container>
+    </Box>
   );
 }

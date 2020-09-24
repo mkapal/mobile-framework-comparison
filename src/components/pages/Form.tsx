@@ -1,105 +1,112 @@
-import { Steps } from 'antd';
-import { Formik } from 'formik';
-import { Form as FormikAntdForm, SubmitButton } from 'formik-antd';
-import isEmpty from 'lodash/isEmpty';
-import React, { ReactElement, useState } from 'react';
-import * as Yup from 'yup';
+import { Box, Button, Step, StepButton, Stepper } from '@material-ui/core';
+import { UiSchema, Widget, withTheme } from '@rjsf/core';
+import { Theme } from '@rjsf/material-ui';
+import { JSONSchema7 } from 'json-schema';
+import React, { useState } from 'react';
 
-import {
-  Criterion,
-  OperatingSystem,
-  ProgrammingLanguage,
-  programmingLanguages,
-} from '../../types';
+import schema from '../../schemas/frameworks.json';
 import { PageLayout } from '../PageLayout';
-import { Box } from '../atoms';
-import { StepOne, StepTwo } from '../criteria';
+import {
+  CheckboxesWidget,
+  CriteriaWeightsContext,
+  FieldTemplate,
+} from '../criteriaForm';
+import { Weights } from '../criteriaForm/CriteriaWeightsContext';
 
-const { Step } = Steps;
-
-export type FormValues = {
-  os: Criterion<OperatingSystem[]>;
-  lang: Criterion<ProgrammingLanguage[]>;
-  questionTwo: Criterion<'one' | 'two' | 'three'>;
-};
-
-const initialValues: FormValues = {
-  os: {
-    value: [],
-    weight: 0,
+const uiSchema: UiSchema = {
+  platforms: {
+    'ui:widget': 'checkboxes',
   },
-  lang: {
-    value: [],
-    weight: 0,
+  distribution: {
+    'ui:widget': 'checkboxes',
   },
-  questionTwo: {
-    value: 'one',
-    weight: 0,
+  test: {
+    'ui:widget': 'checkboxes',
   },
 };
 
-const steps: { title: string; component: ReactElement }[] = [
-  {
-    title: 'Step One',
-    component: <StepOne />,
-  },
-  {
-    title: 'Step Two',
-    component: <StepTwo />,
-  },
-];
+const widgets: { [name: string]: Widget } = {
+  CheckboxesWidget,
+};
 
-const validationSchema = Yup.object().shape({
-  os: Yup.object().shape({
-    value: Yup.array()
-      .of(Yup.string().oneOf(['ios', 'android'], 'Select a valid platform.'))
-      .required('Select an option.'),
-    weight: Yup.number().required('Select a weight for this criterion.'),
-  }),
-  lang: Yup.object().shape({
-    value: Yup.array()
-      .of(Yup.string().oneOf(programmingLanguages, 'Select a valid platform.'))
-      .required('Select an option.'),
-    weight: Yup.number().required('Select a weight for this criterion.'),
-  }),
-  questionTwo: Yup.object().shape({
-    value: Yup.string().required('Select an option.'),
-    weight: Yup.number().required('Select a weight for this criterion.'),
-  }),
-});
+const MuiForm = withTheme(Theme);
+
+const steps = ['infrastructure', 'development'];
 
 export function Form() {
-  const [step, setStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [completed] = useState(new Set());
+  const [skipped] = useState(new Set());
+  const [weights, setWeights] = useState<Weights>({});
+  const [formData, setFormData] = useState<object>({});
+
+  const handleStep = (step: number) => () => {
+    setActiveStep(step);
+  };
+
+  const isStepSkipped = (step: number) => skipped.has(step);
+
+  function isStepComplete(step: number) {
+    return completed.has(step);
+  }
+
+  console.log('formData', formData);
 
   return (
     <PageLayout>
       <Box mb={4}>
-        <Steps current={step} onChange={setStep} size="small">
-          {steps.map(({ title }) => (
-            <Step key={title} title={title} />
-          ))}
-        </Steps>
+        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
+          {steps.map((id, index) => {
+            const stepProps: {
+              completed?: boolean;
+            } = {};
+
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
+
+            return (
+              <Step key={id} {...stepProps}>
+                <StepButton
+                  onClick={handleStep(index)}
+                  completed={isStepComplete(index)}
+                >
+                  {/*// @ts-ignore*/}
+                  {schema.properties[id].title}
+                </StepButton>
+              </Step>
+            );
+          })}
+        </Stepper>
       </Box>
       <Box mb={3}>
-        <Formik<FormValues>
-          initialValues={initialValues as FormValues}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+        <CriteriaWeightsContext.Provider
+          value={{
+            weights,
+            setWeights,
           }}
-          validationSchema={validationSchema}
         >
-          {({ errors }) => (
-            <FormikAntdForm>
-              <Box mb={3}>{steps[step].component}</Box>
-              <Box>
-                <SubmitButton disabled={!isEmpty(errors)}>Submit</SubmitButton>
-              </Box>
-            </FormikAntdForm>
-          )}
-        </Formik>
+          <MuiForm
+            // @ts-ignore
+            schema={schema.properties[steps[activeStep]] as JSONSchema7}
+            uiSchema={uiSchema}
+            FieldTemplate={FieldTemplate}
+            formData={formData}
+            onSubmit={({ formData }) => {
+              console.log('submit form', { formData, weights });
+            }}
+            onChange={(form) => {
+              console.log('onChange', form.formData);
+              setFormData(form.formData);
+            }}
+            onError={(e) => console.error('errors', e)}
+            widgets={widgets}
+          >
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </MuiForm>
+        </CriteriaWeightsContext.Provider>
       </Box>
     </PageLayout>
   );
