@@ -31,13 +31,24 @@ function validateSchema(schema: object, formData: object) {
   return validator.errors?.length ? validator.errors : [];
 }
 
+const MuiForm = withTheme<CriteriaFormData>(Theme);
+
+const ratedCriteria: (keyof CriteriaFormData)[] = ['performance'];
+
 const uiSchema: {
   [p in keyof CriteriaFormData]: UiSchema;
 } = {
+  performance: {},
   platforms: { 'ui:widget': 'checkboxes' },
   distribution: { 'ui:widget': 'checkboxes' },
   test: { 'ui:widget': 'checkboxes' },
-  performance: { 'ui:widget': 'hidden' },
+  ...ratedCriteria.reduce(
+    (acc, criterionId) => ({
+      ...acc,
+      [criterionId]: { 'ui:widget': 'hidden' },
+    }),
+    {},
+  ),
 };
 
 const widgets: { [name: string]: Widget } = {
@@ -45,23 +56,26 @@ const widgets: { [name: string]: Widget } = {
   HiddenWidget,
 };
 
-const MuiForm = withTheme<CriteriaFormData>(Theme);
-
 const steps = Object.keys(schema.properties.criteria.properties);
 const stepCount = steps.length;
 
 export function Form() {
   const [activeStep, setActiveStep] = useState(0);
   const [weights, setWeights] = useState<Weights>({});
-  const [formData, setCriteriaFormData] = useState<CriteriaFormData>(({
-    performance: 1,
-  } as unknown) as CriteriaFormData);
+  const [formData, setCriteriaFormData] = useState<CriteriaFormData>(
+    (ratedCriteria.reduce(
+      (acc, criterionId) => ({
+        ...acc,
+        [criterionId]: 1,
+      }),
+      {},
+    ) as unknown) as CriteriaFormData,
+  );
 
   const handleStepChange = (step: number) => () => setActiveStep(step);
 
-  const handleChange = ({ formData }: IChangeEvent<CriteriaFormData>) => {
+  const handleChange = ({ formData }: IChangeEvent<CriteriaFormData>) =>
     setCriteriaFormData(formData);
-  };
 
   const handleSubmit = (e: ISubmitEvent<CriteriaFormData>) =>
     console.log('form submitted', e.formData, weights);
