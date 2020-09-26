@@ -145,7 +145,7 @@ export function Form() {
                     color="primary"
                     onClick={() => setActiveStep(activeStep - 1)}
                   >
-                    Previous step
+                    Back
                   </Button>
                 )}
               </div>
@@ -156,7 +156,7 @@ export function Form() {
                   color="primary"
                   onClick={() => setActiveStep(activeStep + 1)}
                 >
-                  Next step
+                  Next
                 </Button>
               )}
               {activeStep === stepCount - 1 && (
@@ -166,7 +166,7 @@ export function Form() {
                   variant="contained"
                   color="primary"
                 >
-                  Show results
+                  Submit
                 </Button>
               )}
             </Box>
