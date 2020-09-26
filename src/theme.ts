@@ -13,4 +13,12 @@ export const theme = createMuiTheme({
       },
     },
   },
+  overrides: {
+    MuiStepper: {
+      root: {
+        background: 'none',
+        border: 'none',
+      },
+    },
+  },
 });
