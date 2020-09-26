@@ -1,127 +1,136 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "required": ["name", "infrastructure", "development"],
+  "required": ["name", "criteria"],
   "properties": {
     "name": {
       "type": "string"
     },
-    "infrastructure": {
-      "title": "Infrastructure",
+    "criteria": {
       "type": "object",
-      "required": ["platforms", "distribution"],
+      "required": ["infrastructure", "development"],
       "properties": {
-        "platforms": {
-          "type": "array",
-          "minItems": 1,
-          "title": "Which platforms should be supported?",
-          "description": "Optional description",
-          "items": {
-            "type": "string",
-            "anyOf": [
-              {
+        "infrastructure": {
+          "title": "Infrastructure",
+          "type": "object",
+          "required": ["platforms", "distribution"],
+          "properties": {
+            "platforms": {
+              "type": "array",
+              "minItems": 1,
+              "title": "Which platforms should be supported?",
+              "description": "Optional description",
+              "items": {
                 "type": "string",
-                "title": "Android",
-                "enum": ["android"]
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "Android",
+                    "enum": ["android"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "iOS",
+                    "enum": ["ios"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "Windows Phone",
+                    "enum": ["windows-phone"]
+                  }
+                ]
               },
-              {
-                "type": "string",
-                "title": "iOS",
-                "enum": ["ios"]
-              },
-              {
-                "type": "string",
-                "title": "Windows Phone",
-                "enum": ["windows-phone"]
-              }
-            ]
-          },
-          "uniqueItems": true
-        },
-        "distribution": {
-          "type": "array",
-          "minItems": 1,
-          "title": "Distribution channels",
-          "items": {
-            "type": "string",
-            "anyOf": [
-              {
-                "type": "string",
-                "title": "App Store",
-                "enum": ["app-store"]
-              },
-              {
-                "type": "string",
-                "title": "URL",
-                "enum": ["url"]
-              }
-            ]
-          },
-          "uniqueItems": true
-        }
-      },
-      "additionalItems": false
-    },
-    "development": {
-      "title": "Development",
-      "type": "object",
-      "required": ["test", "performance"],
-      "properties": {
-        "test": {
-          "type": "array",
-          "minItems": 1,
-          "title": "Test array",
-          "items": {
-            "type": "string",
-            "anyOf": [
-              {
-                "type": "string",
-                "title": "Lol",
-                "enum": ["app-store"]
-              },
-              {
-                "type": "string",
-                "title": "Okay",
-                "enum": ["url"]
-              }
-            ]
-          },
-          "uniqueItems": true
-        },
-        "performance": {
-          "title": "Performance",
-          "hidden": true,
-          "type": "integer",
-          "anyOf": [
-            {
-              "type": "integer",
-              "title": "1",
-              "enum": [1]
+              "uniqueItems": true
             },
-            {
-              "type": "integer",
-              "title": "2",
-              "enum": [2]
-            },
-            {
-              "type": "integer",
-              "title": "3",
-              "enum": [3]
+            "distribution": {
+              "type": "array",
+              "minItems": 1,
+              "title": "Distribution channels",
+              "items": {
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "App Store",
+                    "enum": ["app-store"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "URL",
+                    "enum": ["url"]
+                  }
+                ]
+              },
+              "uniqueItems": true
             }
-          ]
+          },
+          "additionalItems": false
+        },
+        "development": {
+          "title": "Development",
+          "type": "object",
+          "required": ["test", "performance"],
+          "properties": {
+            "test": {
+              "type": "array",
+              "minItems": 1,
+              "title": "Test array",
+              "items": {
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "Lol",
+                    "enum": ["app-store"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "Okay",
+                    "enum": ["url"]
+                  }
+                ]
+              },
+              "uniqueItems": true
+            },
+            "performance": {
+              "title": "Performance",
+              "hidden": true,
+              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "title": "1",
+                  "enum": [1]
+                },
+                {
+                  "type": "integer",
+                  "title": "2",
+                  "enum": [2]
+                },
+                {
+                  "type": "integer",
+                  "title": "3",
+                  "enum": [3]
+                }
+              ]
+            }
+          },
+          "additionalItems": false
+        },
+        "application": {
+          "title": "Application",
+          "type": "object",
+          "properties": {},
+          "additionalItems": false
+        },
+        "usage": {
+          "title": "Usage",
+          "type": "object",
+          "properties": {},
+          "additionalItems": false
         }
       },
-      "additionalItems": false
-    },
-    "application": {
-      "type": "object",
-      "properties": {},
-      "additionalItems": false
-    },
-    "usage": {
-      "type": "object",
-      "properties": {},
-      "additionalItems": false
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

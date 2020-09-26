@@ -1,11 +1,13 @@
 {
   "name": "React Native",
-  "infrastructure": {
-    "platforms": ["ios"],
-    "distribution": ["app-store"]
-  },
-  "development": {
-    "test": ["url"],
-    "performance": 2
+  "criteria": {
+    "infrastructure": {
+      "platforms": ["ios"],
+      "distribution": ["app-store"]
+    },
+    "development": {
+      "test": ["url"],
+      "performance": 2
+    }
   }
 }

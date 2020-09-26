@@ -9,12 +9,8 @@
     "build:analyze": "run-s build analyze",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "run-s lint:js lint:css",
-    "lint:fix": "run-s lint:js:fix lint:css:fix",
-    "lint:js": "eslint \"src/**/*.{js,ts,tsx}\"",
-    "lint:js:fix": "run-s \"lint:js --fix\"",
-    "lint:css": "stylelint \"src/**/*.{js,ts,tsx}\"",
-    "lint:css:fix": "run-s \"lint:css --fix\"",
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
+    "lint:fix": "run-s \"lint:js --fix\"",
     "prettier": "prettier --write src/**/*.{js,json,ts,tsx}"
   },
   "dependencies": {
@@ -46,12 +42,7 @@
     "lint-staged": "^10.3.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.1",
-    "source-map-explorer": "^2.5.0",
-    "stylelint": "^13.7.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^4.1.0"
+    "source-map-explorer": "^2.5.0"
   },
   "browserslist": {
     "production": [
@@ -75,12 +66,12 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,md}": [
-      "prettier"
-    ],
     "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "stylelint --fix"
+      "prettier",
+      "eslint --fix"
+    ],
+    "src/**/*.{json,md}": [
+      "prettier"
     ]
   }
 }

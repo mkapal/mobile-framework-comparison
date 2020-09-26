@@ -1,8 +1,8 @@
-import React from 'react';
+import { createContext } from 'react';
 
-export type Weights = { [id: string]: number };
+import { Weights } from '../../types/criteria';
 
-export const CriteriaWeightsContext = React.createContext<{
+export const CriteriaWeightsContext = createContext<{
   weights: Weights;
   setWeights: (weights: Weights) => void;
 }>({

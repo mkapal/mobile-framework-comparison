@@ -1,17 +1,17 @@
-import { Grid, Slider } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { FieldTemplateProps } from '@rjsf/core';
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { CriteriaWeightsContext } from './CriteriaWeightsContext';
+import { CriteriaFormData } from '../../types';
+
+import { CriteriaWeightSlider } from './CriteriaWeightSlider';
 
 export function FieldTemplate({ children, help, id }: FieldTemplateProps) {
-  const { setWeights, weights } = useContext(CriteriaWeightsContext);
-
   if (id === 'root') {
     return children;
   }
 
-  const normalizedId = id.replace('root_', '');
+  const normalizedId = id.replace('root_', '') as keyof CriteriaFormData;
 
   return (
     <Grid container spacing={3}>
@@ -20,19 +20,7 @@ export function FieldTemplate({ children, help, id }: FieldTemplateProps) {
         {help}
       </Grid>
       <Grid item xs={6}>
-        <Slider
-          value={weights[normalizedId] || 0}
-          step={1}
-          min={0}
-          max={3}
-          marks
-          onChangeCommitted={(_, value) =>
-            setWeights({
-              ...weights,
-              [normalizedId]: value as number,
-            })
-          }
-        />
+        <CriteriaWeightSlider id={normalizedId} />
       </Grid>
     </Grid>
   );

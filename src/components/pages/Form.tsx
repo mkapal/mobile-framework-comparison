@@ -13,6 +13,7 @@ import React, { useMemo, useState } from 'react';
 
 import schema from '../../schemas/frameworks.json';
 import { CriteriaFormData } from '../../types';
+import { Weights } from '../../types/criteria';
 import { PageLayout } from '../PageLayout';
 import {
   CheckboxesWidget,
@@ -20,7 +21,6 @@ import {
   FieldTemplate,
   HiddenWidget,
 } from '../criteriaForm';
-import { Weights } from '../criteriaForm/CriteriaWeightsContext';
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
@@ -31,7 +31,9 @@ function validateSchema(schema: object, formData: object) {
   return validator.errors?.length ? validator.errors : [];
 }
 
-const uiSchema: UiSchema = {
+const uiSchema: {
+  [p in keyof CriteriaFormData]: UiSchema;
+} = {
   platforms: { 'ui:widget': 'checkboxes' },
   distribution: { 'ui:widget': 'checkboxes' },
   test: { 'ui:widget': 'checkboxes' },
@@ -45,7 +47,7 @@ const widgets: { [name: string]: Widget } = {
 
 const MuiForm = withTheme<CriteriaFormData>(Theme);
 
-const steps = ['infrastructure', 'development'];
+const steps = Object.keys(schema.properties.criteria.properties);
 const stepCount = steps.length;
 
 export function Form() {
@@ -57,17 +59,18 @@ export function Form() {
 
   const handleStepChange = (step: number) => () => setActiveStep(step);
 
-  const handleSubmit = (e: ISubmitEvent<CriteriaFormData>) =>
-    console.log('form submitted', e.formData, weights);
-
-  // @ts-ignore
-  const activeSchema = useMemo(() => schema.properties[steps[activeStep]], [
-    activeStep,
-  ]);
-
   const handleChange = ({ formData }: IChangeEvent<CriteriaFormData>) => {
     setCriteriaFormData(formData);
   };
+
+  const handleSubmit = (e: ISubmitEvent<CriteriaFormData>) =>
+    console.log('form submitted', e.formData, weights);
+
+  const activeSchema = useMemo(
+    // @ts-ignore
+    () => schema.properties.criteria.properties[steps[activeStep]],
+    [activeStep],
+  );
 
   const activeStepWeights = useMemo(
     () =>
@@ -97,7 +100,7 @@ export function Form() {
             <Step key={id}>
               <StepButton onClick={handleStepChange(index)}>
                 {/*// @ts-ignore*/}
-                {schema.properties[id].title}
+                {schema.properties.criteria.properties[id].title}
               </StepButton>
             </Step>
           ))}
