@@ -1,82 +1,106 @@
 import { Box, Button, Step, StepButton, Stepper } from '@material-ui/core';
-import { UiSchema, Widget, withTheme } from '@rjsf/core';
+import {
+  IChangeEvent,
+  ISubmitEvent,
+  UiSchema,
+  Widget,
+  withTheme,
+} from '@rjsf/core';
 import { Theme } from '@rjsf/material-ui';
+import Ajv from 'ajv';
 import { JSONSchema7 } from 'json-schema';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import schema from '../../schemas/frameworks.json';
+import { CriteriaFormData } from '../../types';
 import { PageLayout } from '../PageLayout';
 import {
   CheckboxesWidget,
   CriteriaWeightsContext,
   FieldTemplate,
+  HiddenWidget,
 } from '../criteriaForm';
 import { Weights } from '../criteriaForm/CriteriaWeightsContext';
 
+function validateSchema(schema: object, formData: object) {
+  const ajv = new Ajv({ allErrors: true, useDefaults: true });
+  const validator = ajv.compile(schema);
+
+  validator(formData);
+
+  return validator.errors?.length ? validator.errors : [];
+}
+
 const uiSchema: UiSchema = {
-  platforms: {
-    'ui:widget': 'checkboxes',
-  },
-  distribution: {
-    'ui:widget': 'checkboxes',
-  },
-  test: {
-    'ui:widget': 'checkboxes',
-  },
+  platforms: { 'ui:widget': 'checkboxes' },
+  distribution: { 'ui:widget': 'checkboxes' },
+  test: { 'ui:widget': 'checkboxes' },
+  performance: { 'ui:widget': 'hidden' },
 };
 
 const widgets: { [name: string]: Widget } = {
   CheckboxesWidget,
+  HiddenWidget,
 };
 
-const MuiForm = withTheme(Theme);
+const MuiForm = withTheme<CriteriaFormData>(Theme);
 
 const steps = ['infrastructure', 'development'];
+const stepCount = steps.length;
 
 export function Form() {
   const [activeStep, setActiveStep] = useState(0);
-  const [completed] = useState(new Set());
-  const [skipped] = useState(new Set());
   const [weights, setWeights] = useState<Weights>({});
-  const [formData, setFormData] = useState<object>({});
+  const [formData, setCriteriaFormData] = useState<CriteriaFormData>(({
+    performance: 1,
+  } as unknown) as CriteriaFormData);
 
-  const handleStep = (step: number) => () => {
-    setActiveStep(step);
+  const handleStepChange = (step: number) => () => setActiveStep(step);
+
+  const handleSubmit = (e: ISubmitEvent<CriteriaFormData>) =>
+    console.log('form submitted', e.formData, weights);
+
+  // @ts-ignore
+  const activeSchema = useMemo(() => schema.properties[steps[activeStep]], [
+    activeStep,
+  ]);
+
+  const handleChange = ({ formData }: IChangeEvent<CriteriaFormData>) => {
+    setCriteriaFormData(formData);
   };
 
-  const isStepSkipped = (step: number) => skipped.has(step);
+  const activeStepWeights = useMemo(
+    () =>
+      Object.keys(weights).filter((criterionId) =>
+        Object.keys(activeSchema.properties).includes(criterionId),
+      ),
+    [weights, activeSchema],
+  );
 
-  function isStepComplete(step: number) {
-    return completed.has(step);
-  }
+  const errors = useMemo(() => validateSchema(activeSchema, formData), [
+    activeSchema,
+    formData,
+  ]);
 
-  console.log('formData', formData);
+  const submitDisabled = useMemo(
+    () =>
+      Object.keys(activeStepWeights).length <
+        Object.keys(activeSchema.properties).length || errors.length > 0,
+    [activeStepWeights, activeSchema, errors],
+  );
 
   return (
     <PageLayout>
       <Box mb={4}>
-        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-          {steps.map((id, index) => {
-            const stepProps: {
-              completed?: boolean;
-            } = {};
-
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
-
-            return (
-              <Step key={id} {...stepProps}>
-                <StepButton
-                  onClick={handleStep(index)}
-                  completed={isStepComplete(index)}
-                >
-                  {/*// @ts-ignore*/}
-                  {schema.properties[id].title}
-                </StepButton>
-              </Step>
-            );
-          })}
+        <Stepper alternativeLabel activeStep={activeStep}>
+          {steps.map((id, index) => (
+            <Step key={id}>
+              <StepButton onClick={handleStepChange(index)}>
+                {/*// @ts-ignore*/}
+                {schema.properties[id].title}
+              </StepButton>
+            </Step>
+          ))}
         </Stepper>
       </Box>
       <Box mb={3}>
@@ -87,24 +111,48 @@ export function Form() {
           }}
         >
           <MuiForm
-            // @ts-ignore
-            schema={schema.properties[steps[activeStep]] as JSONSchema7}
+            schema={activeSchema as JSONSchema7}
             uiSchema={uiSchema}
             FieldTemplate={FieldTemplate}
             formData={formData}
-            onSubmit={({ formData }) => {
-              console.log('submit form', { formData, weights });
-            }}
-            onChange={(form) => {
-              console.log('onChange', form.formData);
-              setFormData(form.formData);
-            }}
-            onError={(e) => console.error('errors', e)}
+            showErrorList={false}
+            onSubmit={handleSubmit}
+            onChange={handleChange}
             widgets={widgets}
           >
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
+            <Box display="flex" justifyContent="space-between">
+              <div>
+                {activeStep > 0 && activeStep <= stepCount && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setActiveStep(activeStep - 1)}
+                  >
+                    Previous step
+                  </Button>
+                )}
+              </div>
+              {activeStep < stepCount - 1 && (
+                <Button
+                  disabled={submitDisabled}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setActiveStep(activeStep + 1)}
+                >
+                  Next step
+                </Button>
+              )}
+              {activeStep === stepCount - 1 && (
+                <Button
+                  disabled={submitDisabled}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  Show results
+                </Button>
+              )}
+            </Box>
           </MuiForm>
         </CriteriaWeightsContext.Provider>
       </Box>

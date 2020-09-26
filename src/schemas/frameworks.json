@@ -65,7 +65,7 @@
     "development": {
       "title": "Development",
       "type": "object",
-      "required": ["test"],
+      "required": ["test", "performance"],
       "properties": {
         "test": {
           "type": "array",
@@ -87,6 +87,28 @@
             ]
           },
           "uniqueItems": true
+        },
+        "performance": {
+          "title": "Performance",
+          "hidden": true,
+          "type": "integer",
+          "anyOf": [
+            {
+              "type": "integer",
+              "title": "1",
+              "enum": [1]
+            },
+            {
+              "type": "integer",
+              "title": "2",
+              "enum": [2]
+            },
+            {
+              "type": "integer",
+              "title": "3",
+              "enum": [3]
+            }
+          ]
         }
       },
       "additionalItems": false

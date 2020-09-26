@@ -5,6 +5,7 @@
     "distribution": ["app-store"]
   },
   "development": {
-    "test": ["url"]
+    "test": ["url"],
+    "performance": 2
   }
 }

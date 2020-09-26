@@ -20,7 +20,7 @@ const selectValue = (value: any, selected: any, all: any) => {
 const deselectValue = (value: any, selected: any) =>
   selected.filter((v: any) => v !== value);
 
-export const CheckboxesWidget = ({
+export function CheckboxesWidget({
   autofocus,
   disabled,
   id,
@@ -33,7 +33,7 @@ export const CheckboxesWidget = ({
   required,
   schema,
   value,
-}: WidgetProps) => {
+}: WidgetProps) {
   const { enumDisabled, enumOptions, inline } = options;
 
   const _onChange = (option: any) => ({
@@ -92,4 +92,4 @@ export const CheckboxesWidget = ({
       </FormGroup>
     </>
   );
-};
+}

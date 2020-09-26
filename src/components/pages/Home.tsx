@@ -51,7 +51,7 @@ export function Home() {
           color="primary"
           to="/questions"
         >
-          Start filling questions
+          Start answering questions
         </Button>
       </Box>
       <Box display="flex" justifyContent="center" textAlign="center">
