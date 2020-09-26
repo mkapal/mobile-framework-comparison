@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import { green, grey } from '@material-ui/core/colors';
-import { styled } from '@material-ui/core/styles';
 import {
   Android,
   Apple,
@@ -10,19 +9,11 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Layout = styled('div')({
-  padding: 32,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  height: 'inherit',
-  background:
-    'linear-gradient(rgb(230, 230, 230) 0%, rgb(255, 255, 255) 50%, rgb(230, 230, 230) 100%)',
-});
+import { HomeLayout } from '../../layouts/HomeLayout';
 
 export function Home() {
   return (
-    <Layout>
+    <HomeLayout>
       <Box
         display="flex"
         flex={1}
@@ -54,11 +45,6 @@ export function Home() {
           Start answering questions
         </Button>
       </Box>
-      <Box display="flex" justifyContent="center" textAlign="center">
-        <Typography variant="body2" color="textSecondary">
-          Created by Martin Kapal
-        </Typography>
-      </Box>
-    </Layout>
+    </HomeLayout>
   );
 }

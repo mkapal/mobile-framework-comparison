@@ -11,10 +11,10 @@ import Ajv from 'ajv';
 import { JSONSchema7 } from 'json-schema';
 import React, { useMemo, useState } from 'react';
 
+import { PageLayout } from '../../layouts/PageLayout';
 import schema from '../../schemas/frameworks.json';
 import { CriteriaFormData } from '../../types';
 import { Weights } from '../../types/criteria';
-import { PageLayout } from '../PageLayout';
 import {
   CheckboxesWidget,
   CriteriaWeightsContext,
