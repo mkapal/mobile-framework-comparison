@@ -1,4 +1,4 @@
-import { Slider } from '@material-ui/core';
+import { Mark, Slider } from '@material-ui/core';
 import React, { ChangeEvent, useContext } from 'react';
 
 import { CriteriaFormData } from '../../types';
@@ -9,7 +9,7 @@ type Props = {
   id: keyof CriteriaFormData;
 };
 
-const marks = [
+const marks: Mark[] = [
   {
     value: 0,
     label: 'not important',
@@ -46,7 +46,6 @@ export function CriteriaWeightSlider({ id }: Props) {
     <Slider
       defaultValue={0}
       value={weights[id] || 0}
-      valueLabelDisplay="auto"
       step={1}
       min={0}
       max={3}
