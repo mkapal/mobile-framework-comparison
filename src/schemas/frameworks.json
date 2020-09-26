@@ -18,8 +18,7 @@
             "platforms": {
               "type": "array",
               "minItems": 1,
-              "title": "Which platforms should be supported?",
-              "description": "Optional description",
+              "title": "Which mobile platforms should be supported?",
               "items": {
                 "type": "string",
                 "anyOf": [
@@ -32,11 +31,6 @@
                     "type": "string",
                     "title": "iOS",
                     "enum": ["ios"]
-                  },
-                  {
-                    "type": "string",
-                    "title": "Windows Phone",
-                    "enum": ["windows-phone"]
                   }
                 ]
               },
