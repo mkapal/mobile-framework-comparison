@@ -1,9 +1,8 @@
 import { Mark, Slider } from '@material-ui/core';
 import React, { ChangeEvent, useContext } from 'react';
 
-import { CriteriaFormContext } from '../../context/CriteriaFormContext';
+import { CriteriaFormContext } from '../../context';
 import { CriteriaFormData } from '../../types';
-
 
 type Props = {
   id: keyof CriteriaFormData;
