@@ -6,7 +6,6 @@
       "distribution": ["url"]
     },
     "development": {
-      "test": ["url"],
       "performance": 2
     }
   }

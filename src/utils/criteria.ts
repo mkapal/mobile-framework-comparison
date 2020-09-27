@@ -7,7 +7,7 @@ export const ratedCriteria: (keyof CriteriaFormData)[] = ['performance'];
 
 export const criteriaIds = Object.keys(schema.properties.criteria.properties);
 
-export const criteriaSimilarity: {
+export const criteriaSimilarityFunctions: {
   [k in keyof CriteriaFormData]: (
     criterionValue: CriteriaFormData[k],
     frameworkValue: CriteriaFormData[k],
@@ -68,6 +68,3 @@ export const frameworkCriteriaData: {
   }),
   {},
 );
-
-console.log(frameworkData);
-console.log(frameworkCriteriaData);

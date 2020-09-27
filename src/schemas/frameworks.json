@@ -58,34 +58,13 @@
               "uniqueItems": true
             }
           },
-          "additionalItems": false
+          "additionalProperties": false
         },
         "development": {
           "title": "Development",
           "type": "object",
-          "required": ["test", "performance"],
+          "required": ["performance"],
           "properties": {
-            "test": {
-              "type": "array",
-              "minItems": 1,
-              "title": "Test array",
-              "items": {
-                "type": "string",
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "title": "Lol",
-                    "enum": ["app-store"]
-                  },
-                  {
-                    "type": "string",
-                    "title": "Okay",
-                    "enum": ["url"]
-                  }
-                ]
-              },
-              "uniqueItems": true
-            },
             "performance": {
               "title": "Performance",
               "hidden": true,
@@ -114,19 +93,19 @@
               ]
             }
           },
-          "additionalItems": false
+          "additionalProperties": false
         },
         "application": {
           "title": "Application",
           "type": "object",
           "properties": {},
-          "additionalItems": false
+          "additionalProperties": false
         },
         "usage": {
           "title": "Usage",
           "type": "object",
           "properties": {},
-          "additionalItems": false
+          "additionalProperties": false
         }
       },
       "additionalProperties": false

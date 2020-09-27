@@ -1,6 +1,6 @@
 import { CriteriaFormData, Weights } from '../types';
 
-import { criteriaSimilarity, frameworkCriteriaData } from './criteria';
+import { criteriaSimilarityFunctions, frameworkCriteriaData } from './criteria';
 
 type FrameworkSimilarity = {
   framework: string;
@@ -24,7 +24,7 @@ export function getFrameworkRankings(
     const formCriteriaIds = Object.keys(formData) as (keyof CriteriaFormData)[];
 
     const frameworkSimilarity = formCriteriaIds.reduce((acc, criterion) => {
-      const similarityFunction = criteriaSimilarity[criterion];
+      const similarityFunction = criteriaSimilarityFunctions[criterion];
       const criteriaWeight = criteriaWeights[criterion] ?? 0;
 
       const criterionSimilarity =
