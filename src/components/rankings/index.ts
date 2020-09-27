@@ -1,0 +1,1 @@
+export { FrameworkRankingCard } from './FrameworkRankingCard';

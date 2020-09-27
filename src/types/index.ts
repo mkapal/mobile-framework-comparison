@@ -1,1 +1,1 @@
-export type { CriteriaFormData } from './criteria';
+export type { CriteriaFormData, Weights } from './criteria';

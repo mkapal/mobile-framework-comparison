@@ -1,84 +1,47 @@
-import { Box, Paper, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import isArray from 'lodash/isArray';
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { FrameworkRankingCard } from '../components/rankings';
+import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
-import schema from '../schemas/frameworks.json';
 import { CriteriaFormData } from '../types';
-import { Weights } from '../types/criteria';
+import { frameworkCriteriaData, frameworkData } from '../utils/criteria';
 import { getFrameworkIds, getFrameworkRankings } from '../utils/ranking';
 
 export function Results() {
-  // const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
-  const formData: CriteriaFormData = {
-    distribution: ['url'],
-    performance: 1,
-    test: ['app-store'],
-    platforms: ['ios', 'android'],
-  };
+  const { formData, weights } = useContext(CriteriaFormContext);
 
-  const weights: Weights = {
-    distribution: 1,
-    performance: 2,
-    test: 3,
-    platforms: 1,
-  };
+  // Test data
+  // const formData: CriteriaFormData = {
+  //   distribution: ['url'],
+  //   performance: 1,
+  //   test: ['app-store'],
+  //   platforms: ['ios', 'android'],
+  // };
+  //
+  // const weights: Weights = {
+  //   distribution: 1,
+  //   performance: 2,
+  //   test: 3,
+  //   platforms: 1,
+  // };
 
   const frameworks = getFrameworkIds();
   const rankings = getFrameworkRankings(formData, weights);
-  const criteriaCategories = Object.keys(schema.properties.criteria.properties);
-
-  const frameworkData: {
-    [k: string]: CriteriaFormData;
-  } = frameworks.reduce(
-    (acc, frameworkId) => {
-      const rawData = require(`../data/${frameworkId}.json`);
-      const data: CriteriaFormData = {
-        ...criteriaCategories.reduce(
-          (acc, stepId) => ({
-            ...acc,
-            ...rawData.criteria[stepId],
-          }),
-          {} as CriteriaFormData,
-        ),
-      };
-
-      return {
-        ...acc,
-        [frameworkId]: data,
-      };
-    },
-    {} as {
-      [k in keyof typeof frameworks]: CriteriaFormData;
-    },
-  );
-  const frameworkRawData: object = frameworks.reduce(
-    (acc, frameworkId) => ({
-      ...acc,
-      [frameworkId]: require(`../data/${frameworkId}.json`),
-    }),
-    {},
-  );
 
   return (
     <PageLayout>
       <Box mb={4}>
         <Box mb={2}>
-          {rankings.map(({ frameworkId, totalSimilarity }) => (
-              <Box mb={2} key={frameworkId}>
-                <Paper>
-                  <Box p={4}>
-                    <Typography variant="h5" component="h2">
-                      {/*// @ts-ignore*/}
-                      {frameworkRawData[frameworkId].name}
-                    </Typography>
-                    <Typography variant="body1">
-                      Total score: {totalSimilarity.toFixed(2)}
-                    </Typography>
-                  </Box>
-                </Paper>
-              </Box>
-            ))}
+          {rankings.map(({ framework, totalSimilarity }) => (
+            <Box mb={2} key={framework}>
+              <FrameworkRankingCard
+                name={frameworkData[framework].name}
+                score={totalSimilarity}
+              />
+            </Box>
+          ))}
         </Box>
         <table style={{ width: '100%' }}>
           <tbody>
@@ -97,14 +60,13 @@ export function Results() {
                 <td>{isArray(value) ? value.join(', ') : value}</td>
                 {frameworks.map((framework) => {
                   const frameworkValue =
-                    frameworkData[framework][
+                    frameworkCriteriaData[framework][
                       criterionId as keyof CriteriaFormData
                     ];
 
                   const criterionScore =
-                    rankings.find(
-                      (ranking) => ranking.frameworkId === framework,
-                    )?.criteria[criterionId as keyof CriteriaFormData] ?? 0;
+                    rankings.find((ranking) => ranking.framework === framework)
+                      ?.criteria[criterionId as keyof CriteriaFormData] ?? 0;
 
                   return (
                     <td key={framework}>
@@ -121,8 +83,8 @@ export function Results() {
               <td>-</td>
               <td>-</td>
               <td>-</td>
-              {Object.entries(rankings).map(([frameworkId, scores]) => (
-                <td key={frameworkId}>{scores.totalSimilarity.toFixed(2)}</td>
+              {rankings.map(({ framework, totalSimilarity }) => (
+                <td key={framework}>{totalSimilarity.toFixed(2)}</td>
               ))}
             </tr>
           </tbody>

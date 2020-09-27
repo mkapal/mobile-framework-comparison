@@ -2,7 +2,7 @@
   "name": "Cordova",
   "criteria": {
     "infrastructure": {
-      "platforms": ["ios", "android"],
+      "platforms": ["android", "ios"],
       "distribution": ["app-store"]
     },
     "development": {

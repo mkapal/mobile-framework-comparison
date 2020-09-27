@@ -2,7 +2,7 @@
   "name": "React Native",
   "criteria": {
     "infrastructure": {
-      "platforms": ["ios"],
+      "platforms": ["android", "ios"],
       "distribution": ["app-store"]
     },
     "development": {

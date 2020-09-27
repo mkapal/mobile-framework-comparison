@@ -21,6 +21,7 @@ function App() {
       {},
     ) as unknown) as CriteriaFormData,
   );
+  // const [formDats
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   return (

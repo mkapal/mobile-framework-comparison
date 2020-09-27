@@ -2,7 +2,7 @@
   "name": "Progressive Web App",
   "criteria": {
     "infrastructure": {
-      "platforms": ["ios", "android"],
+      "platforms": ["android", "ios"],
       "distribution": ["url"]
     },
     "development": {

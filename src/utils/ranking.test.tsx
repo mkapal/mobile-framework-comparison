@@ -1,4 +1,4 @@
-import { jaccardSimilarity } from './ranking';
+import { jaccardSimilarity } from './criteria';
 
 describe('Jaccard similarity', () => {
   test('returns a similarity index between 0 and 1', () => {
