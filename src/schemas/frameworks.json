@@ -93,6 +93,11 @@
               "anyOf": [
                 {
                   "type": "integer",
+                  "title": "0",
+                  "enum": [0]
+                },
+                {
+                  "type": "integer",
                   "title": "1",
                   "enum": [1]
                 },

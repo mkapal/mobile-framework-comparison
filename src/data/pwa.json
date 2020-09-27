@@ -1,0 +1,13 @@
+{
+  "name": "Progressive Web App",
+  "criteria": {
+    "infrastructure": {
+      "platforms": ["ios", "android"],
+      "distribution": ["url"]
+    },
+    "development": {
+      "test": ["url"],
+      "performance": 2
+    }
+  }
+}

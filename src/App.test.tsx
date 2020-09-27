@@ -5,6 +5,6 @@ import App from './App';
 
 test('renders copyright text', () => {
   const { getByText } = render(<App />);
-  const copyrightElement = getByText(/Created by Martin Kapal/i);
+  const copyrightElement = getByText(/Mobile Framework Recommendation System/i);
   expect(copyrightElement).toBeInTheDocument();
 });

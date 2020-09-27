@@ -1,13 +1,13 @@
 {
-  "name": "React Native",
+  "name": "Cordova",
   "criteria": {
     "infrastructure": {
-      "platforms": ["ios"],
+      "platforms": ["ios", "android"],
       "distribution": ["app-store"]
     },
     "development": {
       "test": ["url"],
-      "performance": 3
+      "performance": 1
     }
   }
 }
