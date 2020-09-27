@@ -6,8 +6,12 @@ import { FrameworkRankingCard } from '../components/rankings';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import { CriteriaFormData } from '../types';
-import { frameworkCriteriaData, frameworkData } from '../utils/criteria';
+import { getFrameworkCriteriaData, getFrameworkData } from '../utils/criteria';
 import { getFrameworkIds, getFrameworkRankings } from '../utils/ranking';
+
+const frameworks = getFrameworkIds();
+const frameworkData = getFrameworkData();
+const frameworkCriteriaData = getFrameworkCriteriaData();
 
 export function Results() {
   const { formData, weights } = useContext(CriteriaFormContext);
@@ -27,7 +31,6 @@ export function Results() {
   //   platforms: 1,
   // };
 
-  const frameworks = getFrameworkIds();
   const rankings = getFrameworkRankings(formData, weights);
 
   return (

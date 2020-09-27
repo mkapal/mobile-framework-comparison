@@ -15,7 +15,7 @@ import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
 import { CriteriaFormData } from '../types';
-import { ratedCriteria, criteriaIds } from '../utils/criteria';
+import { getRatedCriteria, getCriteriaCategories } from '../utils/criteria';
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
@@ -29,13 +29,12 @@ function validateSchema(schema: object, formData: object) {
 const MuiForm = withTheme<CriteriaFormData>(Theme);
 
 const uiSchema: {
-  [p in keyof CriteriaFormData]: UiSchema;
+  [p in keyof CriteriaFormData]?: UiSchema;
 } = {
-  performance: {},
   platforms: { 'ui:widget': 'checkboxes' },
   distribution: { 'ui:widget': 'checkboxes' },
   test: { 'ui:widget': 'checkboxes' },
-  ...ratedCriteria.reduce(
+  ...getRatedCriteria().reduce(
     (acc, criterionId) => ({
       ...acc,
       [criterionId]: { 'ui:widget': 'hidden' },
@@ -49,7 +48,8 @@ const widgets: { [name: string]: Widget } = {
   HiddenWidget,
 };
 
-const stepCount = criteriaIds.length;
+const criteriaCategories = getCriteriaCategories();
+const stepCount = criteriaCategories.length;
 
 export function Form() {
   const {
@@ -74,7 +74,7 @@ export function Form() {
 
   const activeSchema = useMemo(
     // @ts-ignore
-    () => schema.properties.criteria.properties[criteriaIds[activeStep]],
+    () => schema.properties.criteria.properties[criteriaCategories[activeStep]],
     [activeStep],
   );
 
@@ -102,7 +102,7 @@ export function Form() {
     <PageLayout>
       <Box mb={4}>
         <Stepper alternativeLabel activeStep={activeStep}>
-          {criteriaIds.map((id, index) => (
+          {criteriaCategories.map((id, index) => (
             <Step key={id}>
               <StepButton onClick={handleStepChange(index)}>
                 {/*// @ts-ignore*/}

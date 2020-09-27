@@ -3,9 +3,24 @@ import { CriteriaFormData } from '../types';
 
 import { getFrameworkIds } from './ranking';
 
-export const ratedCriteria: (keyof CriteriaFormData)[] = ['performance'];
+export const DEFAULT_MAX_RATING = 5;
 
-export const criteriaIds = Object.keys(schema.properties.criteria.properties);
+export function getCriteriaCategories(): string[] {
+  return Object.keys(schema.properties.criteria.properties);
+}
+
+export function getRatedCriteria(): string[] {
+  return getCriteriaCategories().reduce((acc, categoryId) => {
+    const categoryCriteria =
+      // @ts-ignore
+      schema.properties.criteria.properties[categoryId].properties;
+    const hiddenCriteria = Object.keys(categoryCriteria).filter(
+      (criterionId) => categoryCriteria[criterionId].readOnly,
+    );
+
+    return [...acc, ...hiddenCriteria];
+  }, [] as string[]);
+}
 
 export const criteriaSimilarityFunctions: {
   [k in keyof CriteriaFormData]: (
@@ -15,13 +30,16 @@ export const criteriaSimilarityFunctions: {
 } = {
   distribution: jaccardSimilarity,
   test: jaccardSimilarity,
-  performance: (_, frameworkValue) =>
-    normalizeRatedCriterion(frameworkValue, 3),
+  performance: normalizedRating,
   platforms: jaccardSimilarity,
 };
 
-export function normalizeRatedCriterion(value: number, max: number): number {
-  return value / max;
+export function normalizedRating(
+  criterionValue: number,
+  frameworkValue: number,
+  max = DEFAULT_MAX_RATING,
+): number {
+  return frameworkValue / max;
 }
 
 export function jaccardSimilarity(a: unknown[], b: unknown[]): number {
@@ -41,30 +59,33 @@ export function jaccardSimilarity(a: unknown[], b: unknown[]): number {
   return intersection.length / symmetricDifference;
 }
 
-export const frameworkData: {
+export function getFrameworkData(): {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [k: string]: any;
-} = getFrameworkIds().reduce(
-  (acc, frameworkId) => ({
-    ...acc,
-    [frameworkId]: require(`../data/${frameworkId}.json`),
-  }),
-  {},
-);
+} {
+  return getFrameworkIds().reduce(
+    (acc, frameworkId) => ({
+      ...acc,
+      [frameworkId]: require(`../data/${frameworkId}.json`),
+    }),
+    {},
+  );
+}
 
-export const frameworkCriteriaData: {
+export function getFrameworkCriteriaData(): {
   [k: string]: CriteriaFormData;
-} = getFrameworkIds().reduce(
-  (acc, frameworkId) => ({
-    ...acc,
-    [frameworkId]: criteriaIds.reduce(
-      (acc, criterionId) => ({
-        ...acc,
-        // @ts-ignore
-        ...frameworkData[frameworkId].criteria[criterionId],
-      }),
-      {} as CriteriaFormData,
-    ),
-  }),
-  {},
-);
+} {
+  return getFrameworkIds().reduce(
+    (acc, frameworkId) => ({
+      ...acc,
+      [frameworkId]: getCriteriaCategories().reduce(
+        (acc, criterionId) => ({
+          ...acc,
+          ...getFrameworkData()[frameworkId].criteria[criterionId],
+        }),
+        {} as CriteriaFormData,
+      ),
+    }),
+    {},
+  );
+}

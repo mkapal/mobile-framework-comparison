@@ -7,13 +7,14 @@ import { CriteriaFormContext } from './context';
 import { Home, Form, Results } from './pages';
 import { theme } from './theme';
 import { CriteriaFormData, Weights } from './types';
-import { ratedCriteria } from './utils/criteria';
+import { getRatedCriteria } from './utils/criteria';
 
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [weights, setWeights] = useState<Weights>({});
+  // TODO: Resolve with forced additionalProperties = false in JSON schema
   const [formData, setFormData] = useState<CriteriaFormData>(
-    (ratedCriteria.reduce(
+    (getRatedCriteria().reduce(
       (acc, criterionId) => ({
         ...acc,
         [criterionId]: 0,

@@ -1,6 +1,9 @@
 import { CriteriaFormData, Weights } from '../types';
 
-import { criteriaSimilarityFunctions, frameworkCriteriaData } from './criteria';
+import {
+  criteriaSimilarityFunctions,
+  getFrameworkCriteriaData,
+} from './criteria';
 
 type FrameworkSimilarity = {
   framework: string;
@@ -31,7 +34,7 @@ export function getFrameworkRankings(
         similarityFunction(
           // @ts-ignore
           formData[criterion],
-          frameworkCriteriaData[framework][criterion],
+          getFrameworkCriteriaData()[framework][criterion],
         ) * criteriaWeight;
 
       return {

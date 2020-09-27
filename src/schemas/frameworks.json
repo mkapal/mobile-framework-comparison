@@ -57,8 +57,7 @@
               },
               "uniqueItems": true
             }
-          },
-          "additionalProperties": false
+          }
         },
         "development": {
           "title": "Development",
@@ -67,8 +66,8 @@
           "properties": {
             "performance": {
               "title": "Performance",
-              "hidden": true,
               "type": "integer",
+              "readOnly": true,
               "anyOf": [
                 {
                   "type": "integer",
@@ -92,20 +91,17 @@
                 }
               ]
             }
-          },
-          "additionalProperties": false
+          }
         },
         "application": {
           "title": "Application",
           "type": "object",
-          "properties": {},
-          "additionalProperties": false
+          "properties": {}
         },
         "usage": {
           "title": "Usage",
           "type": "object",
-          "properties": {},
-          "additionalProperties": false
+          "properties": {}
         }
       },
       "additionalProperties": false
