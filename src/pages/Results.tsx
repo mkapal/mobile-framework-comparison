@@ -48,32 +48,37 @@ export function Results() {
                 <th key={framework}>{framework}</th>
               ))}
             </tr>
-            {Object.entries(formData).map(([criterionId, value]) => (
-              <tr key={criterionId}>
-                <td>{criterionId}</td>
-                <td>{weights[criterionId as keyof CriteriaFormData]}</td>
-                <td>{isArray(value) ? value.join(', ') : value}</td>
-                {frameworks.map((framework) => {
-                  const frameworkValue =
-                    frameworkCriteriaData[framework][
-                      criterionId as keyof CriteriaFormData
-                    ];
+            {(Object.keys(formData) as (keyof CriteriaFormData)[]).map(
+              (criterionId) => {
+                const value = formData[criterionId];
 
-                  const criterionScore =
-                    rankings.find((ranking) => ranking.framework === framework)
-                      ?.criteria[criterionId as keyof CriteriaFormData] ?? 0;
+                return (
+                  <tr key={criterionId}>
+                    <td>{criterionId}</td>
+                    <td>{weights[criterionId]}</td>
+                    <td>{isArray(value) ? value.join(', ') : value}</td>
+                    {frameworks.map((framework) => {
+                      const frameworkValue =
+                        frameworkCriteriaData[framework][criterionId];
 
-                  return (
-                    <td key={framework}>
-                      ({criterionScore.toFixed(2)}){' '}
-                      {isArray(frameworkValue)
-                        ? frameworkValue.join(', ')
-                        : frameworkValue}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
+                      const criterionScore =
+                        rankings.find(
+                          (ranking) => ranking.framework === framework,
+                        )?.criteria[criterionId as keyof CriteriaFormData] ?? 0;
+
+                      return (
+                        <td key={framework}>
+                          ({criterionScore.toFixed(2)}){' '}
+                          {isArray(frameworkValue)
+                            ? frameworkValue.join(', ')
+                            : frameworkValue}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              },
+            )}
             <tr>
               <td>-</td>
               <td>-</td>

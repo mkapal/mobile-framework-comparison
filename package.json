@@ -47,6 +47,10 @@
     "prettier": "^2.1.1",
     "source-map-explorer": "^2.5.0"
   },
+  "resolutions": {
+    "react-scripts/@typescript-eslint/parser": "^3.3.0",
+    "react-scripts/@typescript-eslint/eslint-plugin": "^3.3.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",

@@ -15,7 +15,7 @@ import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
 import { CriteriaFormData } from '../types';
-import { getRatedCriteria, getCriteriaCategories } from '../utils';
+import { getCriteriaCategories, getRatedCriteria } from '../utils';
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
