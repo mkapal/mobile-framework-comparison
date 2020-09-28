@@ -1,44 +1,62 @@
 import schema from '../schemas/frameworks.json';
-import { CriteriaFormData } from '../types';
+import { CriteriaFormData, CriterionId, Frameworks } from '../types';
 
 import { getFrameworkIds } from './index';
 
 export const DEFAULT_MAX_RATING = 5;
 
-export function getCriteriaCategories(): (keyof typeof schema.properties.criteria.properties)[] {
-  return Object.keys(
-    schema.properties.criteria.properties,
-  ) as (keyof typeof schema.properties.criteria.properties)[];
+const criteriaProperties = schema.properties.criteria.properties;
+
+type CriteriaCategory = keyof Frameworks['criteria'];
+
+export function getCriteriaCategories(): CriteriaCategory[] {
+  return Object.keys(criteriaProperties) as CriteriaCategory[];
 }
 
-export function getRatedCriteria(): string[] {
-  return getCriteriaCategories().reduce((acc, categoryId) => {
-    const categoryCriteria: {
-      [c: string]: {
-        [v: string]: unknown;
-      };
-    } = schema.properties.criteria.properties[categoryId].properties;
+export function getRatedCriteria(
+  categoryId: keyof typeof schema.properties.criteria.properties,
+): string[] {
+  const keys = Object.keys(
+    schema.properties.criteria.properties[categoryId].properties,
+  );
 
-    const hiddenCriteria = Object.keys(categoryCriteria).filter(
-      (criterionId) => categoryCriteria[criterionId].readOnly,
-    );
+  return keys.filter(
+    (criteriaId) =>
+      // @ts-ignore
+      schema.properties.criteria.properties[categoryId].properties[criteriaId]
+        .readOnly,
+  );
 
-    return [...acc, ...hiddenCriteria];
-  }, [] as string[]);
+  // return Object.keys(schema.properties.criteria.properties[categoryId].properties).reduce((acc, criterionId) => {
+  //
+  //   // const hiddenCriteria = Object.keys(categoryCriteria).filter(
+  //   //   (criterionId) => categoryCriteria[criterionId].readOnly,
+  //   // );
+  //
+  //   return [...acc, ...hiddenCriteria];
+  // }, [] as string[]);
 }
+
+console.log('getRatedCriteria', getRatedCriteria('infrastructure'));
+console.log('getRatedCriteria', getRatedCriteria('development'));
 
 export const criteriaSimilarityFunctions: {
-  [k in keyof CriteriaFormData]: (
-    criterionValue: CriteriaFormData[k],
-    frameworkValue: CriteriaFormData[k],
-  ) => number;
+  [k in CriterionId]: {
+    [a in keyof CriteriaFormData[k]]: (
+      criterionValue: CriteriaFormData[k][a],
+      frameworkValue: CriteriaFormData[k][a],
+    ) => number;
+  };
 } = {
-  distribution: jaccardSimilarity,
-  test: jaccardSimilarity,
-  performance: normalizedRating,
-  platforms: jaccardSimilarity,
-  freeLicense: (criterionValue, frameworkValue) =>
-    Math.abs(1 - Number(criterionValue) - Number(frameworkValue)),
+  infrastructure: {
+    distribution: jaccardSimilarity,
+    platforms: jaccardSimilarity,
+    freeLicense: (criterionValue: boolean, frameworkValue: boolean): number =>
+      Math.abs(1 - Number(criterionValue) - Number(frameworkValue)),
+  },
+  development: {
+    performance: normalizedRating,
+  },
 };
 
 export function normalizedRating(
@@ -66,8 +84,7 @@ export function jaccardSimilarity(a: unknown[], b: unknown[]): number {
 }
 
 export function getFrameworkData(): {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [k: string]: any;
+  [k: string]: Frameworks;
 } {
   return getFrameworkIds().reduce(
     (acc, frameworkId) => ({

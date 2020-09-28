@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "required": ["name", "criteria"],
+  "additionalProperties": false,
   "properties": {
     "name": {
       "type": "string"
@@ -9,11 +10,13 @@
     "criteria": {
       "type": "object",
       "required": ["infrastructure", "development"],
+      "additionalProperties": false,
       "properties": {
         "infrastructure": {
           "title": "Infrastructure",
           "type": "object",
           "required": ["platforms", "distribution", "freeLicense"],
+          "additionalProperties": false,
           "properties": {
             "platforms": {
               "title": "Which mobile platforms should be supported?",
@@ -68,59 +71,18 @@
           "title": "Development",
           "type": "object",
           "required": ["performance"],
+          "additionalProperties": false,
           "properties": {
             "performance": {
               "title": "Performance",
               "type": "integer",
               "readOnly": true,
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "title": "0",
-                  "enum": [0]
-                },
-                {
-                  "type": "integer",
-                  "title": "1",
-                  "enum": [1]
-                },
-                {
-                  "type": "integer",
-                  "title": "2",
-                  "enum": [2]
-                },
-                {
-                  "type": "integer",
-                  "title": "3",
-                  "enum": [3]
-                },
-                {
-                  "type": "integer",
-                  "title": "4",
-                  "enum": [4]
-                },
-                {
-                  "type": "integer",
-                  "title": "5",
-                  "enum": [5]
-                }
-              ]
+              "minimum": 0,
+              "maximum": 5
             }
           }
-        },
-        "application": {
-          "title": "Application",
-          "type": "object",
-          "properties": {}
-        },
-        "usage": {
-          "title": "Usage",
-          "type": "object",
-          "properties": {}
         }
-      },
-      "additionalProperties": false
+      }
     }
-  },
-  "additionalProperties": false
+  }
 }

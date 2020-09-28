@@ -1,7 +1,7 @@
 import { Box, Button, Step, StepButton, Stepper } from '@material-ui/core';
-import { IChangeEvent, UiSchema, Widget, withTheme } from '@rjsf/core';
+import { IChangeEvent, Widget, withTheme } from '@rjsf/core';
 import { Theme } from '@rjsf/material-ui';
-import Ajv from 'ajv';
+import Ajv, { AdditionalPropertiesParams } from 'ajv';
 import { JSONSchema7 } from 'json-schema';
 import React, { useContext, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -18,30 +18,35 @@ import { CriteriaFormData } from '../types';
 import { getCriteriaCategories, getRatedCriteria } from '../utils';
 
 function validateSchema(schema: object, formData: object) {
-  const ajv = new Ajv({ allErrors: true, useDefaults: true });
+  const ajv = new Ajv({
+    allErrors: true,
+    useDefaults: true,
+  });
   const validator = ajv.compile(schema);
 
   validator(formData);
 
-  return validator.errors?.length ? validator.errors : [];
+  const errors = validator.errors?.length ? validator.errors : [];
+
+  const filteredErrors = errors.filter(
+    (error) =>
+      !getRatedCriteria('development').includes(
+        (error.params as AdditionalPropertiesParams).additionalProperty,
+      ),
+  );
+
+  return filteredErrors;
 }
 
-const MuiForm = withTheme<CriteriaFormData>(Theme);
+const MuiForm = withTheme<
+  CriteriaFormData['development'] | CriteriaFormData['infrastructure']
+>(Theme);
 
-const uiSchema: {
-  [p in keyof CriteriaFormData]?: UiSchema;
-} = {
+const uiSchema = {
   platforms: { 'ui:widget': 'checkboxes' },
   distribution: { 'ui:widget': 'checkboxes' },
-  test: { 'ui:widget': 'checkboxes' },
   freeLicense: { 'ui:widget': 'radio' },
-  ...getRatedCriteria().reduce(
-    (acc, criterionId) => ({
-      ...acc,
-      [criterionId]: { 'ui:widget': 'hidden' },
-    }),
-    {},
-  ),
+  performance: { 'ui:widget': 'hidden' },
 };
 
 const widgets: { [name: string]: Widget } = {
@@ -50,6 +55,7 @@ const widgets: { [name: string]: Widget } = {
 };
 
 const criteriaCategories = getCriteriaCategories();
+const schemaCriteria = schema.properties.criteria.properties;
 const stepCount = criteriaCategories.length;
 
 export function Form() {
@@ -63,20 +69,35 @@ export function Form() {
   } = useContext(CriteriaFormContext);
   const h = useHistory();
 
+  const activeCategory = useMemo(() => criteriaCategories[activeStep], [
+    activeStep,
+  ]);
   const handleStepChange = (step: number) => () => setActiveStep(step);
 
-  const handleChange = (e: IChangeEvent<CriteriaFormData>) =>
-    setFormData(e.formData);
+  const handleChange = (
+    e: IChangeEvent<
+      CriteriaFormData['development'] | CriteriaFormData['infrastructure']
+    >,
+  ) => {
+    setFormData({
+      ...formData,
+      [activeCategory]: e.formData,
+    });
+  };
 
   const handleSubmit = () => {
     setIsSubmitted(true);
     h.push('/results');
   };
 
-  const activeSchema = useMemo(
-    () => schema.properties.criteria.properties[criteriaCategories[activeStep]],
-    [activeStep],
-  );
+  const activeSchema = useMemo(() => schemaCriteria[activeCategory], [
+    activeCategory,
+  ]);
+
+  const activeFormData = useMemo(() => formData[activeCategory], [
+    formData,
+    activeCategory,
+  ]);
 
   const activeStepWeights = useMemo(
     () =>
@@ -86,9 +107,9 @@ export function Form() {
     [weights, activeSchema],
   );
 
-  const errors = useMemo(() => validateSchema(activeSchema, formData), [
+  const errors = useMemo(() => validateSchema(activeSchema, activeFormData), [
     activeSchema,
-    formData,
+    activeFormData,
   ]);
 
   const submitDisabled = useMemo(
@@ -105,7 +126,7 @@ export function Form() {
           {criteriaCategories.map((id, index) => (
             <Step key={id}>
               <StepButton onClick={handleStepChange(index)}>
-                {schema.properties.criteria.properties[id].title}
+                {schemaCriteria[id].title}
               </StepButton>
             </Step>
           ))}
@@ -116,7 +137,7 @@ export function Form() {
           schema={activeSchema as JSONSchema7}
           uiSchema={uiSchema}
           FieldTemplate={FieldTemplate}
-          formData={formData}
+          formData={activeFormData}
           showErrorList={false}
           onSubmit={handleSubmit}
           onChange={handleChange}
@@ -136,7 +157,7 @@ export function Form() {
             </div>
             {activeStep < stepCount - 1 && (
               <Button
-                disabled={submitDisabled}
+                disabled={false}
                 variant="contained"
                 color="primary"
                 onClick={() => setActiveStep(activeStep + 1)}
@@ -146,7 +167,7 @@ export function Form() {
             )}
             {activeStep === stepCount - 1 && (
               <Button
-                disabled={submitDisabled}
+                disabled={false}
                 type="submit"
                 variant="contained"
                 color="primary"

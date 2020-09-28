@@ -19,9 +19,7 @@ export function FieldTemplate({ children, help, id }: FieldTemplateProps) {
         {children}
         {help}
       </Grid>
-      <Grid item xs={6}>
-        <CriteriaWeightSlider id={normalizedId} />
-      </Grid>
+      <Grid item xs={6} />
     </Grid>
   );
 }

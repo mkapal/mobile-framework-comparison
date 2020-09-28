@@ -1,13 +1,11 @@
 import { Box } from '@material-ui/core';
 import isArray from 'lodash/isArray';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { FrameworkRankingCard } from '../components/rankings';
-import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import { CriteriaFormData, Weights } from '../types';
 import {
-  getFrameworkCriteriaData,
   getFrameworkData,
   getFrameworkIds,
   getFrameworkRankings,
@@ -15,10 +13,33 @@ import {
 
 const frameworks = getFrameworkIds();
 const frameworkData = getFrameworkData();
-const frameworkCriteriaData = getFrameworkCriteriaData();
+// const frameworkCriteriaData = getFrameworkCriteriaData();
 
 export function Results() {
-  const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+  // const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+
+  const formData: CriteriaFormData = {
+    infrastructure: {
+      distribution: ['app-store'],
+      freeLicense: true,
+      platforms: ['ios'],
+    },
+    development: {
+      performance: 1,
+    },
+  };
+  const isSubmitted = true;
+  const weights: Weights = {
+    infrastructure: {
+      platforms: 0,
+      freeLicense: 1,
+      distribution: 2,
+    },
+    development: {
+      performance: 3,
+    },
+  };
+
   const rankings = getFrameworkRankings(formData, weights as Weights);
 
   if (!isSubmitted) {
@@ -42,40 +63,62 @@ export function Results() {
           <tbody>
             <tr>
               <th>Criterion</th>
-              <th>Weight</th>
               <th>Submitted value</th>
               {frameworks.map((framework) => (
                 <th key={framework}>{framework}</th>
               ))}
             </tr>
             {(Object.keys(formData) as (keyof CriteriaFormData)[]).map(
-              (criterionId) => {
-                const value = formData[criterionId];
+              (criterionCategory) => {
+                const criteriaIds: any[] = Object.keys(
+                  formData[criterionCategory],
+                );
 
                 return (
-                  <tr key={criterionId}>
-                    <td>{criterionId}</td>
-                    <td>{weights[criterionId]}</td>
-                    <td>{isArray(value) ? value.join(', ') : value}</td>
-                    {frameworks.map((framework) => {
-                      const frameworkValue =
-                        frameworkCriteriaData[framework][criterionId];
-
-                      const criterionScore =
-                        rankings.find(
-                          (ranking) => ranking.framework === framework,
-                        )?.criteria[criterionId as keyof CriteriaFormData] ?? 0;
+                  <React.Fragment key={criterionCategory}>
+                    <tr>
+                      <td colSpan={5}>
+                        <strong>{criterionCategory}</strong>
+                      </td>
+                    </tr>
+                    {criteriaIds.map((criterionId) => {
+                      const value: any =
+                        formData[criterionCategory][
+                          criterionId as keyof CriteriaFormData[typeof criterionCategory]
+                        ];
 
                       return (
-                        <td key={framework}>
-                          ({criterionScore.toFixed(2)}){' '}
-                          {isArray(frameworkValue)
-                            ? frameworkValue.join(', ')
-                            : frameworkValue}
-                        </td>
+                        <tr key={criterionId}>
+                          <td>{criterionId}</td>
+                          <td>{isArray(value) ? value.join(', ') : value}</td>
+                          {frameworks.map((framework) => {
+                            const frameworkValue: any =
+                              frameworkData[framework].criteria[
+                                criterionCategory
+                              ][
+                                criterionId as keyof CriteriaFormData[typeof criterionCategory]
+                              ];
+
+                            const criterionScore =
+                              rankings.find(
+                                (ranking) => ranking.framework === framework,
+                              )?.criteria[
+                                criterionId as keyof CriteriaFormData
+                              ] ?? 0;
+
+                            return (
+                              <td key={framework}>
+                                ({criterionScore.toFixed(2)}){' '}
+                                {isArray(frameworkValue)
+                                  ? frameworkValue.join(', ')
+                                  : frameworkValue}
+                              </td>
+                            );
+                          })}
+                        </tr>
                       );
                     })}
-                  </tr>
+                  </React.Fragment>
                 );
               },
             )}

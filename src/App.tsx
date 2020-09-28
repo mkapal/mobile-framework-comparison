@@ -6,22 +6,26 @@ import './global.css';
 import { CriteriaFormContext } from './context';
 import { Home, Form, Results } from './pages';
 import { theme } from './theme';
-import { CriteriaFormData, Weights } from './types';
+import { CriteriaFormData, Frameworks, Weights } from './types';
 import { getRatedCriteria } from './utils';
 
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [weights, setWeights] = useState<Partial<Weights>>({});
   // TODO: Resolve with forced additionalProperties = false in JSON schema
-  const [formData, setFormData] = useState<CriteriaFormData>(
-    (getRatedCriteria().reduce(
+  // const [formData, setFormData] = useState<CriteriaFormData>(
+  //   {} as CriteriaFormData,
+  // );
+  const [formData, setFormData] = useState<CriteriaFormData>(({
+    development: getRatedCriteria('development').reduce(
       (acc, criterionId) => ({
         ...acc,
         [criterionId]: 0,
       }),
       {},
-    ) as unknown) as CriteriaFormData,
-  );
+    ),
+  } as unknown) as CriteriaFormData);
+  console.log(formData);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   return (
