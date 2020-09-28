@@ -1,21 +1,11 @@
-import { CriteriaFormData, Weights } from '../types';
+import { CriteriaFormData, FrameworkSimilarity, Weights } from '../types';
 
 import {
   criteriaSimilarityFunctions,
   getFrameworkCriteriaData,
 } from './criteria';
 
-type FrameworkSimilarity = {
-  framework: string;
-  criteria: {
-    [k in keyof CriteriaFormData]: number;
-  };
-  totalSimilarity: number;
-};
-
-export function getFrameworkIds(): string[] {
-  return ['react-native', 'cordova', 'pwa'];
-}
+import { getFrameworkIds } from './index';
 
 export function getFrameworkRankings(
   formData: CriteriaFormData,
@@ -32,9 +22,8 @@ export function getFrameworkRankings(
 
       const criterionSimilarity =
         similarityFunction(
-          // @ts-ignore
-          formData[criterion],
-          getFrameworkCriteriaData()[framework][criterion],
+          formData[criterion] as never,
+          getFrameworkCriteriaData()[framework][criterion] as never,
         ) * criteriaWeight;
 
       return {
@@ -50,20 +39,20 @@ export function getFrameworkRankings(
     frameworkRankings.push(frameworkSimilarity);
   });
 
-  const sortedRankings = frameworkRankings.sort(
-    (frameworkA, frameworkB) =>
-      frameworkB.totalSimilarity - frameworkA.totalSimilarity,
-  );
-
   const totalWeights = Object.values(criteriaWeights).reduce(
     (acc, weight) => acc + weight,
     0,
   );
 
-  const test = sortedRankings.map((ranking) => ({
+  const rankingsWithPercentageWeights = frameworkRankings.map((ranking) => ({
     ...ranking,
     totalSimilarity: ranking.totalSimilarity / totalWeights,
   }));
 
-  return test;
+  const sortedRankings = rankingsWithPercentageWeights.sort(
+    (frameworkA, frameworkB) =>
+      frameworkB.totalSimilarity - frameworkA.totalSimilarity,
+  );
+
+  return sortedRankings;
 }

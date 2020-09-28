@@ -15,7 +15,7 @@ import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
 import { CriteriaFormData } from '../types';
-import { getRatedCriteria, getCriteriaCategories } from '../utils/criteria';
+import { getRatedCriteria, getCriteriaCategories } from '../utils';
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
@@ -34,6 +34,7 @@ const uiSchema: {
   platforms: { 'ui:widget': 'checkboxes' },
   distribution: { 'ui:widget': 'checkboxes' },
   test: { 'ui:widget': 'checkboxes' },
+  freeLicense: { 'ui:widget': 'radio' },
   ...getRatedCriteria().reduce(
     (acc, criterionId) => ({
       ...acc,
@@ -73,7 +74,6 @@ export function Form() {
   };
 
   const activeSchema = useMemo(
-    // @ts-ignore
     () => schema.properties.criteria.properties[criteriaCategories[activeStep]],
     [activeStep],
   );
@@ -105,7 +105,6 @@ export function Form() {
           {criteriaCategories.map((id, index) => (
             <Step key={id}>
               <StepButton onClick={handleStepChange(index)}>
-                {/*// @ts-ignore*/}
                 {schema.properties.criteria.properties[id].title}
               </StepButton>
             </Step>

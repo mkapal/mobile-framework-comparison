@@ -1,1 +1,5 @@
-export type { CriteriaFormData, Weights } from './criteria';
+export type {
+  CriteriaFormData,
+  FrameworkSimilarity,
+  Weights,
+} from './criteria';

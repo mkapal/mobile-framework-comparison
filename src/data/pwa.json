@@ -3,7 +3,8 @@
   "criteria": {
     "infrastructure": {
       "platforms": ["android", "ios"],
-      "distribution": ["url"]
+      "distribution": ["url"],
+      "freeLicense": false
     },
     "development": {
       "performance": 2

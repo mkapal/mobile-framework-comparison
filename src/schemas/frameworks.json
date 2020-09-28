@@ -13,12 +13,12 @@
         "infrastructure": {
           "title": "Infrastructure",
           "type": "object",
-          "required": ["platforms", "distribution"],
+          "required": ["platforms", "distribution", "freeLicense"],
           "properties": {
             "platforms": {
+              "title": "Which mobile platforms should be supported?",
               "type": "array",
               "minItems": 1,
-              "title": "Which mobile platforms should be supported?",
               "items": {
                 "type": "string",
                 "anyOf": [
@@ -37,9 +37,9 @@
               "uniqueItems": true
             },
             "distribution": {
+              "title": "Distribution channels",
               "type": "array",
               "minItems": 1,
-              "title": "Distribution channels",
               "items": {
                 "type": "string",
                 "anyOf": [
@@ -56,6 +56,11 @@
                 ]
               },
               "uniqueItems": true
+            },
+            "freeLicense": {
+              "title": "Software license type",
+              "type": "boolean",
+              "enumNames": ["Free", "Proprietary"]
             }
           }
         },
