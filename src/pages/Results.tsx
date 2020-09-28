@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import { FrameworkRankingCard } from '../components/rankings';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
-import { CriteriaFormData } from '../types';
+import { CriteriaFormData, Weights } from '../types';
 import { getFrameworkCriteriaData, getFrameworkData } from '../utils/criteria';
 import { getFrameworkIds, getFrameworkRankings } from '../utils/ranking';
 
@@ -14,24 +14,12 @@ const frameworkData = getFrameworkData();
 const frameworkCriteriaData = getFrameworkCriteriaData();
 
 export function Results() {
-  const { formData, weights } = useContext(CriteriaFormContext);
+  const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+  const rankings = getFrameworkRankings(formData, weights as Weights);
 
-  // Test data
-  // const formData: CriteriaFormData = {
-  //   distribution: ['url'],
-  //   performance: 1,
-  //   test: ['app-store'],
-  //   platforms: ['ios', 'android'],
-  // };
-  //
-  // const weights: Weights = {
-  //   distribution: 1,
-  //   performance: 2,
-  //   test: 3,
-  //   platforms: 1,
-  // };
-
-  const rankings = getFrameworkRankings(formData, weights);
+  if (!isSubmitted) {
+    return <PageLayout>Form not submitted</PageLayout>;
+  }
 
   return (
     <PageLayout>

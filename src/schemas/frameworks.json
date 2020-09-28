@@ -88,6 +88,16 @@
                   "type": "integer",
                   "title": "3",
                   "enum": [3]
+                },
+                {
+                  "type": "integer",
+                  "title": "4",
+                  "enum": [4]
+                },
+                {
+                  "type": "integer",
+                  "title": "5",
+                  "enum": [5]
                 }
               ]
             }

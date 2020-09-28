@@ -55,5 +55,15 @@ export function getFrameworkRankings(
       frameworkB.totalSimilarity - frameworkA.totalSimilarity,
   );
 
-  return sortedRankings;
+  const totalWeights = Object.values(criteriaWeights).reduce(
+    (acc, weight) => acc + weight,
+    0,
+  );
+
+  const test = sortedRankings.map((ranking) => ({
+    ...ranking,
+    totalSimilarity: ranking.totalSimilarity / totalWeights,
+  }));
+
+  return test;
 }

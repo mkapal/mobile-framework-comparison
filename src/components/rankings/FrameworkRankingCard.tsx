@@ -13,7 +13,9 @@ export function FrameworkRankingCard({ name, score }: Props) {
         <Typography variant="h5" component="h2">
           {name}
         </Typography>
-        <Typography variant="body1">Total score: {score.toFixed(2)}</Typography>
+        <Typography variant="body1">
+          Total score: {(score * 100).toFixed(0)}
+        </Typography>
       </Box>
     </Paper>
   );

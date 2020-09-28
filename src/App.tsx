@@ -11,7 +11,7 @@ import { getRatedCriteria } from './utils/criteria';
 
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [weights, setWeights] = useState<Weights>({});
+  const [weights, setWeights] = useState<Partial<Weights>>({});
   // TODO: Resolve with forced additionalProperties = false in JSON schema
   const [formData, setFormData] = useState<CriteriaFormData>(
     (getRatedCriteria().reduce(
