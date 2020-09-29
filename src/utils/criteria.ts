@@ -26,19 +26,7 @@ export function getRatedCriteria(
       schema.properties.criteria.properties[categoryId].properties[criteriaId]
         .readOnly,
   );
-
-  // return Object.keys(schema.properties.criteria.properties[categoryId].properties).reduce((acc, criterionId) => {
-  //
-  //   // const hiddenCriteria = Object.keys(categoryCriteria).filter(
-  //   //   (criterionId) => categoryCriteria[criterionId].readOnly,
-  //   // );
-  //
-  //   return [...acc, ...hiddenCriteria];
-  // }, [] as string[]);
 }
-
-console.log('getRatedCriteria', getRatedCriteria('infrastructure'));
-console.log('getRatedCriteria', getRatedCriteria('development'));
 
 export const criteriaSimilarityFunctions: {
   [k in CriterionId]: {

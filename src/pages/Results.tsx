@@ -1,8 +1,9 @@
 import { Box } from '@material-ui/core';
 import isArray from 'lodash/isArray';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { FrameworkRankingCard } from '../components/rankings';
+import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import { CriteriaFormData, Weights } from '../types';
 import {
@@ -13,32 +14,31 @@ import {
 
 const frameworks = getFrameworkIds();
 const frameworkData = getFrameworkData();
-// const frameworkCriteriaData = getFrameworkCriteriaData();
 
 export function Results() {
-  // const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+  const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
 
-  const formData: CriteriaFormData = {
-    infrastructure: {
-      distribution: ['app-store'],
-      freeLicense: true,
-      platforms: ['ios'],
-    },
-    development: {
-      performance: 1,
-    },
-  };
-  const isSubmitted = true;
-  const weights: Weights = {
-    infrastructure: {
-      platforms: 0,
-      freeLicense: 1,
-      distribution: 2,
-    },
-    development: {
-      performance: 3,
-    },
-  };
+  // const formData: CriteriaFormData = {
+  //   infrastructure: {
+  //     distribution: ['app-store'],
+  //     freeLicense: true,
+  //     platforms: ['ios', 'android'],
+  //   },
+  //   development: {
+  //     performance: 1,
+  //   },
+  // };
+  // const isSubmitted = true;
+  // const weights: Weights = {
+  //   infrastructure: {
+  //     platforms: 5,
+  //     freeLicense: 5,
+  //     distribution: 5,
+  //   },
+  //   development: {
+  //     performance: 5,
+  //   },
+  // };
 
   const rankings = getFrameworkRankings(formData, weights as Weights);
 
@@ -63,6 +63,7 @@ export function Results() {
           <tbody>
             <tr>
               <th>Criterion</th>
+              <th>Weight</th>
               <th>Submitted value</th>
               {frameworks.map((framework) => (
                 <th key={framework}>{framework}</th>
@@ -87,9 +88,14 @@ export function Results() {
                           criterionId as keyof CriteriaFormData[typeof criterionCategory]
                         ];
 
+                      const weight =
+                        // @ts-ignore
+                        weights[criterionCategory]?.[criterionId] ?? 0;
+
                       return (
                         <tr key={criterionId}>
                           <td>{criterionId}</td>
+                          <td>{weight}</td>
                           <td>{isArray(value) ? value.join(', ') : value}</td>
                           {frameworks.map((framework) => {
                             const frameworkValue: any =
@@ -100,9 +106,10 @@ export function Results() {
                               ];
 
                             const criterionScore =
+                              // @ts-ignore
                               rankings.find(
                                 (ranking) => ranking.framework === framework,
-                              )?.criteria[
+                              )?.criteria[criterionCategory][
                                 criterionId as keyof CriteriaFormData
                               ] ?? 0;
 

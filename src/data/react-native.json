@@ -7,7 +7,7 @@
       "freeLicense": true
     },
     "development": {
-      "performance": 3
+      "performance": 5
     }
   }
 }

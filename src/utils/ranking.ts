@@ -9,7 +9,6 @@ export function getFrameworkRankings(
   criteriaWeights: Weights,
 ): FrameworkSimilarity[] {
   const frameworkRankings: FrameworkSimilarity[] = [];
-  console.log('formData', formData);
 
   getFrameworkIds().forEach((framework) => {
     const criteriaCategories = Object.keys(
@@ -25,9 +24,11 @@ export function getFrameworkRankings(
         const categorySimilarity = criteriaIds.reduce((acc2, criterionId) => {
           const similarityFunction =
             criteriaSimilarityFunctions[criterionCategory][criterionId];
-          // const criteriaWeight = criteriaWeights[criterionCategory] ?? 0;
+          const criteriaWeight =
+            criteriaWeights[criterionCategory]?.[criterionId] ?? 0;
 
           const frameworkData = getFrameworkData();
+
           const criterionSimilarity =
             // @ts-ignore
             similarityFunction(
@@ -36,7 +37,7 @@ export function getFrameworkRankings(
               frameworkData[framework].criteria[criterionCategory][
                 criterionId
               ] as never,
-            ) * 1;
+            ) * criteriaWeight;
 
           return {
             ...acc2,
@@ -50,7 +51,12 @@ export function getFrameworkRankings(
             ...acc.criteria,
             [criterionCategory]: categorySimilarity,
           },
-          totalSimilarity: (acc.totalSimilarity ?? 0) + 1,
+          totalSimilarity:
+            (acc.totalSimilarity ?? 0) +
+            Object.values<number>(categorySimilarity).reduce(
+              (acc, value) => acc + value,
+              0,
+            ),
         };
       },
       {} as FrameworkSimilarity,
@@ -59,14 +65,14 @@ export function getFrameworkRankings(
     frameworkRankings.push(frameworkSimilarity);
   });
 
-  // const totalWeights = Object.values(criteriaWeights).reduce(
-  //   (acc, weight) => acc + weight,
-  //   0,
-  // );
+  const totalWeights = Object.values(criteriaWeights).reduce(
+    (acc, weight) => acc + Object.values(weight).reduce((acc2, w) => acc2 + w),
+    0,
+  );
 
   const rankingsWithPercentageWeights = frameworkRankings.map((ranking) => ({
     ...ranking,
-    totalSimilarity: ranking.totalSimilarity / 1,
+    totalSimilarity: ranking.totalSimilarity / totalWeights,
   }));
 
   const sortedRankings = rankingsWithPercentageWeights.sort(

@@ -28,14 +28,14 @@ function validateSchema(schema: object, formData: object) {
 
   const errors = validator.errors?.length ? validator.errors : [];
 
-  const filteredErrors = errors.filter(
-    (error) =>
-      !getRatedCriteria('development').includes(
-        (error.params as AdditionalPropertiesParams).additionalProperty,
-      ),
-  );
+  // const filteredErrors = errors.filter(
+  //   (error) =>
+  //     !getRatedCriteria('development').includes(
+  //       (error.params as AdditionalPropertiesParams).additionalProperty,
+  //     ),
+  // );
 
-  return filteredErrors;
+  return errors;
 }
 
 const MuiForm = withTheme<
