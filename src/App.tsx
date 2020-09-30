@@ -6,7 +6,7 @@ import './global.css';
 import { CriteriaFormContext } from './context';
 import { Home, Form, Results } from './pages';
 import { theme } from './theme';
-import { CriteriaFormData, Frameworks, Weights } from './types';
+import { CriteriaFormData, Weights } from './types';
 import { getRatedCriteria } from './utils';
 
 function App() {

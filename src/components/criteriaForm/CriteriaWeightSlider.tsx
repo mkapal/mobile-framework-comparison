@@ -1,5 +1,5 @@
 import { Mark, Slider } from '@material-ui/core';
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { CriteriaFormContext } from '../../context';
 import { CriteriaFormData } from '../../types';
@@ -28,7 +28,7 @@ const marks: Mark[] = [
 ];
 
 export function CriteriaWeightSlider({ id }: Props) {
-  const { setWeights, weights } = useContext(CriteriaFormContext);
+  // const { setWeights, weights } = useContext(CriteriaFormContext);
 
   const handleChange = (_: ChangeEvent<{}>, value: number | number[]) => {
     if (weights[id] === value) {

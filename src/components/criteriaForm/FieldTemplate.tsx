@@ -1,8 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { FieldTemplateProps } from '@rjsf/core';
-import React from 'react';
-
-import { CriteriaFormData } from '../../types';
+import React, { ReactNode } from 'react';
 
 import { CriteriaWeightSlider } from './CriteriaWeightSlider';
 

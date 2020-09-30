@@ -1,4 +1,8 @@
 export { FieldTemplate } from './FieldTemplate';
-export { CheckboxesWidget } from './CheckboxesWidget';
 export { CriteriaWeightSlider } from './CriteriaWeightSlider';
-export { HiddenWidget } from './HiddenWidget';
+export { CriteriaForm, CriteriaFormStep } from './CriteriaForm';
+export { Development } from './steps/Development';
+export {
+  Infrastructure,
+  validationSchema as infrastructureValidationSchema,
+} from './steps/Infrastructure';
