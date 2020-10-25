@@ -5,15 +5,12 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type WhichMobilePlatformsShouldBeSupported = [
-  Android | IOS,
-  ...(Android | IOS)[]
-];
-export type Android = 'android';
-export type IOS = 'ios';
-export type DistributionChannels = [AppStore | URL, ...(AppStore | URL)[]];
-export type AppStore = 'app-store';
-export type URL = 'url';
+export type WhichMobilePlatformsShouldBeSupported = [OperatingSystem, ...OperatingSystem[]];
+export type OperatingSystem = Android | IOS;
+export type Android = "android";
+export type IOS = "ios";
+export type URL = OperatingSystem[];
+export type AppStore = OperatingSystem[];
 export type SoftwareLicenseType = boolean;
 export type Performance = number;
 
@@ -28,6 +25,11 @@ export interface Infrastructure {
   platforms: WhichMobilePlatformsShouldBeSupported;
   distribution: DistributionChannels;
   freeLicense: SoftwareLicenseType;
+}
+export interface DistributionChannels {
+  url?: URL;
+  appStore?: AppStore;
+  [k: string]: unknown;
 }
 export interface Development {
   performance: Performance;

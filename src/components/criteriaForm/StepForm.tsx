@@ -7,7 +7,6 @@ type Props = {
   nextStep: () => void;
   formValues: any;
   setFormValues: (values: any) => void;
-  validationSchema: any;
   children: ReactNode;
 };
 
@@ -17,12 +16,10 @@ export function StepForm({
   nextStep,
   prevStep,
   setFormValues,
-  validationSchema,
 }: Props) {
   return (
     <Formik
       initialValues={formValues}
-      validationSchema={validationSchema}
       onSubmit={(values) => {
         setFormValues(values);
         nextStep();

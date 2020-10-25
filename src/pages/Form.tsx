@@ -1,9 +1,11 @@
 import { Box, Step, StepButton, Stepper } from '@material-ui/core';
-import React, { useState } from 'react';
+import { JSONSchema7 } from 'json-schema';
+import React, { ComponentType, useState } from 'react';
 
 import { Development, Infrastructure } from '../components/criteriaForm/steps';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
+import { CriterionId, StepFormProps } from '../types';
 import { getCriteriaCategories } from '../utils';
 
 const steps = getCriteriaCategories();
@@ -12,24 +14,26 @@ const stepNames = schema.properties.criteria.properties;
 export type FormValues = {
   infrastructure: {
     platforms: string[];
-  };
-  development: {
     distribution: string[];
+    freeLicense: boolean;
   };
+  development: {};
 };
 
 const initialValues: FormValues = {
   infrastructure: {
     platforms: [],
-  },
-  development: {
     distribution: [],
+    freeLicense: false,
   },
+  development: {},
 };
 
 export function Form() {
   const [formValues, setFormValues] = useState(initialValues);
   const [activeStep, setActiveStep] = useState<number>(0);
+
+  console.log(formValues);
 
   const activeStepName = steps[activeStep];
   const totalSteps = steps.length;
@@ -48,29 +52,14 @@ export function Form() {
       [activeStepName]: values,
     }));
 
-  const renderStep = () => {
-    switch (activeStepName) {
-      case 'infrastructure':
-        return (
-          <Infrastructure
-            formValues={formValues[activeStepName]}
-            setFormValues={mergeFormValues}
-            nextStep={nextStep}
-          />
-        );
-      case 'development':
-        return (
-          <Development
-            formValues={formValues[activeStepName]}
-            setFormValues={mergeFormValues}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        );
-      default:
-        return null;
-    }
+  const renderStep: {
+    [key in CriterionId]: ComponentType<StepFormProps>;
+  } = {
+    development: Development,
+    infrastructure: Infrastructure,
   };
+
+  const StepComponent = renderStep[activeStepName];
 
   return (
     <PageLayout>
@@ -83,7 +72,15 @@ export function Form() {
           ))}
         </Stepper>
       </Box>
-      {renderStep()}
+      <StepComponent
+        setFormValues={mergeFormValues}
+        nextStep={nextStep}
+        prevStep={prevStep}
+        formValues={formValues[activeStepName]}
+        schema={
+          schema.properties.criteria.properties[activeStepName] as JSONSchema7
+        }
+      />
     </PageLayout>
   );
 }

@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import { FrameworkRankingCard } from '../components/rankings';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
-import { CriteriaFormData, Weights } from '../types';
+import { CriteriaCategory, Weights } from '../types';
 import {
   getFrameworkData,
   getFrameworkIds,
@@ -69,7 +69,7 @@ export function Results() {
                 <th key={framework}>{framework}</th>
               ))}
             </tr>
-            {(Object.keys(formData) as (keyof CriteriaFormData)[]).map(
+            {(Object.keys(formData) as (keyof CriteriaCategory)[]).map(
               (criterionCategory) => {
                 const criteriaIds: any[] = Object.keys(
                   formData[criterionCategory],
@@ -85,7 +85,7 @@ export function Results() {
                     {criteriaIds.map((criterionId) => {
                       const value: any =
                         formData[criterionCategory][
-                          criterionId as keyof CriteriaFormData[typeof criterionCategory]
+                          criterionId as keyof CriteriaCategory[typeof criterionCategory]
                         ];
 
                       const weight =
@@ -102,7 +102,7 @@ export function Results() {
                               frameworkData[framework].criteria[
                                 criterionCategory
                               ][
-                                criterionId as keyof CriteriaFormData[typeof criterionCategory]
+                                criterionId as keyof CriteriaCategory[typeof criterionCategory]
                               ];
 
                             const criterionScore =
@@ -110,7 +110,7 @@ export function Results() {
                               rankings.find(
                                 (ranking) => ranking.framework === framework,
                               )?.criteria[criterionCategory][
-                                criterionId as keyof CriteriaFormData
+                                criterionId as keyof CriteriaCategory
                               ] ?? 0;
 
                             return (

@@ -1,11 +1,11 @@
-import { CriteriaFormData, FrameworkSimilarity, Weights } from '../types';
+import { CriteriaCategory, FrameworkSimilarity, Weights } from '../types';
 
-import { criteriaSimilarityFunctions, getFrameworkData } from './criteria';
+import { getFrameworkData } from './criteria';
 
 import { getFrameworkIds } from './index';
 
 export function getFrameworkRankings(
-  formData: CriteriaFormData,
+  formData: CriteriaCategory,
   criteriaWeights: Weights,
 ): FrameworkSimilarity[] {
   const frameworkRankings: FrameworkSimilarity[] = [];
@@ -13,17 +13,17 @@ export function getFrameworkRankings(
   getFrameworkIds().forEach((framework) => {
     const criteriaCategories = Object.keys(
       formData,
-    ) as (keyof CriteriaFormData)[];
+    ) as (keyof CriteriaCategory)[];
 
     const frameworkSimilarity = criteriaCategories.reduce(
       (acc, criterionCategory) => {
         const criteriaIds = Object.keys(
           formData[criterionCategory],
-        ) as (keyof CriteriaFormData[typeof criterionCategory])[];
+        ) as (keyof CriteriaCategory[typeof criterionCategory])[];
 
         const categorySimilarity = criteriaIds.reduce((acc2, criterionId) => {
-          const similarityFunction =
-            criteriaSimilarityFunctions[criterionCategory][criterionId];
+          // const similarityFunction =
+          //   criteriaSimilarityFunctions[criterionCategory][criterionId];
           const criteriaWeight =
             criteriaWeights[criterionCategory]?.[criterionId] ?? 0;
 

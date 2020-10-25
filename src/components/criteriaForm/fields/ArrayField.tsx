@@ -1,23 +1,24 @@
 import { FormControl, FormGroup, FormLabel } from '@material-ui/core';
-import { Field } from 'formik';
+import { Field, FieldValidator } from 'formik';
 import { CheckboxWithLabel } from 'formik-material-ui';
 import React from 'react';
 
-import { FieldTemplate } from './FieldTemplate';
+import { FieldTemplate } from '../FieldTemplate';
 
 type Props = {
   label: string;
   id: string;
-  options: { [value: string]: string };
+  options: { label: string; value: string }[];
+  validate?: FieldValidator;
 };
 
-export function ArrayFormField({ id, label, options }: Props) {
+export function ArrayField({ id, label, options, validate }: Props) {
   return (
     <FieldTemplate id={id}>
       <FormControl component="fieldset">
         <FormLabel component="legend">{label}</FormLabel>
         <FormGroup>
-          {Object.entries(options).map(([value, label]) => (
+          {options.map(({ label, value }) => (
             <Field
               key={value}
               component={CheckboxWithLabel}
@@ -27,6 +28,7 @@ export function ArrayFormField({ id, label, options }: Props) {
               Label={{
                 label,
               }}
+              validate={validate}
             />
           ))}
         </FormGroup>

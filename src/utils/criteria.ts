@@ -1,5 +1,9 @@
+import {
+  ArraySchemaField,
+  BooleanField,
+} from '../components/criteriaForm/fields';
 import schema from '../schemas/frameworks.json';
-import { CriteriaFormData, CriterionId, Frameworks } from '../types';
+import { CriteriaCategory, CriterionId, Frameworks } from '../types';
 
 import { getFrameworkIds } from './index';
 
@@ -7,10 +11,13 @@ export const DEFAULT_MAX_RATING = 5;
 
 const criteriaProperties = schema.properties.criteria.properties;
 
-type CriteriaCategory = keyof Frameworks['criteria'];
+export const formFieldMap = {
+  array: ArraySchemaField,
+  boolean: BooleanField,
+};
 
-export function getCriteriaCategories(): CriteriaCategory[] {
-  return Object.keys(criteriaProperties) as CriteriaCategory[];
+export function getCriteriaCategories(): CriterionId[] {
+  return Object.keys(criteriaProperties) as CriterionId[];
 }
 
 export function getRatedCriteria(
@@ -28,24 +35,24 @@ export function getRatedCriteria(
   );
 }
 
-export const criteriaSimilarityFunctions: {
-  [k in CriterionId]: {
-    [a in keyof CriteriaFormData[k]]: (
-      criterionValue: CriteriaFormData[k][a],
-      frameworkValue: CriteriaFormData[k][a],
-    ) => number;
-  };
-} = {
-  infrastructure: {
-    distribution: jaccardSimilarity,
-    platforms: jaccardSimilarity,
-    freeLicense: (criterionValue: boolean, frameworkValue: boolean): number =>
-      Math.abs(1 - Number(criterionValue) - Number(frameworkValue)),
-  },
-  development: {
-    performance: normalizedRating,
-  },
-};
+// export const criteriaSimilarityFunctions: {
+//   [k in CriterionId]: {
+//     [a in keyof CriteriaCategory[k]]: (
+//       criterionValue: CriteriaCategory[k][a],
+//       frameworkValue: CriteriaCategory[k][a],
+//     ) => number;
+//   };
+// } = {
+//   infrastructure: {
+//     distribution: jaccardSimilarity,
+//     platforms: jaccardSimilarity,
+//     freeLicense: (criterionValue: boolean, frameworkValue: boolean): number =>
+//       Math.abs(1 - Number(criterionValue) - Number(frameworkValue)),
+//   },
+//   development: {
+//     performance: normalizedRating,
+//   },
+// };
 
 export function normalizedRating(
   criterionValue: number,
@@ -84,7 +91,7 @@ export function getFrameworkData(): {
 }
 
 export function getFrameworkCriteriaData(): {
-  [k: string]: CriteriaFormData;
+  [k: string]: CriteriaCategory;
 } {
   return getFrameworkIds().reduce(
     (acc, frameworkId) => ({
@@ -94,7 +101,7 @@ export function getFrameworkCriteriaData(): {
           ...acc,
           ...getFrameworkData()[frameworkId].criteria[criterionId],
         }),
-        {} as CriteriaFormData,
+        {} as CriteriaCategory,
       ),
     }),
     {},

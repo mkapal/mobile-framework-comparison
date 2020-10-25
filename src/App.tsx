@@ -6,7 +6,7 @@ import './global.css';
 import { CriteriaFormContext } from './context';
 import { Home, Form, Results } from './pages';
 import { theme } from './theme';
-import { CriteriaFormData, Weights } from './types';
+import { CriteriaCategory, Weights } from './types';
 import { getRatedCriteria } from './utils';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   // const [formData, setFormData] = useState<CriteriaFormData>(
   //   {} as CriteriaFormData,
   // );
-  const [formData, setFormData] = useState<CriteriaFormData>(({
+  const [formData, setFormData] = useState<CriteriaCategory>(({
     development: getRatedCriteria('development').reduce(
       (acc, criterionId) => ({
         ...acc,
@@ -24,7 +24,7 @@ function App() {
       }),
       {},
     ),
-  } as unknown) as CriteriaFormData);
+  } as unknown) as CriteriaCategory);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   return (

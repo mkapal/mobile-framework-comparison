@@ -1,35 +1,25 @@
+import { utils } from '@rjsf/core';
 import React from 'react';
-import * as Yup from 'yup';
 
-import { ArrayFormField } from '../ArrayFormField';
+import { StepFormProps } from '../../../types';
 import { StepForm } from '../StepForm';
+import { ArraySchemaField, BooleanField } from '../fields';
 
-export const validationSchema = Yup.object({
-  platforms: Yup.array(Yup.string().oneOf(['android', 'ios'])).required(),
-});
+export function Infrastructure({
+  formValues,
+  nextStep,
+  schema,
+  setFormValues,
+}: StepFormProps) {
+  console.log(utils.resolveSchema(schema));
 
-type Props = {
-  nextStep: () => void;
-  formValues: any;
-  setFormValues: (values: any) => void;
-};
-
-export function Infrastructure({ formValues, nextStep, setFormValues }: Props) {
   return (
     <StepForm
       formValues={formValues}
-      validationSchema={validationSchema}
       nextStep={nextStep}
       setFormValues={setFormValues}
     >
-      <ArrayFormField
-        id="platforms"
-        label="Which mobile platforms should be supported?"
-        options={{
-          android: 'Android',
-          ios: 'iOS',
-        }}
-      />
+      <BooleanField id="freeLicense" label="License type" />
     </StepForm>
   );
 }

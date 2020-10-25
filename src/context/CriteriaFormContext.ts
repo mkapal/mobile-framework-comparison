@@ -1,19 +1,19 @@
 import { createContext } from 'react';
 
-import { CriteriaFormData, Weights } from '../types';
+import { CriteriaCategory, Weights } from '../types';
 
 export const CriteriaFormContext = createContext<{
   activeStep: number;
-  formData: CriteriaFormData;
+  formData: CriteriaCategory;
   isSubmitted: boolean;
   weights: Partial<Weights>;
-  setFormData: (formData: CriteriaFormData) => void;
+  setFormData: (formData: CriteriaCategory) => void;
   setActiveStep: (step: number) => void;
   setIsSubmitted: (submitted: boolean) => void;
   setWeights: (weights: Partial<Weights>) => void;
 }>({
   activeStep: 0,
-  formData: {} as CriteriaFormData,
+  formData: {} as CriteriaCategory,
   isSubmitted: false,
   weights: {},
   setActiveStep: () => {},

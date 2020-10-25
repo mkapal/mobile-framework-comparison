@@ -3,20 +3,20 @@ import React, { ReactNode } from 'react';
 
 import { CriteriaWeightSlider } from './CriteriaWeightSlider';
 
-export function FieldTemplate({ children, help, id }: FieldTemplateProps) {
-  if (id === 'root') {
-    return children;
-  }
+type Props = {
+  children: ReactNode;
+  id: string;
+};
 
-  const normalizedId = id.replace('root_', '') as keyof CriteriaFormData;
-
+export function FieldTemplate({ children, id }: Props) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={6}>
         {children}
-        {help}
       </Grid>
-      <Grid item xs={6} />
+      <Grid item xs={6}>
+        <CriteriaWeightSlider id={id} />
+      </Grid>
     </Grid>
   );
 }
