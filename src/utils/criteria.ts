@@ -8,8 +8,6 @@ import {
 
 import { getFrameworkIds } from './index';
 
-export const DEFAULT_MAX_RATING = 5;
-
 export function getCriteriaSchema(): typeof schema.properties.criteria.properties {
   return schema.properties.criteria.properties;
 }
@@ -18,7 +16,9 @@ export function getCriteriaCategories(): CriterionCategoryId[] {
   return Object.keys(getCriteriaSchema()) as CriterionCategoryId[];
 }
 
-export function getRatedCriteria(categoryId: CriterionCategoryId): string[] {
+export function getRatedCriteriaForCategory(
+  categoryId: CriterionCategoryId,
+): string[] {
   const keys = Object.keys(getCriteriaSchema()[categoryId].properties);
 
   return keys.filter(
@@ -28,16 +28,23 @@ export function getRatedCriteria(categoryId: CriterionCategoryId): string[] {
   );
 }
 
+export function getRatedCriteria(): string[] {
+  return getCriteriaCategories().reduce(
+    (acc, category) => [...acc, ...getRatedCriteriaForCategory(category)],
+    [] as string[],
+  );
+}
+
 export function getRatedCriteriaInitialValues(): CriteriaData<number> {
   function getInitialValuesForCategory(
     categoryId: CriterionCategoryId,
   ): {
     [a in keyof CriteriaCategories[typeof categoryId]]: number;
   } {
-    return getRatedCriteria(categoryId).reduce(
+    return getRatedCriteriaForCategory(categoryId).reduce(
       (acc, criterionId) => ({
         ...acc,
-        [criterionId]: 0,
+        [(criterionId as unknown) as string]: 0,
       }),
       {},
     );

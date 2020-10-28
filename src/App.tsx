@@ -6,31 +6,17 @@ import { CriteriaFormContext } from './context';
 import './global.css';
 import { Form, Home, Results } from './pages';
 import { theme } from './theme';
-import {
-  CriteriaFormData,
-  Weights,
-  WhichMobilePlatformsShouldBeSupported,
-} from './types';
+import { CriteriaFormData, Weights } from './types';
 import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
 
+const initialRatedValues = getRatedCriteriaInitialValues();
+
 function App() {
-  const initialRatedValues = getRatedCriteriaInitialValues();
-
-  const initialFormValues = {
-    ...initialRatedValues,
-    infrastructure: {
-      ...initialRatedValues.infrastructure,
-      platforms: ([] as unknown) as WhichMobilePlatformsShouldBeSupported,
-      freeLicense: true,
-    },
-    development: {
-      ...initialRatedValues.development,
-    },
-  };
-
   const [activeStep, setActiveStep] = useState<number>(0);
   const [weights, setWeights] = useState<Weights>(getInitialWeights());
-  const [formData, setFormData] = useState<CriteriaFormData>(initialFormValues);
+  const [formData, setFormData] = useState<CriteriaFormData>(
+    (initialRatedValues as unknown) as CriteriaFormData,
+  );
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   return (

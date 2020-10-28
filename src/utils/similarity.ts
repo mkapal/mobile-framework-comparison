@@ -1,6 +1,6 @@
 import { CriteriaCategories, CriterionCategoryId } from '../types';
 
-import { DEFAULT_MAX_RATING } from './criteria';
+import { DEFAULT_MAX_RATING } from './consts';
 
 export const criteriaSimilarityFunctions: {
   [category in CriterionCategoryId]: {

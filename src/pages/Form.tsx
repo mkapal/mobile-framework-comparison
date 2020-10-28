@@ -11,7 +11,7 @@ import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
 import { CriteriaFormData, CriterionCategoryId } from '../types';
-import { getCriteriaCategories } from '../utils';
+import { getCriteriaCategories, getRatedCriteria } from '../utils';
 
 const steps = getCriteriaCategories();
 const stepNames = schema.properties.criteria.properties;
@@ -32,9 +32,15 @@ const uiSchema: UiSchema = {
   freeLicense: {
     'ui:widget': 'radio',
   },
-  performance: {
-    'ui:widget': 'hidden',
-  },
+  ...getRatedCriteria().reduce(
+    (acc, criterionId) => ({
+      ...acc,
+      [criterionId]: {
+        'ui:widget': 'hidden',
+      },
+    }),
+    {},
+  ),
 };
 
 const widgets: { [name: string]: Widget } = {
