@@ -2,29 +2,35 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import './global.css';
 import { CriteriaFormContext } from './context';
-import { Home, Form, Results } from './pages';
+import './global.css';
+import { Form, Home, Results } from './pages';
 import { theme } from './theme';
-import { CriteriaCategory, Weights } from './types';
-import { getRatedCriteria } from './utils';
+import {
+  CriteriaFormData,
+  Weights,
+  WhichMobilePlatformsShouldBeSupported,
+} from './types';
+import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
 
 function App() {
+  const initialRatedValues = getRatedCriteriaInitialValues();
+
+  const initialFormValues = {
+    ...initialRatedValues,
+    infrastructure: {
+      ...initialRatedValues.infrastructure,
+      platforms: ([] as unknown) as WhichMobilePlatformsShouldBeSupported,
+      freeLicense: true,
+    },
+    development: {
+      ...initialRatedValues.development,
+    },
+  };
+
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [weights, setWeights] = useState<Partial<Weights>>({});
-  // TODO: Resolve with forced additionalProperties = false in JSON schema
-  // const [formData, setFormData] = useState<CriteriaFormData>(
-  //   {} as CriteriaFormData,
-  // );
-  const [formData, setFormData] = useState<CriteriaCategory>(({
-    development: getRatedCriteria('development').reduce(
-      (acc, criterionId) => ({
-        ...acc,
-        [criterionId]: 0,
-      }),
-      {},
-    ),
-  } as unknown) as CriteriaCategory);
+  const [weights, setWeights] = useState<Weights>(getInitialWeights());
+  const [formData, setFormData] = useState<CriteriaFormData>(initialFormValues);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   return (

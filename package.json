@@ -11,12 +11,14 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "lint:fix": "run-s \"lint:js --fix\"",
+    "schema:ts": "json2ts -i src/schemas/frameworks.json -o src/types/frameworks.ts",
     "prettier": "prettier --write src/**/*.{js,json,ts,tsx}"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@rjsf/core": "^2.4.0",
+    "@rjsf/material-ui": "^2.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

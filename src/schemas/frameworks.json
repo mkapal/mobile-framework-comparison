@@ -15,7 +15,7 @@
         "infrastructure": {
           "title": "Infrastructure",
           "type": "object",
-          "required": ["platforms", "distribution", "freeLicense"],
+          "required": ["platforms", "freeLicense"],
           "additionalProperties": false,
           "properties": {
             "platforms": {
@@ -23,33 +23,21 @@
               "type": "array",
               "minItems": 1,
               "items": {
-                "$ref": "#/definitions/operating-system"
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "Android",
+                    "enum": ["android"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "iOS",
+                    "enum": ["ios"]
+                  }
+                ]
               },
               "uniqueItems": true
-            },
-            "distribution": {
-              "title": "Distribution channels",
-              "type": "object",
-              "properties": {
-                "url": {
-                  "title": "URL",
-                  "type": "array",
-                  "minItems": 0,
-                  "items": {
-                    "$ref": "#/definitions/operating-system"
-                  },
-                  "uniqueItems": true
-                },
-                "appStore": {
-                  "title": "App Store",
-                  "type": "array",
-                  "minItems": 0,
-                  "items": {
-                    "$ref": "#/definitions/operating-system"
-                  },
-                  "uniqueItems": true
-                }
-              }
             },
             "freeLicense": {
               "title": "Software license type",
@@ -74,23 +62,6 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "operating-system": {
-      "type": "string",
-      "anyOf": [
-        {
-          "type": "string",
-          "title": "Android",
-          "enum": ["android"]
-        },
-        {
-          "type": "string",
-          "title": "iOS",
-          "enum": ["ios"]
-        }
-      ]
     }
   }
 }

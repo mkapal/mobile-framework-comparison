@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import { FrameworkRankingCard } from '../components/rankings';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
-import { CriteriaCategory, Weights } from '../types';
+import { CriteriaCategories, Weights } from '../types';
 import {
   getFrameworkData,
   getFrameworkIds,
@@ -20,7 +20,6 @@ export function Results() {
 
   // const formData: CriteriaFormData = {
   //   infrastructure: {
-  //     distribution: ['app-store'],
   //     freeLicense: true,
   //     platforms: ['ios', 'android'],
   //   },
@@ -28,12 +27,12 @@ export function Results() {
   //     performance: 1,
   //   },
   // };
+  //
   // const isSubmitted = true;
   // const weights: Weights = {
   //   infrastructure: {
   //     platforms: 5,
   //     freeLicense: 5,
-  //     distribution: 5,
   //   },
   //   development: {
   //     performance: 5,
@@ -69,8 +68,9 @@ export function Results() {
                 <th key={framework}>{framework}</th>
               ))}
             </tr>
-            {(Object.keys(formData) as (keyof CriteriaCategory)[]).map(
+            {(Object.keys(formData) as (keyof CriteriaCategories)[]).map(
               (criterionCategory) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const criteriaIds: any[] = Object.keys(
                   formData[criterionCategory],
                 );
@@ -83,9 +83,10 @@ export function Results() {
                       </td>
                     </tr>
                     {criteriaIds.map((criterionId) => {
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       const value: any =
                         formData[criterionCategory][
-                          criterionId as keyof CriteriaCategory[typeof criterionCategory]
+                          criterionId as keyof CriteriaCategories[typeof criterionCategory]
                         ];
 
                       const weight =
@@ -98,11 +99,12 @@ export function Results() {
                           <td>{weight}</td>
                           <td>{isArray(value) ? value.join(', ') : value}</td>
                           {frameworks.map((framework) => {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             const frameworkValue: any =
                               frameworkData[framework].criteria[
                                 criterionCategory
                               ][
-                                criterionId as keyof CriteriaCategory[typeof criterionCategory]
+                                criterionId as keyof CriteriaCategories[typeof criterionCategory]
                               ];
 
                             const criterionScore =
@@ -110,7 +112,7 @@ export function Results() {
                               rankings.find(
                                 (ranking) => ranking.framework === framework,
                               )?.criteria[criterionCategory][
-                                criterionId as keyof CriteriaCategory
+                                criterionId as keyof CriteriaCategories
                               ] ?? 0;
 
                             return (

@@ -1,42 +1,70 @@
-import { Box, Step, StepButton, Stepper } from '@material-ui/core';
+import { Box, Button, Step, StepButton, Stepper } from '@material-ui/core';
+import { ISubmitEvent, UiSchema, Widget } from '@rjsf/core';
+import MuiForm from '@rjsf/material-ui';
+import Ajv from 'ajv';
 import { JSONSchema7 } from 'json-schema';
-import React, { ComponentType, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { Development, Infrastructure } from '../components/criteriaForm/steps';
+import { FieldTemplate, HiddenWidget } from '../components/criteriaForm';
+import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
-import { CriterionId, StepFormProps } from '../types';
+import { CriteriaFormData, CriterionCategoryId } from '../types';
 import { getCriteriaCategories } from '../utils';
 
 const steps = getCriteriaCategories();
 const stepNames = schema.properties.criteria.properties;
 
-export type FormValues = {
-  infrastructure: {
-    platforms: string[];
-    distribution: string[];
-    freeLicense: boolean;
-  };
-  development: {};
+function validateSchema(schema: object, formData: object) {
+  const ajv = new Ajv({ allErrors: true, useDefaults: true });
+  const validator = ajv.compile(schema);
+
+  validator(formData);
+
+  return validator.errors?.length ? validator.errors : [];
+}
+
+const uiSchema: UiSchema = {
+  platforms: {
+    'ui:widget': 'checkboxes',
+  },
+  freeLicense: {
+    'ui:widget': 'radio',
+  },
+  performance: {
+    'ui:widget': 'hidden',
+  },
 };
 
-const initialValues: FormValues = {
-  infrastructure: {
-    platforms: [],
-    distribution: [],
-    freeLicense: false,
-  },
-  development: {},
+const widgets: { [name: string]: Widget } = {
+  HiddenWidget,
 };
 
 export function Form() {
-  const [formValues, setFormValues] = useState(initialValues);
-  const [activeStep, setActiveStep] = useState<number>(0);
-
-  console.log(formValues);
+  const {
+    activeStep,
+    formData,
+    setActiveStep,
+    setFormData,
+    setIsSubmitted,
+  } = useContext(CriteriaFormContext);
+  const h = useHistory();
 
   const activeStepName = steps[activeStep];
   const totalSteps = steps.length;
+
+  const activeSchema = useMemo(
+    () => schema.properties.criteria.properties[steps[activeStep]],
+    [activeStep],
+  );
+
+  const errors = useMemo(
+    () => validateSchema(activeSchema, formData[activeStepName]),
+    [activeSchema, activeStepName, formData],
+  );
+
+  const submitDisabled = useMemo(() => errors.length > 0, [errors.length]);
 
   const nextStep = () => {
     setActiveStep(Math.min(totalSteps - 1, activeStep + 1));
@@ -46,20 +74,27 @@ export function Form() {
     setActiveStep(Math.max(0, activeStep - 1));
   };
 
-  const mergeFormValues = (values: any) =>
-    setFormValues((prevState) => ({
+  const mergeFormValues = (values: CriteriaFormData[CriterionCategoryId]) => {
+    setFormData((prevState: CriteriaFormData) => ({
       ...prevState,
       [activeStepName]: values,
     }));
-
-  const renderStep: {
-    [key in CriterionId]: ComponentType<StepFormProps>;
-  } = {
-    development: Development,
-    infrastructure: Infrastructure,
   };
 
-  const StepComponent = renderStep[activeStepName];
+  const handleSubmit = (
+    e: ISubmitEvent<CriteriaFormData[CriterionCategoryId]>,
+  ) => {
+    mergeFormValues(e.formData);
+
+    if (activeStep === totalSteps - 1) {
+      setIsSubmitted(true);
+      h.push('/results');
+
+      return;
+    }
+
+    nextStep();
+  };
 
   return (
     <PageLayout>
@@ -72,15 +107,46 @@ export function Form() {
           ))}
         </Stepper>
       </Box>
-      <StepComponent
-        setFormValues={mergeFormValues}
-        nextStep={nextStep}
-        prevStep={prevStep}
-        formValues={formValues[activeStepName]}
-        schema={
-          schema.properties.criteria.properties[activeStepName] as JSONSchema7
-        }
-      />
+      <MuiForm
+        schema={activeSchema as JSONSchema7}
+        uiSchema={uiSchema}
+        FieldTemplate={FieldTemplate}
+        widgets={widgets}
+        showErrorList={false}
+        formData={formData[activeStepName]}
+        onChange={(e) => mergeFormValues(e.formData)}
+        onSubmit={handleSubmit}
+      >
+        <Box display="flex" justifyContent="space-between">
+          <div>
+            {activeStep > 0 && activeStep <= totalSteps && (
+              <Button variant="contained" color="primary" onClick={prevStep}>
+                Back
+              </Button>
+            )}
+          </div>
+          {activeStep < totalSteps - 1 && (
+            <Button
+              disabled={submitDisabled}
+              variant="contained"
+              color="primary"
+              onClick={nextStep}
+            >
+              Next
+            </Button>
+          )}
+          {activeStep === totalSteps - 1 && (
+            <Button
+              disabled={submitDisabled}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Submit
+            </Button>
+          )}
+        </Box>
+      </MuiForm>
     </PageLayout>
   );
 }

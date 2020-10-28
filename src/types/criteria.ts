@@ -1,31 +1,21 @@
-import { JSONSchema7 } from 'json-schema';
-
 import { Frameworks } from './frameworks';
 
-export type CriteriaCategory = Frameworks['criteria'];
+export type CriteriaCategories = Frameworks['criteria'];
 
-export type CriterionId = keyof CriteriaCategory;
+export type CriterionCategoryId = keyof CriteriaCategories;
 
-export type StepFormProps = {
-  prevStep: () => void;
-  nextStep: () => void;
-  formValues: any;
-  setFormValues: (values: any) => void;
-  schema: JSONSchema7;
+export type CriteriaFormData = CriteriaCategories;
+
+export type CriteriaData<T> = {
+  [id in CriterionCategoryId]: {
+    [a in keyof CriteriaCategories[id]]: T;
+  };
 };
 
 export type FrameworkSimilarity = {
   framework: string;
-  criteria: {
-    [id in CriterionId]: {
-      [a in keyof CriteriaCategory[id]]: number;
-    };
-  };
+  criteria: CriteriaData<number>;
   totalSimilarity: number;
 };
 
-export type Weights = {
-  [id in CriterionId]: {
-    [a in keyof CriteriaCategory[id]]: number;
-  };
-};
+export type Weights = CriteriaData<number>;
