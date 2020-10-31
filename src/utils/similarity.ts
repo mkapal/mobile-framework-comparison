@@ -1,15 +1,8 @@
-import { CriteriaCategories, CriterionCategoryId } from '../types';
+import { SimilarityFunctions } from '../types';
 
 import { DEFAULT_MAX_RATING } from './consts';
 
-export const criteriaSimilarityFunctions: {
-  [category in CriterionCategoryId]: {
-    [criterion in keyof CriteriaCategories[category]]: (
-      criterionValue: CriteriaCategories[category][criterion],
-      frameworkValue: CriteriaCategories[category][criterion],
-    ) => number;
-  };
-} = {
+export const similarityFunctions: SimilarityFunctions = {
   infrastructure: {
     platforms: jaccardSimilarity,
     freeLicense: (criterionValue: boolean, frameworkValue: boolean): number =>

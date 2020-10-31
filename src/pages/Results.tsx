@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import { FrameworkRankingCard } from '../components/rankings';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
-import { CriteriaCategories, Weights } from '../types';
+import { CriteriaCategories } from '../types';
 import {
   getFrameworkData,
   getFrameworkIds,
@@ -39,7 +39,7 @@ export function Results() {
   //   },
   // };
 
-  const rankings = getFrameworkRankings(formData, weights as Weights);
+  const rankings = getFrameworkRankings(formData, frameworkData, weights);
 
   if (!isSubmitted) {
     return <PageLayout>Form not submitted</PageLayout>;

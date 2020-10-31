@@ -3,7 +3,9 @@ import {
   CriteriaCategories,
   CriteriaData,
   CriterionCategoryId,
-  Frameworks,
+  CriterionId,
+  FrameworkData,
+  Weights,
 } from '../types';
 
 import { getFrameworkIds } from './index';
@@ -14,6 +16,12 @@ export function getCriteriaSchema(): typeof schema.properties.criteria.propertie
 
 export function getCriteriaCategories(): CriterionCategoryId[] {
   return Object.keys(getCriteriaSchema()) as CriterionCategoryId[];
+}
+export function getCriteriaIds<Category extends CriterionCategoryId>(
+  criteria: CriteriaCategories,
+  category: Category,
+): CriterionId<Category>[] {
+  return Object.keys(criteria[category]) as CriterionId<Category>[];
 }
 
 export function getRatedCriteriaForCategory(
@@ -85,9 +93,15 @@ export function getInitialWeights(): CriteriaData<number> {
   );
 }
 
-export function getFrameworkData(): {
-  [k: string]: Frameworks;
-} {
+export function getTotalWeights(criteriaWeights: Weights): number {
+  return Object.values(criteriaWeights).reduce(
+    (acc, categoryWeights) =>
+      acc + Object.values(categoryWeights).reduce((acc2, w) => acc2 + w),
+    0,
+  );
+}
+
+export function getFrameworkData(): FrameworkData {
   return getFrameworkIds().reduce(
     (acc, frameworkId) => ({
       ...acc,
