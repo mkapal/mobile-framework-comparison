@@ -18,7 +18,7 @@ const frameworkData = getFrameworkData();
 export function Results() {
   const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
 
-  // const formData: CriteriaFormData = {
+  // const formData: CriteriaCategories = {
   //   infrastructure: {
   //     freeLicense: true,
   //     platforms: ['ios', 'android'],

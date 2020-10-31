@@ -10,11 +10,15 @@ import { FieldTemplate, HiddenWidget } from '../components/criteriaForm';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
-import { CriteriaFormData, CriterionCategoryId } from '../types';
-import { getCriteriaCategories, getRatedCriteria } from '../utils';
+import { CriteriaCategories, CriterionCategoryId } from '../types';
+import {
+  getCriteriaCategories,
+  getCriteriaSchema,
+  getRatedCriteria,
+} from '../utils';
 
-const steps = getCriteriaCategories();
-const stepNames = schema.properties.criteria.properties;
+const stepNames = getCriteriaCategories();
+const steps = getCriteriaSchema();
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
@@ -57,11 +61,11 @@ export function Form() {
   } = useContext(CriteriaFormContext);
   const h = useHistory();
 
-  const activeStepName = steps[activeStep];
-  const totalSteps = steps.length;
+  const activeStepName = stepNames[activeStep];
+  const totalSteps = stepNames.length;
 
   const activeSchema = useMemo(
-    () => schema.properties.criteria.properties[steps[activeStep]],
+    () => schema.properties.criteria.properties[stepNames[activeStep]],
     [activeStep],
   );
 
@@ -80,15 +84,15 @@ export function Form() {
     setActiveStep(Math.max(0, activeStep - 1));
   };
 
-  const mergeFormValues = (values: CriteriaFormData[CriterionCategoryId]) => {
-    setFormData((prevState: CriteriaFormData) => ({
+  const mergeFormValues = (values: CriteriaCategories[CriterionCategoryId]) => {
+    setFormData((prevState: CriteriaCategories) => ({
       ...prevState,
       [activeStepName]: values,
     }));
   };
 
   const handleSubmit = (
-    e: ISubmitEvent<CriteriaFormData[CriterionCategoryId]>,
+    e: ISubmitEvent<CriteriaCategories[CriterionCategoryId]>,
   ) => {
     mergeFormValues(e.formData);
 
@@ -106,9 +110,9 @@ export function Form() {
     <PageLayout>
       <Box mb={4}>
         <Stepper alternativeLabel activeStep={activeStep}>
-          {steps.map((id) => (
+          {stepNames.map((id) => (
             <Step key={id}>
-              <StepButton>{stepNames[id].title}</StepButton>
+              <StepButton>{steps[id].title}</StepButton>
             </Step>
           ))}
         </Stepper>

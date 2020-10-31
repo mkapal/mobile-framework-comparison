@@ -6,16 +6,17 @@ import { CriteriaFormContext } from './context';
 import './global.css';
 import { Form, Home, Results } from './pages';
 import { theme } from './theme';
-import { CriteriaFormData, Weights } from './types';
+import { CriteriaCategories, Weights } from './types';
 import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
 
 const initialRatedValues = getRatedCriteriaInitialValues();
+const initialWeights = getInitialWeights();
 
 function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [weights, setWeights] = useState<Weights>(getInitialWeights());
-  const [formData, setFormData] = useState<CriteriaFormData>(
-    (initialRatedValues as unknown) as CriteriaFormData,
+  const [weights, setWeights] = useState<Weights>(initialWeights);
+  const [formData, setFormData] = useState<CriteriaCategories>(
+    (initialRatedValues as unknown) as CriteriaCategories,
   );
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
