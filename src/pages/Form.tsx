@@ -112,7 +112,7 @@ export function Form() {
         <Stepper alternativeLabel activeStep={activeStep}>
           {stepNames.map((id) => (
             <Step key={id}>
-              <StepButton>{steps[id].title}</StepButton>
+              <StepButton disabled>{steps[id].title}</StepButton>
             </Step>
           ))}
         </Stepper>
