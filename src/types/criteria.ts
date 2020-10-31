@@ -24,6 +24,10 @@ export type FrameworkData = {
   [k: string]: Frameworks;
 };
 
+export type FrameworkCriteriaData = {
+  [k: string]: CriteriaCategories;
+};
+
 export type SimilarityFunctions = {
   [Category in CriterionCategoryId]: {
     [Criterion in CriterionId<Category>]: (

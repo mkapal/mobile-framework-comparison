@@ -7,39 +7,26 @@ import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import { CriteriaCategories } from '../types';
 import {
+  getFrameworkCriteriaData,
   getFrameworkData,
   getFrameworkIds,
   getFrameworkRankings,
+  similarityFunctions,
 } from '../utils';
 
 const frameworks = getFrameworkIds();
 const frameworkData = getFrameworkData();
+const frameworkCriteriaData = getFrameworkCriteriaData();
 
 export function Results() {
   const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
 
-  // const formData: CriteriaCategories = {
-  //   infrastructure: {
-  //     freeLicense: true,
-  //     platforms: ['ios', 'android'],
-  //   },
-  //   development: {
-  //     performance: 1,
-  //   },
-  // };
-  //
-  // const isSubmitted = true;
-  // const weights: Weights = {
-  //   infrastructure: {
-  //     platforms: 5,
-  //     freeLicense: 5,
-  //   },
-  //   development: {
-  //     performance: 5,
-  //   },
-  // };
-
-  const rankings = getFrameworkRankings(formData, frameworkData, weights);
+  const rankings = getFrameworkRankings(
+    formData,
+    frameworkCriteriaData,
+    weights,
+    similarityFunctions,
+  );
 
   if (!isSubmitted) {
     return <PageLayout>Form not submitted</PageLayout>;

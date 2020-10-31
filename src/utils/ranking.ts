@@ -1,23 +1,23 @@
 import {
   CriteriaCategories,
   CriterionCategoryId,
-  FrameworkData,
+  FrameworkCriteriaData,
   FrameworkSimilarity,
+  SimilarityFunctions,
   Weights,
 } from '../types';
 
 import { getCriteriaIds, getTotalWeights } from './criteria';
 
-import { similarityFunctions, getFrameworkIds } from './index';
-
 export function getFrameworkRankings(
   formData: CriteriaCategories,
-  frameworkData: FrameworkData,
+  frameworkData: FrameworkCriteriaData,
   criteriaWeights: Weights,
+  similarityFunctions: SimilarityFunctions,
 ): FrameworkSimilarity[] {
   const totalWeights = getTotalWeights(criteriaWeights);
 
-  return getFrameworkIds()
+  return Object.keys(frameworkData)
     .map((framework) => {
       const criteriaCategories = Object.keys(formData) as CriterionCategoryId[];
 
@@ -33,7 +33,7 @@ export function getFrameworkRankings(
               // @ts-ignore
               similarityFunction(
                 formData[category][criterion],
-                frameworkData[framework].criteria[category][criterion],
+                frameworkData[framework][category][criterion],
               ) * criterionWeight;
 
             return {

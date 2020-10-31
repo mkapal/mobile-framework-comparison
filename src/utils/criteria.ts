@@ -4,6 +4,7 @@ import {
   CriteriaData,
   CriterionCategoryId,
   CriterionId,
+  FrameworkCriteriaData,
   FrameworkData,
   Weights,
 } from '../types';
@@ -106,6 +107,16 @@ export function getFrameworkData(): FrameworkData {
     (acc, frameworkId) => ({
       ...acc,
       [frameworkId]: require(`../data/${frameworkId}.json`),
+    }),
+    {},
+  );
+}
+
+export function getFrameworkCriteriaData(): FrameworkCriteriaData {
+  return Object.keys(getFrameworkData()).reduce(
+    (acc, frameworkId) => ({
+      ...acc,
+      [frameworkId]: getFrameworkData()[frameworkId].criteria,
     }),
     {},
   );
