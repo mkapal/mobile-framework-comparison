@@ -2,23 +2,29 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "required": ["name", "criteria"],
-  "additionalProperties": false,
   "properties": {
     "name": {
       "type": "string"
     },
     "criteria": {
       "type": "object",
-      "required": ["infrastructure", "development"],
-      "additionalProperties": false,
+      "required": ["infrastructure", "development", "application-usage"],
       "properties": {
         "infrastructure": {
           "title": "Infrastructure",
           "type": "object",
-          "required": ["platforms", "freeLicense"],
-          "additionalProperties": false,
+          "required": [
+            "mobile-os",
+            "development-platforms",
+            "free-license",
+            "pricing",
+            "microtransactions",
+            "internationalization",
+            "ads",
+            "long-term-feasibility"
+          ],
           "properties": {
-            "platforms": {
+            "mobile-os": {
               "title": "Which mobile platforms should be supported?",
               "type": "array",
               "minItems": 1,
@@ -39,29 +45,376 @@
               },
               "uniqueItems": true
             },
-            "freeLicense": {
+            "development-platforms": {
+              "title": "Which platforms will be used for development?",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "Linux",
+                    "enum": ["linux"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "macOS",
+                    "enum": ["macos"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "Windows",
+                    "enum": ["windows"]
+                  }
+                ]
+              },
+              "uniqueItems": true
+            },
+            "free-license": {
               "title": "Software license type",
               "type": "boolean",
               "enumNames": ["Free", "Proprietary"]
+            },
+            "pricing": {
+              "title": "Pricing policy",
+              "type": "string",
+              "enum": ["free", "free-paid", "paid"],
+              "enumNames": ["Free", "Free or paid variants", "Paid"]
+            },
+            "microtransactions": {
+              "title": "Support for in-app purchases",
+              "type": "boolean",
+              "readOnly": true
+            },
+            "internationalization": {
+              "title": "Support for internationalization",
+              "type": "boolean",
+              "readOnly": true
+            },
+            "ads": {
+              "title": "Support for mobile ads",
+              "type": "boolean",
+              "readOnly": true
+            },
+            "long-term-feasibility": {
+              "title": "Long term feasibility",
+              "readOnly": true,
+
+              "$ref": "#/definitions/rating"
             }
-          }
+          },
+          "propertyNames": {
+            "pattern": "^[a-z\\-]+$"
+          },
+          "additionalProperties": false
         },
         "development": {
           "title": "Development",
           "type": "object",
-          "required": ["performance"],
-          "additionalProperties": false,
+          "required": [
+            "configuration-management",
+            "continuous-deployment",
+            "custom-code-integration",
+            "custom-ide",
+            "documentation",
+            "extensibility",
+            "initial-config",
+            "scalability",
+            "technologies",
+            "testing",
+            "wysiwyg-editor"
+          ],
           "properties": {
+            "custom-ide": {
+              "title": "Custom Integrated Development Environment (IDE)",
+              "type": "boolean",
+              "enumNames": ["Allowed", "Not allowed"]
+            },
+            "technologies": {
+              "title": "Which technologies should it use?",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "C#",
+                    "enum": ["c#"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "Dart",
+                    "enum": ["dart"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "JavaScript",
+                    "enum": ["javascript"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "XML",
+                    "enum": ["xml"]
+                  }
+                ]
+              },
+              "uniqueItems": true
+            },
+            "wysiwyg-editor": {
+              "title": "WYSIWYG editor for GUI design",
+              "type": "boolean",
+              "readOnly": true
+            },
+            "custom-code-integration": {
+              "title": "Custom code integration",
+              "type": "boolean",
+              "readOnly": true
+            },
+            "documentation": {
+              "title": "Documentation",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "scalability": {
+              "title": "Scalability",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "initial-config": {
+              "title": "Initial project configuration",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "testing": {
+              "title": "Testing",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "extensibility": {
+              "title": "Extensibility",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "continuous-deployment": {
+              "title": "Support for continuous integration & deployment",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "configuration-management": {
+              "title": "Configuration management",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            }
+          },
+          "propertyNames": {
+            "pattern": "^[a-z\\-]+$"
+          },
+          "additionalProperties": false
+        },
+        "application-usage": {
+          "title": "Application & Usage",
+          "type": "object",
+          "required": [
+            "app-lifecycle",
+            "hardware",
+            "offline",
+            "performance",
+            "security",
+            "software",
+            "touch-gestures",
+            "user-interface"
+          ],
+          "properties": {
+            "hardware": {
+              "title": "Which hardware features should it have access to?",
+              "type": "array",
+              "minItems": 0,
+              "default": [],
+              "items": {
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "accelerometer",
+                    "enum": ["accelerometer"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "gyroscope",
+                    "enum": ["gyro"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "rotation",
+                    "enum": ["rotation"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "pedometer",
+                    "enum": ["pedometer"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "geolocation",
+                    "enum": ["geolocation"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "magnetic field",
+                    "enum": ["magnet"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "proximity sensor",
+                    "enum": ["proximity"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "temperature",
+                    "enum": ["temperature"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "light intensity",
+                    "enum": ["light"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "atmospheric pressure",
+                    "enum": ["pressure"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "camera",
+                    "enum": ["camera"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "microphone",
+                    "enum": ["microphone"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "NFC",
+                    "enum": ["nfc"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "bluetooth",
+                    "enum": ["bluetooth"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "Wi-Fi",
+                    "enum": ["wifi"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "biometric authentication",
+                    "enum": ["biometrics"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "vibrations",
+                    "enum": ["vibration"]
+                  }
+                ]
+              },
+              "uniqueItems": true
+            },
+            "software": {
+              "title": "Which software features should it have access to?",
+              "type": "array",
+              "minItems": 0,
+              "default": [],
+              "items": {
+                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "local storage",
+                    "enum": ["local-storage"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "file system",
+                    "enum": ["file-system"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "contacts",
+                    "enum": ["contacts"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "call history",
+                    "enum": ["call-history"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "push notifications",
+                    "enum": ["push-notifications"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "in-app browser",
+                    "enum": ["browser"]
+                  }
+                ]
+              },
+              "uniqueItems": true
+            },
+            "offline": {
+              "title": "Offline mode support",
+              "type": "boolean",
+              "readOnly": true
+            },
+            "touch-gestures": {
+              "title": "Support for touch gestures",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "app-lifecycle": {
+              "title": "Support for application lifecycle",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "security": {
+              "title": "Security",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
+            "user-interface": {
+              "title": "User interface",
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
+            },
             "performance": {
               "title": "Performance",
-              "type": "integer",
               "readOnly": true,
-              "minimum": 0,
-              "maximum": 5
+              "$ref": "#/definitions/rating"
             }
-          }
+          },
+          "propertyNames": {
+            "pattern": "^[a-z\\-]+$"
+          },
+          "additionalProperties": false
         }
+      },
+      "additionalProperties": false,
+      "propertyNames": {
+        "pattern": "^[a-z\\-]+$"
       }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "rating": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
     }
   }
 }

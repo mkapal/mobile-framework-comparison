@@ -6,28 +6,37 @@ import { CriteriaCategories, CriterionCategoryId } from '../../types';
 
 import { CriteriaWeightSlider } from './CriteriaWeightSlider';
 
+type FieldIdParts = [
+  string,
+  CriterionCategoryId,
+  keyof CriteriaCategories[CriterionCategoryId],
+];
+
 export function FieldTemplate({
   children,
   errors,
   help,
   id,
 }: FieldTemplateProps) {
-  if (id === 'root') {
+  const idParts = id.split('_');
+
+  if (idParts.length < 3) {
     return children;
   }
 
-  const normalizedId = id.substring(5);
+  const [, categoryId, criterionId] = idParts as FieldIdParts;
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={6}>
+      <Grid item xs={7}>
         {children}
         {errors}
         {help}
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         <CriteriaWeightSlider
-          id={normalizedId as keyof CriteriaCategories[CriterionCategoryId]}
+          categoryId={categoryId}
+          criterionId={criterionId}
         />
       </Grid>
     </Grid>

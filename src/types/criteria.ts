@@ -4,6 +4,11 @@ export type CriteriaCategories = Frameworks['criteria'];
 
 export type CriterionCategoryId = keyof CriteriaCategories;
 
+export type Criterion =
+  | keyof CriteriaCategories['infrastructure']
+  | keyof CriteriaCategories['development']
+  | keyof CriteriaCategories['application-usage'];
+
 export type CriterionId<
   Category extends CriterionCategoryId
 > = keyof CriteriaCategories[Category];

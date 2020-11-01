@@ -13,7 +13,6 @@ const initialRatedValues = getRatedCriteriaInitialValues();
 const initialWeights = getInitialWeights();
 
 function App() {
-  const [activeStep, setActiveStep] = useState<number>(0);
   const [weights, setWeights] = useState<Weights>(initialWeights);
   const [formData, setFormData] = useState<CriteriaCategories>(
     (initialRatedValues as unknown) as CriteriaCategories,
@@ -25,8 +24,6 @@ function App() {
       <CssBaseline />
       <CriteriaFormContext.Provider
         value={{
-          activeStep,
-          setActiveStep,
           formData,
           setFormData,
           weights,

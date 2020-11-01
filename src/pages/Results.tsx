@@ -1,25 +1,31 @@
 import { Box } from '@material-ui/core';
+import { JSONSchema7 } from 'json-schema';
 import isArray from 'lodash/isArray';
 import React, { useContext } from 'react';
 
 import { FrameworkRankingCard } from '../components/rankings';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
-import { CriteriaCategories } from '../types';
+import { CriteriaCategories, CriterionCategoryId, CriterionId } from '../types';
 import {
+  getCriteriaSchema,
   getFrameworkCriteriaData,
   getFrameworkData,
-  getFrameworkIds,
   getFrameworkRankings,
-  similarityFunctions,
 } from '../utils';
+import { getFrameworkIds, similarityFunctions } from '../utils/config';
 
 const frameworks = getFrameworkIds();
 const frameworkData = getFrameworkData();
 const frameworkCriteriaData = getFrameworkCriteriaData();
+const criteriaSchema = getCriteriaSchema();
 
 export function Results() {
   const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+
+  if (!isSubmitted) {
+    return <PageLayout>Form not submitted</PageLayout>;
+  }
 
   const rankings = getFrameworkRankings(
     formData,
@@ -27,10 +33,6 @@ export function Results() {
     weights,
     similarityFunctions,
   );
-
-  if (!isSubmitted) {
-    return <PageLayout>Form not submitted</PageLayout>;
-  }
 
   return (
     <PageLayout>
@@ -51,56 +53,58 @@ export function Results() {
               <th>Criterion</th>
               <th>Weight</th>
               <th>Submitted value</th>
-              {frameworks.map((framework) => (
-                <th key={framework}>{framework}</th>
+              {rankings.map(({ framework }) => (
+                <th key={framework}>{frameworkData[framework].name}</th>
               ))}
             </tr>
-            {(Object.keys(formData) as (keyof CriteriaCategories)[]).map(
-              (criterionCategory) => {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const criteriaIds: any[] = Object.keys(
-                  formData[criterionCategory],
-                );
+            {(Object.keys(formData) as CriterionCategoryId[]).map(
+              (category) => {
+                const criteriaIds = Object.keys(
+                  formData[category],
+                ) as CriterionId<typeof category>[];
 
                 return (
-                  <React.Fragment key={criterionCategory}>
+                  <React.Fragment key={category}>
                     <tr>
                       <td colSpan={5}>
-                        <strong>{criterionCategory}</strong>
+                        <strong>{getCriteriaSchema()[category].title}</strong>
                       </td>
                     </tr>
                     {criteriaIds.map((criterionId) => {
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       const value: any =
-                        formData[criterionCategory][
-                          criterionId as keyof CriteriaCategories[typeof criterionCategory]
+                        formData[category][
+                          criterionId as keyof CriteriaCategories[typeof category]
                         ];
 
-                      const weight =
-                        // @ts-ignore
-                        weights[criterionCategory]?.[criterionId] ?? 0;
+                      const weight = weights[category][criterionId] ?? 0;
 
                       return (
                         <tr key={criterionId}>
-                          <td>{criterionId}</td>
+                          <td>
+                            {
+                              (criteriaSchema[category].properties[
+                                criterionId
+                              ] as JSONSchema7).title
+                            }
+                          </td>
                           <td>{weight}</td>
-                          <td>{isArray(value) ? value.join(', ') : value}</td>
+                          <td>
+                            {isArray(value)
+                              ? value.join(', ')
+                              : value.toString()}
+                          </td>
                           {frameworks.map((framework) => {
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             const frameworkValue: any =
-                              frameworkData[framework].criteria[
-                                criterionCategory
-                              ][
-                                criterionId as keyof CriteriaCategories[typeof criterionCategory]
+                              frameworkData[framework].criteria[category][
+                                criterionId
                               ];
 
                             const criterionScore =
-                              // @ts-ignore
                               rankings.find(
                                 (ranking) => ranking.framework === framework,
-                              )?.criteria[criterionCategory][
-                                criterionId as keyof CriteriaCategories
-                              ] ?? 0;
+                              )?.criteria[category][criterionId] ?? 0;
 
                             return (
                               <td key={framework}>

@@ -3,10 +3,10 @@ import React, { ChangeEvent, useContext } from 'react';
 
 import { CriteriaFormContext } from '../../context';
 import { CriteriaCategories, CriterionCategoryId } from '../../types';
-import { getCriteriaCategories } from '../../utils';
 
 type Props = {
-  id: keyof CriteriaCategories[CriterionCategoryId];
+  categoryId: CriterionCategoryId;
+  criterionId: keyof CriteriaCategories[CriterionCategoryId];
 };
 
 const marks: Mark[] = [
@@ -16,11 +16,9 @@ const marks: Mark[] = [
   },
   {
     value: 1,
-    label: 'less important',
   },
   {
     value: 2,
-    label: 'more important',
   },
   {
     value: 3,
@@ -28,27 +26,26 @@ const marks: Mark[] = [
   },
 ];
 
-export function CriteriaWeightSlider({ id }: Props) {
-  const { activeStep, setWeights, weights } = useContext(CriteriaFormContext);
-  const activeCategory = getCriteriaCategories()[activeStep];
+export function CriteriaWeightSlider({ categoryId, criterionId }: Props) {
+  const { setWeights, weights } = useContext(CriteriaFormContext);
 
   const handleChange = (_: ChangeEvent<{}>, value: number | number[]) => {
-    if (weights[activeCategory][id] === value) {
+    if (weights[categoryId][criterionId] === value) {
       return;
     }
 
     setWeights({
       ...weights,
-      [activeCategory]: {
-        ...weights[activeCategory],
-        [id]: value as number,
+      [categoryId]: {
+        ...weights[categoryId],
+        [criterionId]: value as number,
       },
     });
   };
 
   return (
     <Slider
-      value={weights[activeCategory][id]}
+      value={weights[categoryId][criterionId]}
       step={1}
       min={0}
       max={3}

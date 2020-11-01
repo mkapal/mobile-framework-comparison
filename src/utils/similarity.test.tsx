@@ -1,4 +1,4 @@
-import { jaccardSimilarity } from './similarity';
+import { jaccardSimilarity } from './config';
 
 describe('Similarity functions', () => {
   describe('Jaccard similarity', () => {

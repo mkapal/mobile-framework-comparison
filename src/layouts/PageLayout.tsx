@@ -35,7 +35,7 @@ export function PageLayout({ children }: Props) {
             Questions
           </Link>
         </Box>
-        <Box>{children}</Box>
+        <Box pb={4}>{children}</Box>
       </Container>
     </Box>
   );

@@ -2,11 +2,37 @@
   "name": "React Native",
   "criteria": {
     "infrastructure": {
-      "platforms": ["android", "ios"],
-      "freeLicense": true
+      "mobile-os": ["android", "ios"],
+      "development-platforms": ["windows"],
+      "free-license": true,
+      "pricing": "free",
+      "microtransactions": false,
+      "internationalization": false,
+      "ads": false,
+      "long-term-feasibility": 0
     },
     "development": {
-      "performance": 5
+      "configuration-management": 0,
+      "continuous-deployment": 0,
+      "custom-code-integration": false,
+      "custom-ide": false,
+      "documentation": 0,
+      "extensibility": 0,
+      "initial-config": 0,
+      "scalability": 0,
+      "technologies": ["javascript"],
+      "testing": 0,
+      "wysiwyg-editor": false
+    },
+    "application-usage": {
+      "app-lifecycle": 0,
+      "hardware": ["accelerometer"],
+      "offline": false,
+      "performance": 0,
+      "security": 0,
+      "software": ["browser"],
+      "touch-gestures": 0,
+      "user-interface": 0
     }
   }
 }

@@ -2,11 +2,37 @@
   "name": "Cordova",
   "criteria": {
     "infrastructure": {
-      "platforms": ["android", "ios"],
-      "freeLicense": false
+      "mobile-os": ["android", "ios"],
+      "development-platforms": ["linux", "macos", "windows"],
+      "free-license": true,
+      "pricing": "free",
+      "microtransactions": true,
+      "internationalization": true,
+      "ads": true,
+      "long-term-feasibility": 3
     },
     "development": {
-      "performance": 1
+      "configuration-management": 0,
+      "continuous-deployment": 0,
+      "custom-code-integration": false,
+      "custom-ide": false,
+      "documentation": 0,
+      "extensibility": 0,
+      "initial-config": 0,
+      "scalability": 0,
+      "technologies": ["javascript"],
+      "testing": 0,
+      "wysiwyg-editor": false
+    },
+    "application-usage": {
+      "app-lifecycle": 0,
+      "hardware": ["accelerometer"],
+      "offline": false,
+      "performance": 0,
+      "security": 0,
+      "software": ["browser"],
+      "touch-gestures": 0,
+      "user-interface": 0
     }
   }
 }

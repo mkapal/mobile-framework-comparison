@@ -9,6 +9,11 @@ import {
 
 import { getCriteriaIds, getTotalWeights } from './criteria';
 
+type SimilarityFunction = (
+  criterionValue: unknown,
+  frameworkValue: unknown,
+) => number;
+
 export function getFrameworkRankings(
   formData: CriteriaCategories,
   frameworkData: FrameworkCriteriaData,
@@ -26,11 +31,11 @@ export function getFrameworkRankings(
 
         const categorySimilarity = criteriaIds.reduce(
           (criteriaSimilarities, criterion) => {
-            const similarityFunction = similarityFunctions[category][criterion];
+            const similarityFunction: SimilarityFunction =
+              similarityFunctions[category][criterion];
             const criterionWeight = criteriaWeights[category][criterion] ?? 0;
 
             const criterionSimilarity =
-              // @ts-ignore
               similarityFunction(
                 formData[category][criterion],
                 frameworkData[framework][category][criterion],
@@ -59,15 +64,11 @@ export function getFrameworkRankings(
         };
       }, {} as FrameworkSimilarity);
     })
-    .map((ranking) => {
-      const totalSimilarity =
-        totalWeights === 0 ? 0 : ranking.totalSimilarity / totalWeights;
-
-      return {
-        ...ranking,
-        totalSimilarity,
-      };
-    })
+    .map((ranking) => ({
+      ...ranking,
+      totalSimilarity:
+        totalWeights === 0 ? 0 : ranking.totalSimilarity / totalWeights,
+    }))
     .sort(
       (frameworkA, frameworkB) =>
         frameworkB.totalSimilarity - frameworkA.totalSimilarity,
