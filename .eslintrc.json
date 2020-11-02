@@ -1,11 +1,6 @@
 {
-  "extends": [
-    "react-app",
-    "prettier"
-  ],
-  "plugins": [
-    "sort-destructure-keys"
-  ],
+  "extends": ["react-app", "react-app/jest", "prettier"],
+  "plugins": ["sort-destructure-keys"],
   "rules": {
     "@typescript-eslint/array-type": [
       "error",
@@ -105,14 +100,14 @@
   },
   "overrides": [
     {
-      "files": [ "*.ts" ],
+      "files": ["*.ts"],
       "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "error",
         "@typescript-eslint/explicit-function-return-type": "error"
       }
     },
     {
-      "files": [ "src/scripts/**/*.js" ],
+      "files": ["src/scripts/**/*.js"],
       "rules": {
         "no-console": "off"
       }
