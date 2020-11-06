@@ -4,6 +4,7 @@ import isArray from 'lodash/isArray';
 import React, { useContext } from 'react';
 
 import { FrameworkRankingCard } from '../components/rankings';
+import { getFrameworkIds, similarityFunctions } from '../config';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import { CriteriaCategories, CriterionCategoryId, CriterionId } from '../types';
@@ -13,7 +14,6 @@ import {
   getFrameworkData,
   getFrameworkRankings,
 } from '../utils';
-import { getFrameworkIds, similarityFunctions } from '../utils/config';
 
 const frameworks = getFrameworkIds();
 const frameworkData = getFrameworkData();

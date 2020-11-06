@@ -5,9 +5,9 @@ export type CriteriaCategories = Frameworks['criteria'];
 export type CriterionCategoryId = keyof CriteriaCategories;
 
 export type Criterion =
-  | keyof CriteriaCategories['infrastructure']
-  | keyof CriteriaCategories['development']
-  | keyof CriteriaCategories['application-usage'];
+  | CriterionId<'infrastructure'>
+  | CriterionId<'development'>
+  | CriterionId<'application-usage'>;
 
 export type CriterionId<
   Category extends CriterionCategoryId

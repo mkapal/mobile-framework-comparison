@@ -1,55 +1,64 @@
 import { UiSchema, utils } from '@rjsf/core';
 import { JSONSchema7 } from 'json-schema';
 
+import { getUiWidgetSchema } from '../config';
 import {
   CriteriaCategories,
   CriteriaData,
+  Criterion,
   CriterionCategoryId,
   CriterionId,
 } from '../types';
 
 import { getCriteriaCategories, getCriteriaSchema } from './criteria';
 
-export function getRatedCriteriaWidgets(): CriteriaData<UiSchema> {
-  return generateUiWidgetSchema(
+const filterCriteriaInCategory = (
+  categoryId: CriterionCategoryId,
+  predicate: (criterionSchema: JSONSchema7) => boolean,
+): Criterion[] => {
+  const criteriaProperties = getCriteriaSchema()[categoryId].properties;
+  const keys: CriterionId<CriterionCategoryId>[] = Object.keys(
+    criteriaProperties,
+  ) as CriterionId<CriterionCategoryId>[];
+
+  return keys.filter((criterionId) =>
+    predicate(criteriaProperties[criterionId]),
+  );
+};
+
+const generateUiWidgetSchema = (
+  criteriaFilter: (criterionSchema: JSONSchema7) => boolean,
+  widget: string,
+): CriteriaData<UiSchema> =>
+  getCriteriaCategories().reduce(
+    (acc, category) => ({
+      ...acc,
+      [category]: getUiWidgetSchema(
+        widget,
+        filterCriteriaInCategory(category, criteriaFilter),
+      ),
+    }),
+    {} as CriteriaData<UiSchema>,
+  );
+
+export const getRatedCriteriaWidgets = (): CriteriaData<UiSchema> =>
+  generateUiWidgetSchema(
     (criterionSchema) => !!criterionSchema.readOnly,
     'hidden',
   );
-}
 
-export function getMultiSelectWidgets(): CriteriaData<UiSchema> {
-  return generateUiWidgetSchema(
+export const getMultiSelectWidgets = (): CriteriaData<UiSchema> =>
+  generateUiWidgetSchema(
     (criterionSchema) => utils.isMultiSelect(criterionSchema),
     'checkboxes',
   );
-}
 
-export function getRatedCriteriaInitialValues(): CriteriaData<number> {
-  return getCriteriaCategories().reduce(
-    (criteriaValues, categoryId) => ({
-      ...criteriaValues,
-      [categoryId]: getRatedInitialValuesForCategory(categoryId),
-    }),
-    {} as CriteriaData<number>,
-  );
-}
-
-export function getInitialWeights(): CriteriaData<number> {
-  return getCriteriaCategories().reduce(
-    (criteriaValues, categoryId) => ({
-      ...criteriaValues,
-      [categoryId]: getInitialWeightsForCategory(categoryId),
-    }),
-    {} as CriteriaData<number>,
-  );
-}
-
-function getRatedInitialValuesForCategory(
+const getRatedInitialValuesForCategory = (
   categoryId: CriterionCategoryId,
 ): {
   [a in keyof CriteriaCategories[typeof categoryId]]: number;
-} {
-  return filterCriteriaInCategory(
+} =>
+  filterCriteriaInCategory(
     categoryId,
     (criterionSchema) => !!criterionSchema.readOnly,
   ).reduce((acc, criterionId) => {
@@ -63,13 +72,21 @@ function getRatedInitialValuesForCategory(
       [(criterionId as unknown) as string]: isBoolean ? false : 0,
     };
   }, {});
-}
 
-function getInitialWeightsForCategory(
+export const getRatedCriteriaInitialValues = (): CriteriaData<number> =>
+  getCriteriaCategories().reduce(
+    (criteriaValues, categoryId) => ({
+      ...criteriaValues,
+      [categoryId]: getRatedInitialValuesForCategory(categoryId),
+    }),
+    {} as CriteriaData<number>,
+  );
+
+const getInitialWeightsForCategory = (
   categoryId: CriterionCategoryId,
 ): {
   [a in keyof CriteriaCategories[typeof categoryId]]: number;
-} {
+} => {
   const criteriaIds = Object.keys(getCriteriaSchema()[categoryId].properties);
 
   return criteriaIds.reduce(
@@ -79,39 +96,13 @@ function getInitialWeightsForCategory(
     }),
     {},
   );
-}
+};
 
-function filterCriteriaInCategory(
-  categoryId: CriterionCategoryId,
-  predicate: (criterionSchema: JSONSchema7) => boolean,
-): string[] {
-  const criteriaProperties = getCriteriaSchema()[categoryId].properties;
-  const keys: CriterionId<CriterionCategoryId>[] = Object.keys(
-    criteriaProperties,
-  ) as CriterionId<CriterionCategoryId>[];
-
-  return keys.filter((criterionId) =>
-    predicate(criteriaProperties[criterionId]),
-  );
-}
-
-function generateUiWidgetSchema(
-  criteriaFilter: (criterionSchema: JSONSchema7) => boolean,
-  widget: string,
-): CriteriaData<UiSchema> {
-  return getCriteriaCategories().reduce(
-    (acc, category) => ({
-      ...acc,
-      [category]: filterCriteriaInCategory(category, criteriaFilter).reduce(
-        (acc2, criterionId) => ({
-          ...acc2,
-          [criterionId]: {
-            'ui:widget': widget,
-          },
-        }),
-        {},
-      ),
+export const getInitialWeights = (): CriteriaData<number> =>
+  getCriteriaCategories().reduce(
+    (criteriaValues, categoryId) => ({
+      ...criteriaValues,
+      [categoryId]: getInitialWeightsForCategory(categoryId),
     }),
-    {} as CriteriaData<UiSchema>,
+    {} as CriteriaData<number>,
   );
-}

@@ -5,13 +5,34 @@ import {
   CriterionCategoryId,
   CriterionId,
   SimilarityFunctions,
-} from '../types';
+} from './types';
+import {
+  booleanSimilarity,
+  jaccardSimilarity,
+  normalizedRating,
+} from './utils/similarity';
 
-import { DEFAULT_MAX_RATING } from './consts';
+export const DEFAULT_MAX_RATING = 5;
 
-export function getFrameworkIds(): string[] {
-  return ['react-native', 'cordova'];
-}
+export const getFrameworkIds = (): string[] => ['react-native', 'cordova'];
+
+export const getUiWidgetSchema = (
+  widget: string,
+  criteria: Criterion[],
+): {
+  [k in Criterion]: UiSchema;
+} =>
+  criteria.reduce(
+    (acc, criterion) => ({
+      ...acc,
+      [criterion]: {
+        'ui:widget': widget,
+      },
+    }),
+    {} as {
+      [k in Criterion]: UiSchema;
+    },
+  );
 
 export const uiSchema: {
   [Category in CriterionCategoryId]: {
@@ -64,53 +85,3 @@ export const similarityFunctions: SimilarityFunctions = {
     security: normalizedRating,
   },
 };
-
-export function normalizedRating(
-  criterionValue: number,
-  frameworkValue: number,
-): number {
-  return frameworkValue / DEFAULT_MAX_RATING;
-}
-
-export function jaccardSimilarity(a: unknown[], b: unknown[]): number {
-  if (a.length === 0 && b.length === 0) {
-    return 1;
-  }
-
-  const intersection = a.filter((item) => b.includes(item));
-  const bNotInA = b.filter((item) => !a.includes(item));
-
-  const symmetricDifference = intersection.length + bNotInA.length;
-
-  if (symmetricDifference === 0) {
-    return 0;
-  }
-
-  return intersection.length / symmetricDifference;
-}
-
-export function booleanSimilarity(
-  criterionValue: boolean,
-  frameworkValue: boolean,
-): number {
-  return Math.abs(1 - Number(criterionValue) - Number(frameworkValue));
-}
-
-function getUiWidgetSchema(
-  widget: string,
-  criteria: Criterion[],
-): {
-  [k in Criterion]: UiSchema;
-} {
-  return criteria.reduce(
-    (acc, criterion) => ({
-      ...acc,
-      [criterion]: {
-        'ui:widget': widget,
-      },
-    }),
-    {} as {
-      [k in Criterion]: UiSchema;
-    },
-  );
-}

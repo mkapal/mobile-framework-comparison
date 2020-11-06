@@ -14,12 +14,12 @@ type SimilarityFunction = (
   frameworkValue: unknown,
 ) => number;
 
-export function getFrameworkRankings(
+export const getFrameworkRankings = (
   formData: CriteriaCategories,
   frameworkData: FrameworkCriteriaData,
   criteriaWeights: Weights,
   similarityFunctions: SimilarityFunctions,
-): FrameworkSimilarity[] {
+): FrameworkSimilarity[] => {
   const totalWeights = getTotalWeights(criteriaWeights);
 
   return Object.keys(frameworkData)
@@ -33,7 +33,7 @@ export function getFrameworkRankings(
           (criteriaSimilarities, criterion) => {
             const similarityFunction: SimilarityFunction =
               similarityFunctions[category][criterion];
-            const criterionWeight = criteriaWeights[category][criterion] ?? 0;
+            const criterionWeight = criteriaWeights[category][criterion];
 
             const criterionSimilarity =
               similarityFunction(
@@ -73,4 +73,4 @@ export function getFrameworkRankings(
       (frameworkA, frameworkB) =>
         frameworkB.totalSimilarity - frameworkA.totalSimilarity,
     );
-}
+};

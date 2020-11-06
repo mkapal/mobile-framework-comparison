@@ -7,11 +7,11 @@ import React, { useContext, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { FieldTemplate, HiddenWidget } from '../components/criteriaForm';
+import { uiSchema } from '../config';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
 import { getMultiSelectWidgets, getRatedCriteriaWidgets } from '../utils';
-import { uiSchema } from '../utils/config';
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
