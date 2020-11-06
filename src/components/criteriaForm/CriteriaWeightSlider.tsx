@@ -22,6 +22,12 @@ const marks: Mark[] = [
   },
   {
     value: 3,
+  },
+  {
+    value: 4,
+  },
+  {
+    value: 5,
     label: 'very important',
   },
 ];
@@ -48,7 +54,7 @@ export function CriteriaWeightSlider({ categoryId, criterionId }: Props) {
       value={weights[categoryId][criterionId]}
       step={1}
       min={0}
-      max={3}
+      max={5}
       marks={marks}
       onChange={handleChange}
     />
