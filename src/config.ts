@@ -7,6 +7,7 @@ import {
   SimilarityFunctions,
 } from './types';
 import {
+  booleanConverseSimilarity,
   booleanSimilarity,
   jaccardSimilarity,
   normalizedRating,
@@ -54,18 +55,18 @@ export const similarityFunctions: SimilarityFunctions = {
   infrastructure: {
     'mobile-os': jaccardSimilarity,
     'free-license': booleanSimilarity,
-    pricing: (): number => 1,
-    'development-platforms': (): number => 1,
+    pricing: (): number => 1, // TODO
+    'development-platforms': jaccardSimilarity,
     'long-term-feasibility': normalizedRating,
-    ads: (): number => 1,
-    internationalization: (): number => 1,
-    microtransactions: (): number => 1,
+    ads: normalizedRating,
+    internationalization: booleanSimilarity,
+    microtransactions: booleanSimilarity,
   },
   development: {
     'configuration-management': normalizedRating,
     'continuous-deployment': normalizedRating,
     'custom-code-integration': booleanSimilarity,
-    'custom-ide': (): number => 1,
+    'custom-ide': booleanConverseSimilarity,
     'initial-config': normalizedRating,
     'wysiwyg-editor': booleanSimilarity,
     documentation: normalizedRating,

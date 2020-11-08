@@ -20,7 +20,12 @@ export const jaccardSimilarity = (a: unknown[], b: unknown[]): number => {
 export const booleanSimilarity = (
   criterionValue: boolean,
   frameworkValue: boolean,
-): number => Math.abs(1 - Number(criterionValue) - Number(frameworkValue));
+): number => Number(frameworkValue);
+
+export const booleanConverseSimilarity = (
+  criterionValue: boolean,
+  frameworkValue: boolean,
+): number => Number(criterionValue || !frameworkValue);
 
 export const normalizedRating = (
   criterionValue: number,

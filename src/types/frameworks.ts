@@ -16,9 +16,9 @@ export type SoftwareLicenseType = boolean;
 export type PricingPolicy = "free" | "free-paid" | "paid";
 export type SupportForInAppPurchases = boolean;
 export type SupportForInternationalization = boolean;
-export type SupportForMobileAds = boolean;
+export type SupportForMobileAds = number;
 export type LongTermFeasibility = number;
-export type CustomIntegratedDevelopmentEnvironmentIDERequired = boolean;
+export type CustomIntegratedDevelopmentEnvironmentIDE = boolean;
 export type WhichTechnologiesShouldItUse = [C | Dart | JavaScript | XML, ...(C | Dart | JavaScript | XML)[]];
 export type C = "c#";
 export type Dart = "dart";
@@ -109,7 +109,7 @@ export interface Infrastructure {
   "long-term-feasibility": LongTermFeasibility;
 }
 export interface Development {
-  "custom-ide": CustomIntegratedDevelopmentEnvironmentIDERequired;
+  "custom-ide": CustomIntegratedDevelopmentEnvironmentIDE;
   technologies: WhichTechnologiesShouldItUse;
   "wysiwyg-editor": WYSIWYGEditorForGUIDesign;
   "custom-code-integration": CustomCodeIntegration;

@@ -94,13 +94,12 @@
             },
             "ads": {
               "title": "Support for mobile ads",
-              "type": "boolean",
-              "readOnly": true
+              "readOnly": true,
+              "$ref": "#/definitions/rating"
             },
             "long-term-feasibility": {
               "title": "Long term feasibility",
               "readOnly": true,
-
               "$ref": "#/definitions/rating"
             }
           },
