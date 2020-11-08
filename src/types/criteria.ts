@@ -1,45 +1,44 @@
-import { Frameworks } from './frameworks';
+export type CriteriaCategories = CriteriaCategoryData<unknown>;
 
-export type CriteriaCategories = Frameworks['criteria'];
+export type CriterionData<T> = {
+  [criterion: string]: T;
+};
 
-export type CriterionCategoryId = keyof CriteriaCategories;
-
-export type Criterion =
-  | CriterionId<'infrastructure'>
-  | CriterionId<'development'>
-  | CriterionId<'application-usage'>;
-
-export type CriterionId<
-  Category extends CriterionCategoryId
-> = keyof CriteriaCategories[Category];
-
-export type CriteriaData<T> = {
-  [Category in CriterionCategoryId]: {
-    [Criterion in CriterionId<Category>]: T;
-  };
+export type CriteriaCategoryData<T> = {
+  [category: string]: CriterionData<T>;
 };
 
 export type FrameworkSimilarity = {
   framework: string;
-  criteria: CriteriaData<number>;
+  criteria: CriteriaCategoryData<number>;
   totalSimilarity: number;
 };
 
 export type FrameworkData = {
-  [k: string]: Frameworks;
-};
-
-export type FrameworkCriteriaData = {
-  [k: string]: CriteriaCategories;
-};
-
-export type SimilarityFunctions = {
-  [Category in CriterionCategoryId]: {
-    [Criterion in CriterionId<Category>]: (
-      criterionValue: CriteriaCategories[Category][Criterion],
-      frameworkValue: CriteriaCategories[Category][Criterion],
-    ) => number;
+  [framework: string]: {
+    name: string; // TODO: Use frameworks.ts types
+    criteria: CriteriaCategories; // TODO: Use frameworks.ts types
   };
 };
 
-export type Weights = CriteriaData<number>;
+export type FrameworkCriteriaData = {
+  [framework: string]: CriteriaCategories;
+};
+
+export type RatedCriterionData = CriterionData<number | boolean>;
+
+export type RatedCriteriaCategoryData = CriteriaCategoryData<number | boolean>;
+
+export type SimilarityFunction<T> = (
+  criterionValue: T,
+  frameworkValue: T,
+) => number;
+
+export type SimilarityFunctions = {
+  [category: string]: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [criterion: string]: SimilarityFunction<any>;
+  };
+};
+
+export type Weights = CriteriaCategoryData<number>;

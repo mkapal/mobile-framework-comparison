@@ -1,30 +1,23 @@
+import { JSONSchema7 } from 'json-schema';
+
 import { getFrameworkIds } from '../config';
 import schema from '../schemas/frameworks.json';
-import {
-  CriteriaCategories,
-  CriterionCategoryId,
-  CriterionId,
-  FrameworkCriteriaData,
-  FrameworkData,
-  Weights,
-} from '../types';
+import { FrameworkCriteriaData, FrameworkData, Weights } from '../types';
 
-export const getCriteriaSchema = (): typeof schema.properties.criteria.properties =>
-  schema.properties.criteria.properties;
+type CriteriaSchema = {
+  [category: string]: JSONSchema7;
+};
 
-export const getCriteriaCategories = (): CriterionCategoryId[] =>
-  Object.keys(getCriteriaSchema()) as CriterionCategoryId[];
+export const getCriteriaSchema = (): CriteriaSchema =>
+  (schema.properties.criteria.properties as unknown) as CriteriaSchema;
 
-export const getCriteriaIds = <Category extends CriterionCategoryId>(
-  criteria: CriteriaCategories,
-  category: Category,
-): CriterionId<Category>[] =>
-  Object.keys(criteria[category]) as CriterionId<Category>[];
+export const getCriteriaCategories = (): string[] =>
+  Object.keys(getCriteriaSchema());
 
 export const getTotalWeights = (criteriaWeights: Weights): number =>
   Object.values(criteriaWeights).reduce(
     (acc, categoryWeights) =>
-      acc + Object.values(categoryWeights).reduce((acc2, w) => acc2 + w),
+      acc + Object.values(categoryWeights).reduce((acc2, w) => acc2 + w, 0),
     0,
   );
 

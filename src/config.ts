@@ -1,11 +1,6 @@
 import { UiSchema } from '@rjsf/core';
 
-import {
-  Criterion,
-  CriterionCategoryId,
-  CriterionId,
-  SimilarityFunctions,
-} from './types';
+import { CriteriaCategoryData, SimilarityFunctions } from './types';
 import {
   booleanConverseSimilarity,
   booleanSimilarity,
@@ -17,12 +12,14 @@ export const DEFAULT_MAX_RATING = 5;
 
 export const getFrameworkIds = (): string[] => ['react-native', 'cordova'];
 
+type UiWidgetSchema = {
+  [k: string]: UiSchema;
+};
+
 export const getUiWidgetSchema = (
   widget: string,
-  criteria: Criterion[],
-): {
-  [k in Criterion]: UiSchema;
-} =>
+  criteria: string[],
+): UiWidgetSchema =>
   criteria.reduce(
     (acc, criterion) => ({
       ...acc,
@@ -30,16 +27,10 @@ export const getUiWidgetSchema = (
         'ui:widget': widget,
       },
     }),
-    {} as {
-      [k in Criterion]: UiSchema;
-    },
+    {} as UiWidgetSchema,
   );
 
-export const uiSchema: {
-  [Category in CriterionCategoryId]: {
-    [Criterion in CriterionId<Category>]: UiSchema;
-  };
-} = {
+export const uiSchema: CriteriaCategoryData<UiSchema> = {
   infrastructure: {
     ...getUiWidgetSchema('radio', ['free-license', 'pricing']),
   },

@@ -1,38 +1,41 @@
 import {
   CriteriaCategories,
-  CriterionCategoryId,
+  CriterionData,
   FrameworkCriteriaData,
   FrameworkSimilarity,
-  SimilarityFunctions,
+  SimilarityFunction,
   Weights,
 } from '../types';
 
-import { getCriteriaIds, getTotalWeights } from './criteria';
+import { getTotalWeights } from './criteria';
 
-type SimilarityFunction = (
-  criterionValue: unknown,
-  frameworkValue: unknown,
-) => number;
+type CategorySimilarity = CriterionData<number>;
 
+// TODO: Infer formData key types in similarityFunctions
 export const getFrameworkRankings = (
   formData: CriteriaCategories,
   frameworkData: FrameworkCriteriaData,
   criteriaWeights: Weights,
-  similarityFunctions: SimilarityFunctions,
+  similarityFunctions: {
+    [category in keyof typeof formData]: {
+      [criterion in keyof typeof formData[category]]: SimilarityFunction<
+        typeof formData[category][criterion]
+      >;
+    };
+  },
 ): FrameworkSimilarity[] => {
   const totalWeights = getTotalWeights(criteriaWeights);
 
   return Object.keys(frameworkData)
     .map((framework) => {
-      const criteriaCategories = Object.keys(formData) as CriterionCategoryId[];
+      const criteriaCategories = Object.keys(formData);
 
       return criteriaCategories.reduce((categorySimilarities, category) => {
-        const criteriaIds = getCriteriaIds(formData, category);
+        const criteriaIds = Object.keys(formData[category]);
 
-        const categorySimilarity = criteriaIds.reduce(
+        const categorySimilarity: CategorySimilarity = criteriaIds.reduce(
           (criteriaSimilarities, criterion) => {
-            const similarityFunction: SimilarityFunction =
-              similarityFunctions[category][criterion];
+            const similarityFunction = similarityFunctions[category][criterion];
             const criterionWeight = criteriaWeights[category][criterion];
 
             const criterionSimilarity =
@@ -46,7 +49,7 @@ export const getFrameworkRankings = (
               [criterion]: criterionSimilarity,
             };
           },
-          {},
+          {} as CategorySimilarity,
         );
 
         return {

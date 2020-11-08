@@ -2,13 +2,13 @@ import { Mark, Slider } from '@material-ui/core';
 import React, { ChangeEvent, useContext } from 'react';
 
 import { CriteriaFormContext } from '../../context';
-import { CriteriaCategories, CriterionCategoryId } from '../../types';
 
 type Props = {
-  categoryId: CriterionCategoryId;
-  criterionId: keyof CriteriaCategories[CriterionCategoryId];
+  category: string;
+  criterion: string;
 };
 
+// TODO: DEFAULT_MAX_RATING
 const marks: Mark[] = [
   {
     value: 0,
@@ -32,26 +32,26 @@ const marks: Mark[] = [
   },
 ];
 
-export function CriteriaWeightSlider({ categoryId, criterionId }: Props) {
+export function CriteriaWeightSlider({ category, criterion }: Props) {
   const { setWeights, weights } = useContext(CriteriaFormContext);
 
   const handleChange = (_: ChangeEvent<{}>, value: number | number[]) => {
-    if (weights[categoryId][criterionId] === value) {
+    if (weights[category][criterion] === value) {
       return;
     }
 
     setWeights({
       ...weights,
-      [categoryId]: {
-        ...weights[categoryId],
-        [criterionId]: value as number,
+      [category]: {
+        ...weights[category],
+        [criterion]: value as number,
       },
     });
   };
 
   return (
     <Slider
-      value={weights[categoryId][criterionId]}
+      value={weights[category][criterion]}
       step={1}
       min={0}
       max={5}

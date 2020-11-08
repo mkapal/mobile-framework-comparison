@@ -8,7 +8,7 @@
       "pricing": "free",
       "microtransactions": false,
       "internationalization": false,
-      "ads": false,
+      "ads": 5,
       "long-term-feasibility": 0
     },
     "development": {

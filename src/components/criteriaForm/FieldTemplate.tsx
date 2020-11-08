@@ -2,15 +2,7 @@ import { Grid } from '@material-ui/core';
 import { FieldTemplateProps } from '@rjsf/core';
 import React from 'react';
 
-import { CriteriaCategories, CriterionCategoryId } from '../../types';
-
 import { CriteriaWeightSlider } from './CriteriaWeightSlider';
-
-type FieldIdParts = [
-  string,
-  CriterionCategoryId,
-  keyof CriteriaCategories[CriterionCategoryId],
-];
 
 export function FieldTemplate({
   children,
@@ -24,7 +16,7 @@ export function FieldTemplate({
     return children;
   }
 
-  const [, categoryId, criterionId] = idParts as FieldIdParts;
+  const [, categoryId, criterionId] = idParts;
 
   return (
     <Grid container spacing={3}>
@@ -34,10 +26,7 @@ export function FieldTemplate({
         {help}
       </Grid>
       <Grid item xs={5}>
-        <CriteriaWeightSlider
-          categoryId={categoryId}
-          criterionId={criterionId}
-        />
+        <CriteriaWeightSlider category={categoryId} criterion={criterionId} />
       </Grid>
     </Grid>
   );

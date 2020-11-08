@@ -15,7 +15,7 @@ const initialWeights = getInitialWeights();
 function App() {
   const [weights, setWeights] = useState<Weights>(initialWeights);
   const [formData, setFormData] = useState<CriteriaCategories>(
-    (initialRatedValues as unknown) as CriteriaCategories,
+    initialRatedValues,
   );
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 

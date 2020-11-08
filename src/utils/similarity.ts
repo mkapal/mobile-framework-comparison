@@ -30,4 +30,11 @@ export const booleanConverseSimilarity = (
 export const normalizedRating = (
   criterionValue: number,
   frameworkValue: number,
-): number => frameworkValue / DEFAULT_MAX_RATING;
+  maxRating: number = DEFAULT_MAX_RATING,
+): number => {
+  if (maxRating === 0) {
+    return 0;
+  }
+
+  return frameworkValue / maxRating;
+};
