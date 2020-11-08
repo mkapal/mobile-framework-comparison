@@ -30,42 +30,48 @@ export const getFrameworkRankings = (
     .map((framework) => {
       const criteriaCategories = Object.keys(formData);
 
-      return criteriaCategories.reduce((categorySimilarities, category) => {
-        const criteriaIds = Object.keys(formData[category]);
+      return criteriaCategories.reduce(
+        ({ criteria, totalSimilarity }, category) => {
+          const criteriaIds = Object.keys(formData[category]);
 
-        const categorySimilarity: CategorySimilarity = criteriaIds.reduce(
-          (criteriaSimilarities, criterion) => {
-            const similarityFunction = similarityFunctions[category][criterion];
-            const criterionWeight = criteriaWeights[category][criterion];
+          const categorySimilarity: CategorySimilarity = criteriaIds.reduce(
+            (criteriaSimilarities, criterion) => {
+              const similarityFunction =
+                similarityFunctions[category][criterion];
+              const criterionWeight = criteriaWeights[category][criterion];
+              const userValue = formData[category][criterion];
+              const frameworkValue =
+                frameworkData[framework][category][criterion];
 
-            const criterionSimilarity =
-              similarityFunction(
-                formData[category][criterion],
-                frameworkData[framework][category][criterion],
-              ) * criterionWeight;
+              const criterionSimilarity =
+                similarityFunction(userValue, frameworkValue) * criterionWeight;
 
-            return {
-              ...criteriaSimilarities,
-              [criterion]: criterionSimilarity,
-            };
-          },
-          {} as CategorySimilarity,
-        );
+              return {
+                ...criteriaSimilarities,
+                [criterion]: criterionSimilarity,
+              };
+            },
+            {} as CategorySimilarity,
+          );
 
-        return {
-          framework,
-          criteria: {
-            ...categorySimilarities.criteria,
-            [category]: categorySimilarity,
-          },
-          totalSimilarity:
-            (categorySimilarities.totalSimilarity ?? 0) +
-            Object.values<number>(categorySimilarity).reduce(
-              (acc, value) => acc + value,
+          const newTotalSimilarity =
+            (totalSimilarity ?? 0) +
+            Object.values(categorySimilarity).reduce(
+              (total, value) => total + value,
               0,
-            ),
-        };
-      }, {} as FrameworkSimilarity);
+            );
+
+          return {
+            framework,
+            criteria: {
+              ...criteria,
+              [category]: categorySimilarity,
+            },
+            totalSimilarity: newTotalSimilarity,
+          };
+        },
+        {} as FrameworkSimilarity,
+      );
     })
     .map((ranking) => ({
       ...ranking,
