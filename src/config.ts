@@ -6,6 +6,7 @@ import {
   booleanSimilarity,
   jaccardSimilarity,
   normalizedRating,
+  pricingSimilarity,
 } from './utils/similarity';
 
 export const DEFAULT_MAX_RATING = 5;
@@ -46,7 +47,7 @@ export const similarityFunctions: SimilarityFunctions = {
   infrastructure: {
     'mobile-os': jaccardSimilarity,
     'free-license': booleanSimilarity,
-    pricing: (): number => 1, // TODO
+    pricing: pricingSimilarity,
     'development-platforms': jaccardSimilarity,
     'long-term-feasibility': normalizedRating,
     ads: normalizedRating,

@@ -3,6 +3,7 @@ import {
   booleanSimilarity,
   jaccardSimilarity,
   normalizedRating,
+  pricingSimilarity,
 } from '../similarity';
 
 describe('Similarity functions', () => {
@@ -40,6 +41,20 @@ describe('Similarity functions', () => {
       expect(normalizedRating(1, 2)).toEqual(0.4);
       expect(normalizedRating(3, 2, 10)).toEqual(0.2);
       expect(normalizedRating(3, 2, 0)).toEqual(0);
+    });
+  });
+
+  describe('Pricing similarity', () => {
+    it('returns a similarity for pricing policy', () => {
+      expect(pricingSimilarity('free', 'free')).toEqual(1);
+      expect(pricingSimilarity('free', 'free-paid')).toEqual(0.5);
+      expect(pricingSimilarity('free', 'paid')).toEqual(0);
+      expect(pricingSimilarity('free-paid', 'free')).toEqual(0.5);
+      expect(pricingSimilarity('free-paid', 'free-paid')).toEqual(1);
+      expect(pricingSimilarity('free-paid', 'paid')).toEqual(0.5);
+      expect(pricingSimilarity('paid', 'free')).toEqual(0);
+      expect(pricingSimilarity('paid', 'free-paid')).toEqual(0.5);
+      expect(pricingSimilarity('paid', 'paid')).toEqual(1);
     });
   });
 });

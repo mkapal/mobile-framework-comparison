@@ -1,6 +1,10 @@
 import { DEFAULT_MAX_RATING } from '../config';
+import { PricingPolicy, SimilarityFunction } from '../types';
 
-export const jaccardSimilarity = (a: unknown[], b: unknown[]): number => {
+export const jaccardSimilarity: SimilarityFunction<unknown[]> = (
+  a: unknown[],
+  b: unknown[],
+): number => {
   if (a.length === 0 && b.length === 0) {
     return 1;
   }
@@ -17,12 +21,12 @@ export const jaccardSimilarity = (a: unknown[], b: unknown[]): number => {
   return intersection.length / symmetricDifference;
 };
 
-export const booleanSimilarity = (
+export const booleanSimilarity: SimilarityFunction<boolean> = (
   criterionValue: boolean,
   frameworkValue: boolean,
 ): number => Number(frameworkValue);
 
-export const booleanConverseSimilarity = (
+export const booleanConverseSimilarity: SimilarityFunction<boolean> = (
   criterionValue: boolean,
   frameworkValue: boolean,
 ): number => Number(criterionValue || !frameworkValue);
@@ -37,4 +41,21 @@ export const normalizedRating = (
   }
 
   return frameworkValue / maxRating;
+};
+
+export const pricingSimilarity: SimilarityFunction<PricingPolicy> = (
+  criterionValue: PricingPolicy,
+  frameworkValue: PricingPolicy,
+): number => {
+  const similarities: {
+    [s in PricingPolicy]: number;
+  } = {
+    free: 1,
+    paid: 0,
+    'free-paid': 0.5,
+  };
+
+  return (
+    1 - Math.abs(similarities[criterionValue] - similarities[frameworkValue])
+  );
 };
