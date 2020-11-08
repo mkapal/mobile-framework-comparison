@@ -16,15 +16,19 @@ export const getCriteriaCategories = (): string[] =>
 
 export const getTotalWeights = (criteriaWeights: Weights): number =>
   Object.values(criteriaWeights).reduce(
-    (acc, categoryWeights) =>
-      acc + Object.values(categoryWeights).reduce((acc2, w) => acc2 + w, 0),
+    (total, categoryWeights) =>
+      total +
+      Object.values(categoryWeights).reduce(
+        (categoryTotal, weight) => categoryTotal + weight,
+        0,
+      ),
     0,
   );
 
 export const getFrameworkData = (): FrameworkData =>
   getFrameworkIds().reduce(
-    (acc, frameworkId) => ({
-      ...acc,
+    (frameworkData, frameworkId) => ({
+      ...frameworkData,
       [frameworkId]: require(`../data/${frameworkId}.json`),
     }),
     {},
@@ -32,8 +36,8 @@ export const getFrameworkData = (): FrameworkData =>
 
 export const getFrameworkCriteriaData = (): FrameworkCriteriaData =>
   Object.keys(getFrameworkData()).reduce(
-    (acc, frameworkId) => ({
-      ...acc,
+    (criteriaData, frameworkId) => ({
+      ...criteriaData,
       [frameworkId]: getFrameworkData()[frameworkId].criteria,
     }),
     {},

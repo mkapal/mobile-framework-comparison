@@ -28,8 +28,8 @@ const generateUiWidgetSchema = (
   widget: string,
 ): CriteriaCategoryData<UiSchema> =>
   getCriteriaCategories().reduce(
-    (acc, category) => ({
-      ...acc,
+    (uiSchema, category) => ({
+      ...uiSchema,
       [category]: getUiWidgetSchema(
         widget,
         filterCriteriaInCategory(category, criteriaFilter),
@@ -56,13 +56,13 @@ const getRatedInitialValuesForCategory = (
   filterCriteriaInCategory(
     categoryId,
     (criterionSchema) => !!criterionSchema.readOnly,
-  ).reduce((acc, criterionId) => {
+  ).reduce((readOnlyCriteria, criterionId) => {
     const isBoolean =
       (getCriteriaSchema()[categoryId].properties?.[criterionId] as JSONSchema7)
         .type === 'boolean';
 
     return {
-      ...acc,
+      ...readOnlyCriteria,
       [criterionId]: isBoolean ? false : 0,
     };
   }, {} as RatedCriterionData);

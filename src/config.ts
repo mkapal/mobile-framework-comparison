@@ -21,8 +21,8 @@ export const getUiWidgetSchema = (
   criteria: string[],
 ): UiWidgetSchema =>
   criteria.reduce(
-    (acc, criterion) => ({
-      ...acc,
+    (uiSchema, criterion) => ({
+      ...uiSchema,
       [criterion]: {
         'ui:widget': widget,
       },
