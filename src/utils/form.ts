@@ -1,7 +1,9 @@
 import { UiSchema, utils } from '@rjsf/core';
+import Ajv, { ErrorObject } from 'ajv';
 import { JSONSchema7 } from 'json-schema';
 
 import { getUiWidgetSchema } from '../config';
+import schema from '../schemas/frameworks.json';
 import {
   CriteriaCategoryData,
   CriterionData,
@@ -37,6 +39,25 @@ const generateUiWidgetSchema = (
     }),
     {} as CriteriaCategoryData<UiSchema>,
   );
+
+export const getFormSchema = (): object => ({
+  ...schema.properties.criteria,
+  definitions: {
+    ...schema.definitions,
+  },
+});
+
+export const validateSchema = (
+  schema: object,
+  formData: object,
+): ErrorObject[] => {
+  const ajv = new Ajv({ allErrors: true, useDefaults: true });
+  const validator = ajv.compile(schema);
+
+  validator(formData);
+
+  return validator.errors?.length ? validator.errors : [];
+};
 
 export const getRatedCriteriaWidgets = (): CriteriaCategoryData<UiSchema> =>
   generateUiWidgetSchema(

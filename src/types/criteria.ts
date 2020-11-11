@@ -8,16 +8,22 @@ export type CriteriaCategoryData<T> = {
   [category: string]: CriterionData<T>;
 };
 
+export type DisplayStringMap = {
+  [p: string]: string;
+};
+
 export type FrameworkSimilarity = {
   framework: string;
   criteria: CriteriaCategoryData<number>;
   totalSimilarity: number;
 };
 
+// TODO: Use frameworks.ts types
 export type FrameworkData = {
   [framework: string]: {
-    name: string; // TODO: Use frameworks.ts types
-    criteria: CriteriaCategories; // TODO: Use frameworks.ts types
+    name: string;
+    url: string;
+    criteria: CriteriaCategories;
   };
 };
 

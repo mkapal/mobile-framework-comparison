@@ -6,7 +6,8 @@ import { JSONSchema7 } from 'json-schema';
 import React, { useContext, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { FieldTemplate, HiddenWidget } from '../components/criteriaForm';
+import { HiddenWidget } from '../components/molecules';
+import { FieldTemplate } from '../components/organisms';
 import { uiSchema } from '../config';
 import { CriteriaFormContext } from '../context';
 import { PageLayout } from '../layouts/PageLayout';

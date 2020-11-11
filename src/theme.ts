@@ -1,9 +1,15 @@
 import { createMuiTheme } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
 
 export const theme = createMuiTheme({
   typography: {
     subtitle1: {
       fontSize: 32,
+    },
+  },
+  palette: {
+    primary: {
+      main: blue['800'],
     },
   },
   props: {

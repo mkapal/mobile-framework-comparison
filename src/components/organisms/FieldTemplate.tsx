@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core';
 import { FieldTemplateProps } from '@rjsf/core';
 import React from 'react';
 
-import { CriteriaWeightSlider } from './CriteriaWeightSlider';
+import { CriteriaWeightSlider } from '../atoms/CriteriaWeightSlider';
 
 export function FieldTemplate({
   children,
