@@ -1,10 +1,11 @@
-import { Box, Container, Link } from '@material-ui/core';
+import { Box, Container, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
 type Props = {
   children?: ReactNode;
+  title: string;
+  description?: string;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -13,9 +14,15 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2),
     },
   },
+  title: {
+    marginBottom: theme.spacing(2),
+  },
+  description: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
-export function PageLayout({ children }: Props) {
+export function PageLayout({ children, description, title }: Props) {
   const classes = useStyles();
 
   return (
@@ -35,6 +42,14 @@ export function PageLayout({ children }: Props) {
             Questions
           </Link>
         </Box>
+        <Typography variant="h1" className={classes.title}>
+          {title}
+        </Typography>
+        {description && (
+          <Typography variant="body2" className={classes.description}>
+            {description}
+          </Typography>
+        )}
         <Box pb={4}>{children}</Box>
       </Container>
     </Box>

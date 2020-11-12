@@ -6,6 +6,9 @@ export const theme = createMuiTheme({
     subtitle1: {
       fontSize: 32,
     },
+    h1: {
+      fontSize: 40,
+    },
   },
   palette: {
     primary: {

@@ -69,7 +69,10 @@ export function Form() {
   };
 
   return (
-    <PageLayout>
+    <PageLayout
+      title="Framework evaluation criteria"
+      description="Fill in the form and specify weights for each criterion."
+    >
       <MuiForm
         schema={formSchema as JSONSchema7}
         uiSchema={uiSchemaWithMultiSelectWidgets}

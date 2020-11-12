@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 
 import { FrameworkRankings } from '../components/molecules';
@@ -16,9 +16,10 @@ import {
 
 export function Results() {
   const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+  const pageTitle = 'Framework rankings';
 
   if (!isSubmitted) {
-    return <PageLayout>Form not submitted</PageLayout>;
+    return <PageLayout title={pageTitle}>Form not submitted</PageLayout>;
   }
 
   const frameworkData = getFrameworkData();
@@ -34,7 +35,10 @@ export function Results() {
   );
 
   return (
-    <PageLayout>
+    <PageLayout
+      title={pageTitle}
+      description="Frameworks are ranked based on your filled in criteria and weights."
+    >
       <Box mb={4}>
         <Box mb={2}>
           <FrameworkRankings
