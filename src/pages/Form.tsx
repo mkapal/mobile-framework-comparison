@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, Container, Typography } from '@material-ui/core';
 import { green, grey } from '@material-ui/core/colors';
 import {
   Android,
@@ -77,56 +77,60 @@ export function Form() {
 
   return (
     <PageLayout>
-      <Box
-        display="flex"
-        flex={1}
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-      >
-        <Box>
-          <Apple style={{ color: grey[500], fontSize: 50, marginRight: -20 }} />
-          <PhoneIphoneTwoTone
-            style={{ color: grey[900], fontSize: 100, marginRight: -20 }}
-          />
-          <PhoneAndroidTwoTone
-            style={{ color: grey[900], fontSize: 100, marginLeft: -20 }}
-          />
-          <Android
-            style={{ color: green['A400'], fontSize: 40, marginLeft: -10 }}
-          />
-        </Box>
-        <Typography variant="subtitle1">
-          Mobile Framework Recommendation System
-        </Typography>
-        <Box mb={4}>
-          <Typography variant="body1">
-            Get a ranked list of recommended cross-platform mobile frameworks
+      <Container maxWidth="md">
+        <Box
+          display="flex"
+          flex={1}
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+        >
+          <Box>
+            <Apple
+              style={{ color: grey[500], fontSize: 50, marginRight: -20 }}
+            />
+            <PhoneIphoneTwoTone
+              style={{ color: grey[900], fontSize: 100, marginRight: -20 }}
+            />
+            <PhoneAndroidTwoTone
+              style={{ color: grey[900], fontSize: 100, marginLeft: -20 }}
+            />
+            <Android
+              style={{ color: green['A400'], fontSize: 40, marginLeft: -10 }}
+            />
+          </Box>
+          <Typography variant="subtitle1">
+            Mobile Framework Recommendation System
           </Typography>
+          <Box mb={4}>
+            <Typography variant="body1">
+              Get a ranked list of recommended cross-platform mobile frameworks
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-      <MuiForm
-        schema={formSchema as JSONSchema7}
-        uiSchema={uiSchemaWithMultiSelectWidgets}
-        FieldTemplate={FieldTemplate}
-        widgets={widgets}
-        showErrorList={false}
-        formData={formData}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-      >
-        <Box mt={4} display="flex" justifyContent="flex-end">
-          <Button
-            disabled={submitDisabled}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Submit
-          </Button>
-        </Box>
-      </MuiForm>
+        <MuiForm
+          schema={formSchema as JSONSchema7}
+          uiSchema={uiSchemaWithMultiSelectWidgets}
+          FieldTemplate={FieldTemplate}
+          widgets={widgets}
+          showErrorList={false}
+          formData={formData}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        >
+          <Box mt={4} display="flex" justifyContent="flex-end">
+            <Button
+              disabled={submitDisabled}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Submit
+            </Button>
+          </Box>
+        </MuiForm>
+      </Container>
     </PageLayout>
   );
 }

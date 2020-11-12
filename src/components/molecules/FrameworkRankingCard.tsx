@@ -25,7 +25,7 @@ type Props = {
 const FrameworkTitle = withStyles(() =>
   createStyles({
     root: {
-      minWidth: '200px',
+      minWidth: '170px',
       fontSize: '18px',
     },
   }),
@@ -50,6 +50,7 @@ const AccordionActions = withStyles(() =>
 const useStyles = makeStyles((theme: Theme) => ({
   logo: {
     height: '26px',
+    width: '26px',
     marginRight: theme.spacing(1),
   },
 }));

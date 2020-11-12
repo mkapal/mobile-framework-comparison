@@ -4,7 +4,7 @@ import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 export const ScoreGraph = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: 10,
+      height: 8,
       borderRadius: 5,
       flex: 1,
     },
@@ -13,7 +13,7 @@ export const ScoreGraph = withStyles((theme: Theme) =>
     },
     bar: {
       borderRadius: 5,
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.grey['300'],
     },
   }),
 )(LinearProgress);

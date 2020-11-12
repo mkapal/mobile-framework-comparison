@@ -1,5 +1,6 @@
-import { Box } from '@material-ui/core';
-import React, { useContext } from 'react';
+import { Box, Button, Typography } from '@material-ui/core';
+import { BubbleChart, List } from '@material-ui/icons';
+import React, { useContext, useState } from 'react';
 
 import { PageLayout } from '../components/layouts/PageLayout';
 import { FrameworkRankings } from '../components/molecules';
@@ -15,6 +16,7 @@ import {
 } from '../utils';
 
 export function Results() {
+  const [showValues, setShowValues] = useState(false);
   const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
   const pageTitle = 'Framework rankings';
 
@@ -38,23 +40,38 @@ export function Results() {
     <PageLayout
       title={pageTitle}
       description="Frameworks are ranked based on your filled in criteria and weights."
-      backButton
+      backButton={{
+        label: 'Show form',
+        to: '/',
+      }}
     >
       <Box mb={4}>
-        <Box mb={2}>
-          <FrameworkRankings
-            frameworkData={frameworkData}
-            rankings={rankings}
-          />
-        </Box>
-        <CriteriaSimilarityTable
-          displayStrings={displayStrings}
-          formData={formData}
-          frameworkData={frameworkData}
-          rankings={rankings}
-          weights={weights}
-        />
+        <FrameworkRankings frameworkData={frameworkData} rankings={rankings} />
       </Box>
+      <Box
+        mb={2}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Typography variant="h2">Criteria comparison</Typography>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => setShowValues(!showValues)}
+          startIcon={showValues ? <BubbleChart /> : <List />}
+        >
+          {showValues ? 'Show similarities' : 'Show data'}
+        </Button>
+      </Box>
+      <CriteriaSimilarityTable
+        displayStrings={displayStrings}
+        formData={formData}
+        frameworkData={frameworkData}
+        rankings={rankings}
+        weights={weights}
+        showValues={showValues}
+      />
     </PageLayout>
   );
 }

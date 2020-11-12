@@ -98,12 +98,16 @@
             "ads": {
               "title": "Support for mobile ads",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "long-term-feasibility": {
               "title": "Long term feasibility",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             }
           },
           "propertyNames": {
@@ -177,37 +181,51 @@
             "documentation": {
               "title": "Documentation",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "scalability": {
               "title": "Scalability",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "initial-config": {
               "title": "Initial project configuration",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "testing": {
               "title": "Testing",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "extensibility": {
               "title": "Extensibility",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "continuous-deployment": {
               "title": "Support for continuous integration & deployment",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "configuration-management": {
               "title": "Configuration management",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             }
           },
           "propertyNames": {
@@ -376,27 +394,37 @@
             "touch-gestures": {
               "title": "Support for touch gestures",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "app-lifecycle": {
               "title": "Support for application lifecycle",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "security": {
               "title": "Security",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "user-interface": {
               "title": "User interface",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             },
             "performance": {
               "title": "Performance",
               "readOnly": true,
-              "$ref": "#/definitions/rating"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
             }
           },
           "propertyNames": {

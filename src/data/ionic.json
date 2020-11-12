@@ -1,0 +1,39 @@
+{
+  "name": "Ionic",
+  "url": "https://ionicframework.com",
+  "criteria": {
+    "infrastructure": {
+      "mobile-os": ["android", "ios"],
+      "development-platforms": ["windows", "macos"],
+      "free-license": false,
+      "pricing": "free",
+      "microtransactions": true,
+      "internationalization": true,
+      "ads": 5,
+      "long-term-feasibility": 3
+    },
+    "development": {
+      "configuration-management": 0,
+      "continuous-deployment": 0,
+      "custom-code-integration": false,
+      "custom-ide": false,
+      "documentation": 4,
+      "extensibility": 0,
+      "initial-config": 0,
+      "scalability": 0,
+      "technologies": ["javascript"],
+      "testing": 0,
+      "wysiwyg-editor": false
+    },
+    "application-usage": {
+      "app-lifecycle": 0,
+      "hardware": ["accelerometer", "biometrics"],
+      "offline": true,
+      "performance": 2,
+      "security": 3,
+      "software": ["browser", "contacts"],
+      "touch-gestures": 3,
+      "user-interface": 4
+    }
+  }
+}

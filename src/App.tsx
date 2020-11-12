@@ -1,6 +1,11 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+} from 'react-router-dom';
 
 import { CriteriaFormContext } from './context';
 import './global.css';
@@ -9,14 +14,22 @@ import { theme } from './theme';
 import { CriteriaCategories, Weights } from './types';
 import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
 
-const initialRatedValues = getRatedCriteriaInitialValues();
+const initialValues = getRatedCriteriaInitialValues();
 const initialWeights = getInitialWeights();
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 function App() {
   const [weights, setWeights] = useState<Weights>(initialWeights);
-  const [formData, setFormData] = useState<CriteriaCategories>(
-    initialRatedValues,
-  );
+  const [formData, setFormData] = useState<CriteriaCategories>(initialValues);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   return (
@@ -33,6 +46,7 @@ function App() {
         }}
       >
         <Router>
+          <ScrollToTop />
           <Switch>
             <Route exact path="/">
               <Form />

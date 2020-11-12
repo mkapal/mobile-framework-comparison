@@ -1,6 +1,6 @@
 {
-  "name": "React Native",
-  "url": "https://reactnative.dev",
+  "name": "Flutter",
+  "url": "https://flutter.dev",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],
@@ -9,31 +9,31 @@
       "pricing": "free",
       "microtransactions": true,
       "internationalization": true,
-      "ads": 4,
-      "long-term-feasibility": 4
+      "ads": 3,
+      "long-term-feasibility": 3
     },
     "development": {
-      "configuration-management": 0,
-      "continuous-deployment": 3,
+      "configuration-management": 1,
+      "continuous-deployment": 4,
       "custom-code-integration": true,
       "custom-ide": false,
       "documentation": 4,
       "extensibility": 4,
       "initial-config": 3,
       "scalability": 3,
-      "technologies": ["javascript"],
+      "technologies": ["dart"],
       "testing": 3,
       "wysiwyg-editor": false
     },
     "application-usage": {
       "app-lifecycle": 4,
-      "hardware": ["accelerometer"],
+      "hardware": ["accelerometer", "bluetooth", "camera", "temperature"],
       "offline": true,
       "performance": 4,
-      "security": 0,
+      "security": 3,
       "software": ["browser", "call-history", "contacts"],
       "touch-gestures": 4,
-      "user-interface": 4
+      "user-interface": 3
     }
   }
 }

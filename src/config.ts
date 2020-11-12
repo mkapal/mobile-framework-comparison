@@ -11,7 +11,14 @@ import {
 
 export const DEFAULT_MAX_RATING = 5;
 
-export const getFrameworkIds = (): string[] => ['react-native', 'cordova'];
+export const getFrameworkIds = (): string[] => [
+  'cordova',
+  'flutter',
+  'ionic',
+  'nativescript',
+  'react-native',
+  'xamarin',
+];
 
 type UiWidgetSchema = {
   [k: string]: UiSchema;

@@ -1,0 +1,39 @@
+{
+  "name": "NativeScript",
+  "url": "https://nativescript.org/",
+  "criteria": {
+    "infrastructure": {
+      "mobile-os": ["android", "ios"],
+      "development-platforms": ["windows"],
+      "free-license": true,
+      "pricing": "free",
+      "microtransactions": true,
+      "internationalization": false,
+      "ads": 3,
+      "long-term-feasibility": 2
+    },
+    "development": {
+      "configuration-management": 0,
+      "continuous-deployment": 0,
+      "custom-code-integration": false,
+      "custom-ide": true,
+      "documentation": 3,
+      "extensibility": 2,
+      "initial-config": 4,
+      "scalability": 2,
+      "technologies": ["xml"],
+      "testing": 2,
+      "wysiwyg-editor": true
+    },
+    "application-usage": {
+      "app-lifecycle": 0,
+      "hardware": ["accelerometer", "biometrics", "geolocation"],
+      "offline": true,
+      "performance": 2,
+      "security": 3,
+      "software": ["browser", "contacts"],
+      "touch-gestures": 3,
+      "user-interface": 3
+    }
+  }
+}

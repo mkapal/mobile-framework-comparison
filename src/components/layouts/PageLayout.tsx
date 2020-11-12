@@ -2,21 +2,19 @@ import { Box, Button, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ArrowBackIos } from '@material-ui/icons';
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 
 type Props = {
-  backButton?: boolean;
+  backButton?: {
+    label: string;
+    to: LinkProps['to'];
+  };
   children?: ReactNode;
   title?: string;
   description?: string;
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-  },
   title: {
     marginBottom: theme.spacing(2),
   },
@@ -41,16 +39,16 @@ export function PageLayout({
       height="inherit"
       padding={4}
     >
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         {backButton && (
           <Box mb={2}>
             <Button
               component={Link}
               color="primary"
-              to="/"
+              to={backButton.to}
               startIcon={<ArrowBackIos />}
             >
-              Questions
+              {backButton.label}
             </Button>
           </Box>
         )}
