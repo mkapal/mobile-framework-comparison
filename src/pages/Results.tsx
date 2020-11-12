@@ -1,11 +1,11 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import React, { useContext } from 'react';
 
+import { PageLayout } from '../components/layouts/PageLayout';
 import { FrameworkRankings } from '../components/molecules';
 import { CriteriaSimilarityTable } from '../components/organisms';
 import { similarityFunctions } from '../config';
 import { CriteriaFormContext } from '../context';
-import { PageLayout } from '../layouts/PageLayout';
 import {
   getCriteriaSchema,
   getDisplayStrings,
@@ -38,6 +38,7 @@ export function Results() {
     <PageLayout
       title={pageTitle}
       description="Frameworks are ranked based on your filled in criteria and weights."
+      backButton
     >
       <Box mb={4}>
         <Box mb={2}>

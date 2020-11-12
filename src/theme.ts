@@ -14,6 +14,9 @@ export const theme = createMuiTheme({
     primary: {
       main: blue['800'],
     },
+    secondary: {
+      main: blue['600'],
+    },
   },
   props: {
     MuiTypography: {

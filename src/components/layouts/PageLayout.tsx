@@ -1,10 +1,13 @@
-import { Box, Container, Link, Typography } from '@material-ui/core';
+import { Box, Button, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ArrowBackIos } from '@material-ui/icons';
 import React, { ReactNode } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 type Props = {
+  backButton?: boolean;
   children?: ReactNode;
-  title: string;
+  title?: string;
   description?: string;
 };
 
@@ -22,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function PageLayout({ children, description, title }: Props) {
+export function PageLayout({
+  backButton,
+  children,
+  description,
+  title,
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -34,17 +42,23 @@ export function PageLayout({ children, description, title }: Props) {
       padding={4}
     >
       <Container maxWidth="md">
-        <Box component="nav" mb={4} className={classes.root}>
-          <Link component={RouterLink} to="/">
-            Home
-          </Link>
-          <Link component={RouterLink} to="/questions">
-            Questions
-          </Link>
-        </Box>
-        <Typography variant="h1" className={classes.title}>
-          {title}
-        </Typography>
+        {backButton && (
+          <Box mb={2}>
+            <Button
+              component={Link}
+              color="primary"
+              to="/"
+              startIcon={<ArrowBackIos />}
+            >
+              Questions
+            </Button>
+          </Box>
+        )}
+        {title && (
+          <Typography variant="h1" className={classes.title}>
+            {title}
+          </Typography>
+        )}
         {description && (
           <Typography variant="body2" className={classes.description}>
             {description}

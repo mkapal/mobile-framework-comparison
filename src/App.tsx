@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { CriteriaFormContext } from './context';
 import './global.css';
-import { Form, Home, Results } from './pages';
+import { Form, Results } from './pages';
 import { theme } from './theme';
 import { CriteriaCategories, Weights } from './types';
 import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
@@ -35,9 +35,6 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/questions">
               <Form />
             </Route>
             <Route exact path="/results">

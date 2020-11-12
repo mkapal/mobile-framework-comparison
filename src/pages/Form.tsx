@@ -1,4 +1,11 @@
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
+import { green, grey } from '@material-ui/core/colors';
+import {
+  Android,
+  Apple,
+  PhoneAndroidTwoTone,
+  PhoneIphoneTwoTone,
+} from '@material-ui/icons';
 import { IChangeEvent, utils, Widget } from '@rjsf/core';
 import MuiForm from '@rjsf/material-ui';
 import Ajv from 'ajv';
@@ -6,11 +13,11 @@ import { JSONSchema7 } from 'json-schema';
 import React, { useContext, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { PageLayout } from '../components/layouts/PageLayout';
 import { HiddenWidget } from '../components/molecules';
 import { FieldTemplate } from '../components/organisms';
 import { uiSchema } from '../config';
 import { CriteriaFormContext } from '../context';
-import { PageLayout } from '../layouts/PageLayout';
 import schema from '../schemas/frameworks.json';
 import { getMultiSelectWidgets, getRatedCriteriaWidgets } from '../utils';
 
@@ -69,10 +76,36 @@ export function Form() {
   };
 
   return (
-    <PageLayout
-      title="Framework evaluation criteria"
-      description="Fill in the form and specify weights for each criterion."
-    >
+    <PageLayout>
+      <Box
+        display="flex"
+        flex={1}
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
+        <Box>
+          <Apple style={{ color: grey[500], fontSize: 50, marginRight: -20 }} />
+          <PhoneIphoneTwoTone
+            style={{ color: grey[900], fontSize: 100, marginRight: -20 }}
+          />
+          <PhoneAndroidTwoTone
+            style={{ color: grey[900], fontSize: 100, marginLeft: -20 }}
+          />
+          <Android
+            style={{ color: green['A400'], fontSize: 40, marginLeft: -10 }}
+          />
+        </Box>
+        <Typography variant="subtitle1">
+          Mobile Framework Recommendation System
+        </Typography>
+        <Box mb={4}>
+          <Typography variant="body1">
+            Get a ranked list of recommended cross-platform mobile frameworks
+          </Typography>
+        </Box>
+      </Box>
       <MuiForm
         schema={formSchema as JSONSchema7}
         uiSchema={uiSchemaWithMultiSelectWidgets}
