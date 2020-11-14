@@ -13,6 +13,9 @@ type Props = {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    cursor: 'help',
+  },
   icon: {
     color: theme.palette.grey['700'],
   },
@@ -20,12 +23,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.grey['300'],
   },
 }));
+
 export function RatingIndicator({ label, rating }: Props) {
   const classes = useStyles();
 
   return (
     <Tooltip title={label} aria-label={label}>
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center" className={classes.root}>
         {range(DEFAULT_MAX_RATING).map((number) => (
           <div
             className={classes[number < rating ? 'icon' : 'iconEmpty']}
