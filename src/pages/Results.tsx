@@ -16,7 +16,7 @@ import {
 } from '../utils';
 
 export function Results() {
-  const [showValues, setShowValues] = useState(false);
+  const [showData, setShowData] = useState(true);
   const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
   const pageTitle = 'Framework rankings';
 
@@ -58,10 +58,10 @@ export function Results() {
         <Button
           variant="outlined"
           size="small"
-          onClick={() => setShowValues(!showValues)}
-          startIcon={showValues ? <BubbleChart /> : <List />}
+          onClick={() => setShowData(!showData)}
+          startIcon={showData ? <BubbleChart /> : <List />}
         >
-          {showValues ? 'Show similarities' : 'Show data'}
+          {showData ? 'Show similarities' : 'Show data'}
         </Button>
       </Box>
       <CriteriaSimilarityTable
@@ -70,7 +70,7 @@ export function Results() {
         frameworkData={frameworkData}
         rankings={rankings}
         weights={weights}
-        showValues={showValues}
+        showValues={showData}
       />
     </PageLayout>
   );
