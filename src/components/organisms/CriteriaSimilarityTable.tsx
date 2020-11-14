@@ -136,7 +136,7 @@ export function CriteriaSimilarityTable({
                             className={classes.frameworkCell}
                             align="center"
                             style={
-                              schemaType === 'array'
+                              showValues && schemaType === 'array'
                                 ? { verticalAlign: 'top' }
                                 : {}
                             }
