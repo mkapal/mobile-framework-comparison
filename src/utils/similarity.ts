@@ -2,23 +2,27 @@ import { DEFAULT_MAX_RATING } from '../config';
 import { PricingPolicy, SimilarityFunction } from '../types';
 
 export const jaccardSimilarity: SimilarityFunction<unknown[]> = (
-  a: unknown[],
-  b: unknown[],
+  criterionValues: unknown[],
+  frameworkValues: unknown[],
 ): number => {
-  if (a.length === 0 && b.length === 0) {
+  if (criterionValues.length === 0 && frameworkValues.length === 0) {
     return 1;
   }
 
-  const intersection = a.filter((item) => b.includes(item));
-  const bNotInA = b.filter((item) => !a.includes(item));
+  const supportedValues = criterionValues.filter((value) =>
+    frameworkValues.includes(value),
+  );
+  const unsupportedValues = criterionValues.filter(
+    (value) => !frameworkValues.includes(value),
+  );
 
-  const symmetricDifference = intersection.length + bNotInA.length;
-
-  if (symmetricDifference === 0) {
+  if (supportedValues.length + unsupportedValues.length === 0) {
     return 0;
   }
 
-  return intersection.length / symmetricDifference;
+  return (
+    supportedValues.length / (supportedValues.length + unsupportedValues.length)
+  );
 };
 
 export const booleanSimilarity: SimilarityFunction<boolean> = (
