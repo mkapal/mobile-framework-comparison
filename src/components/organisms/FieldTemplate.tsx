@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core';
 import { FieldTemplateProps } from '@rjsf/core';
 import React from 'react';
 
-import { CriteriaWeightSlider } from '../atoms/CriteriaWeightSlider';
+import { CriterionWeightSlider } from '../atoms/CriterionWeightSlider';
 
 export function FieldTemplate({
   children,
@@ -26,7 +26,7 @@ export function FieldTemplate({
         {help}
       </Grid>
       <Grid item xs={5}>
-        <CriteriaWeightSlider category={categoryId} criterion={criterionId} />
+        <CriterionWeightSlider category={categoryId} criterion={criterionId} />
       </Grid>
     </Grid>
   );

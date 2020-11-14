@@ -11,7 +11,7 @@ type Props = {
   maxRating?: number;
 };
 
-export function CriteriaWeightSlider({
+export function CriterionWeightSlider({
   category,
   criterion,
   maxRating = DEFAULT_MAX_RATING,

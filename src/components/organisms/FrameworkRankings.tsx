@@ -2,8 +2,7 @@ import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
 import { FrameworkData, FrameworkSimilarity } from '../../types';
-
-import { FrameworkRankingCard } from './FrameworkRankingCard';
+import { FrameworkRankingCard } from '../molecules/FrameworkRankingCard';
 
 type Props = {
   rankings: FrameworkSimilarity[];

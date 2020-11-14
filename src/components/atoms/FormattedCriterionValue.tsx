@@ -22,7 +22,7 @@ const StyledChip = styled(Chip)({
 
 const schema = getCriteriaSchema();
 
-export function CriterionValue({ category, criterion, value }: Props) {
+export function FormattedCriterionValue({ category, criterion, value }: Props) {
   const schemaType = utils.getSchemaType(
     schema[category].properties![criterion] as JSONSchema7,
   );

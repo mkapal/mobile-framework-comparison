@@ -3,8 +3,10 @@ import { BubbleChart, List } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 
 import { PageLayout } from '../components/layouts/PageLayout';
-import { FrameworkRankings } from '../components/molecules';
-import { CriteriaSimilarityTable } from '../components/organisms';
+import {
+  CriteriaSimilarityTable,
+  FrameworkRankings,
+} from '../components/organisms';
 import { similarityFunctions } from '../config';
 import { CriteriaFormContext } from '../context';
 import {

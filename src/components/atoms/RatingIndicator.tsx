@@ -10,6 +10,7 @@ import { Tooltip } from './Tooltip';
 type Props = {
   rating: number;
   label: string;
+  maxRating?: number;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -24,13 +25,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export function RatingIndicator({ label, rating }: Props) {
+export function RatingIndicator({
+  label,
+  rating,
+  maxRating = DEFAULT_MAX_RATING,
+}: Props) {
   const classes = useStyles();
 
   return (
     <Tooltip title={label} aria-label={label}>
       <Box display="flex" justifyContent="center" className={classes.root}>
-        {range(DEFAULT_MAX_RATING).map((number) => (
+        {range(maxRating).map((number) => (
           <div
             className={classes[number < rating ? 'icon' : 'iconEmpty']}
             key={number}

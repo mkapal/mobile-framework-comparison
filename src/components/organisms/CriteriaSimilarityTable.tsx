@@ -20,7 +20,11 @@ import {
   Weights,
 } from '../../types';
 import { getCriteriaSchema } from '../../utils';
-import { CriterionValue, RatingIndicator, SimilarityIndicator } from '../atoms';
+import {
+  FormattedCriterionValue,
+  RatingIndicator,
+  SimilarityIndicator,
+} from '../atoms';
 
 type Props = {
   displayStrings: DisplayStringMap;
@@ -111,7 +115,7 @@ export function CriteriaSimilarityTable({
                               : {}
                           }
                         >
-                          <CriterionValue
+                          <FormattedCriterionValue
                             category={category}
                             criterion={criterion}
                             value={value}
@@ -142,7 +146,7 @@ export function CriteriaSimilarityTable({
                             }
                           >
                             {showValues ? (
-                              <CriterionValue
+                              <FormattedCriterionValue
                                 category={category}
                                 criterion={criterion}
                                 value={frameworkValue}

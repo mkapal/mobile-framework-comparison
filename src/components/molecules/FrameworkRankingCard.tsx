@@ -11,7 +11,7 @@ import { createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
 import { ExpandMore, Language as WebsiteIcon } from '@material-ui/icons';
 import React from 'react';
 
-import { ScoreGraph } from '../atoms';
+import { FrameworkScoreIndicator } from '../atoms';
 
 type Props = {
   id: string;
@@ -75,7 +75,7 @@ export function FrameworkRankingCard({
       >
         <img src={logo.default} alt={name} className={classes.logo} />
         <FrameworkTitle>{name}</FrameworkTitle>
-        <ScoreGraph variant="determinate" value={score} />
+        <FrameworkScoreIndicator score={score} />
       </AccordionSummary>
       <AccordionDetails>
         <Typography>

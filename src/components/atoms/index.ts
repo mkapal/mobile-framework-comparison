@@ -1,6 +1,6 @@
-export { CriterionValue } from './CriterionValue';
-export { CriteriaWeightSlider } from './CriteriaWeightSlider';
+export { FormattedCriterionValue } from './FormattedCriterionValue';
+export { CriterionWeightSlider } from './CriterionWeightSlider';
 export { RatingIndicator } from './RatingIndicator';
-export { ScoreGraph } from './ScoreGraph';
+export { FrameworkScoreIndicator } from './FrameworkScoreIndicator';
 export { SimilarityIndicator } from './SimilarityIndicator';
 export { Tooltip } from './Tooltip';
