@@ -31,15 +31,19 @@ export function CriterionValue({ category, criterion, value }: Props) {
     switch (schemaType) {
       case 'array': {
         const optionsList = utils.optionsList(
+          // @ts-ignore
           (schema[category].properties![criterion] as JSONSchema7).items,
         );
 
+        const arrayOfValues = value as string[];
+        const sortedValues = arrayOfValues.sort();
+
         return (
           <Box display="flex" flexDirection="column" alignItems="center">
-            {(value as string[]).map((v) => {
+            {sortedValues.map((v) => {
               const displayString = optionsList.find(
                 (option) => option.value === v,
-              ).label;
+              )?.label;
 
               return <StyledChip key={v} size="small" label={displayString} />;
             })}
@@ -48,19 +52,23 @@ export function CriterionValue({ category, criterion, value }: Props) {
       }
 
       case 'integer': {
+        const integerValue = value as number;
+
         return (
           <RatingIndicator
-            rating={value as number}
-            label={`Rating: ${(value as number).toFixed(0)}`}
+            rating={integerValue}
+            label={`Rating: ${integerValue.toFixed(0)}`}
           />
         );
       }
 
       case 'boolean': {
-        return (value as boolean) ? (
-          <CheckCircle htmlColor={green['400']} titleAccess="Yes" />
+        const booleanValue = value as boolean;
+
+        return booleanValue ? (
+          <CheckCircle htmlColor={green['400']} titleAccess="Supported" />
         ) : (
-          <Cancel htmlColor={red['400']} titleAccess="No" />
+          <Cancel htmlColor={red['400']} titleAccess="Unsupported" />
         );
       }
 
