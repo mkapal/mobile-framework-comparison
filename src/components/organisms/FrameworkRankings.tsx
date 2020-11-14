@@ -26,7 +26,7 @@ export function FrameworkRankings({ frameworkData, rankings }: Props) {
           <FrameworkRankingCard
             id={framework}
             name={frameworkData[framework].name}
-            score={totalSimilarity * 100}
+            similarity={totalSimilarity}
             expanded={expandedFramework === framework}
             onToggleExpand={handleToggleExpandFramework(framework)}
             url={frameworkData[framework].url}

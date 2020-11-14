@@ -11,7 +11,9 @@ import { getTotalWeights } from './criteria';
 
 type CategorySimilarity = CriterionData<number>;
 
-// TODO: Infer formData key types in similarityFunctions
+export const formatFrameworkScore = (similarity: number): string =>
+  (similarity * 100).toFixed(1);
+
 export const getFrameworkRankings = (
   formData: CriteriaCategories,
   frameworkData: FrameworkCriteriaData,

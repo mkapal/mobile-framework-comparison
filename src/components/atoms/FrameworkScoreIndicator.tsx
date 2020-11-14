@@ -9,8 +9,10 @@ import {
 import { Styles } from '@material-ui/core/styles/withStyles';
 import React from 'react';
 
+import { formatFrameworkScore } from '../../utils';
+
 interface FrameworkScoreIndicatorProps {
-  score: number;
+  similarity: number;
 }
 
 const getScoreColor = (score: number): string => {
@@ -26,7 +28,7 @@ const getScoreColor = (score: number): string => {
   return Object.keys(colors).reduce((acc, percentage) => {
     const num = Number(percentage);
 
-    if (score >= num) {
+    if (score >= num / 100) {
       return colors[num];
     }
 
@@ -44,9 +46,9 @@ const styles: Styles<Theme, FrameworkScoreIndicatorProps> = (theme: Theme) =>
     progressBar: {
       height: 8,
       borderRadius: 5,
-      flex: (props: FrameworkScoreIndicatorProps) => props.score / 100,
+      flex: (props: FrameworkScoreIndicatorProps) => props.similarity,
       backgroundColor: (props: FrameworkScoreIndicatorProps) =>
-        getScoreColor(props.score),
+        getScoreColor(props.similarity),
     },
     scoreValue: {
       marginLeft: theme.spacing(2),
@@ -56,13 +58,13 @@ const styles: Styles<Theme, FrameworkScoreIndicatorProps> = (theme: Theme) =>
 function FrameworkScoreIndicatorRaw(
   props: WithStyles<typeof styles> & FrameworkScoreIndicatorProps,
 ) {
-  const { classes, score } = props;
+  const { classes, similarity } = props;
 
   return (
     <Box display="flex" flex={1} alignItems="center">
       <div className={classes.progressBar} />
       <Typography variant="body1" className={classes.scoreValue}>
-        {score.toFixed(1)}
+        {formatFrameworkScore(similarity)}
       </Typography>
     </Box>
   );

@@ -16,6 +16,7 @@ import {
   FrameworkSimilarity,
   Weights,
 } from '../../types';
+import { formatFrameworkScore } from '../../utils';
 import { CriteriaSimilarityTableRow } from '../molecules';
 
 type Props = {
@@ -45,11 +46,18 @@ export function CriteriaSimilarityTable({
             <TableCell>Criterion</TableCell>
             <TableCell align="center">Relevance</TableCell>
             {showValues && <TableCell align="center">Entered value</TableCell>}
-            {rankings.map(({ framework }) => (
-              <TableCell align="center" key={framework}>
-                {displayStrings[framework]}
-              </TableCell>
-            ))}
+            {rankings.map(({ framework }) => {
+              const similarity = rankings.find(
+                (ranking) => ranking.framework === framework,
+              )?.totalSimilarity;
+
+              return (
+                <TableCell align="center" key={framework}>
+                  <strong>{displayStrings[framework]}</strong> <br />
+                  {similarity && `(${formatFrameworkScore(similarity)})`}
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>

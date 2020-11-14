@@ -16,7 +16,7 @@ import { FrameworkScoreIndicator } from '../atoms';
 type Props = {
   id: string;
   name: string;
-  score: number;
+  similarity: number;
   expanded: boolean;
   onToggleExpand: (e: React.ChangeEvent<{}>, isExpanded: boolean) => void;
   url: string;
@@ -60,7 +60,7 @@ export function FrameworkRankingCard({
   id,
   name,
   onToggleExpand,
-  score,
+  similarity,
   url,
 }: Props) {
   const classes = useStyles();
@@ -75,7 +75,7 @@ export function FrameworkRankingCard({
       >
         <img src={logo.default} alt={name} className={classes.logo} />
         <FrameworkTitle>{name}</FrameworkTitle>
-        <FrameworkScoreIndicator score={score} />
+        <FrameworkScoreIndicator similarity={similarity} />
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
