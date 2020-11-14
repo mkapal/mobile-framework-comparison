@@ -19,7 +19,11 @@ import { FieldTemplate } from '../components/organisms';
 import { uiSchema } from '../config';
 import { CriteriaFormContext } from '../context';
 import schema from '../schemas/frameworks.json';
-import { getMultiSelectWidgets, getRatedCriteriaWidgets } from '../utils';
+import {
+  getMultiSelectWidgets,
+  getRatedCriteriaWidgets,
+  getTotalWeights,
+} from '../utils';
 
 function validateSchema(schema: object, formData: object) {
   const ajv = new Ajv({ allErrors: true, useDefaults: true });
@@ -44,10 +48,12 @@ const widgets: { [name: string]: Widget } = {
 };
 
 export function Form() {
-  const { formData, setFormData, setIsSubmitted } = useContext(
+  const { formData, setFormData, setIsSubmitted, weights } = useContext(
     CriteriaFormContext,
   );
   const h = useHistory();
+
+  const totalWeights = getTotalWeights(weights);
 
   const formSchema = useMemo(
     () => ({
@@ -64,7 +70,10 @@ export function Form() {
     formData,
   ]);
 
-  const submitDisabled = useMemo(() => errors.length > 0, [errors.length]);
+  const submitDisabled = useMemo(
+    () => errors.length > 0 || totalWeights === 0,
+    [errors.length, totalWeights],
+  );
 
   const handleChange = (e: IChangeEvent) => {
     setFormData(e.formData);
