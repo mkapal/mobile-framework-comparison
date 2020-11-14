@@ -40,7 +40,7 @@ export const getUiWidgetSchema = (
 
 export const uiSchema: CriteriaCategoryData<UiSchema> = {
   infrastructure: {
-    ...getUiWidgetSchema('radio', ['free-license', 'pricing']),
+    ...getUiWidgetSchema('radio', ['pricing']),
   },
   development: {
     ...getUiWidgetSchema('radio', ['custom-ide']),

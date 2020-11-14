@@ -75,9 +75,9 @@
               "uniqueItems": true
             },
             "free-license": {
-              "title": "Software license type",
+              "title": "Free license",
               "type": "boolean",
-              "enumNames": ["Free", "Proprietary"]
+              "readOnly": true
             },
             "pricing": {
               "title": "Pricing policy",
