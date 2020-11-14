@@ -1,5 +1,5 @@
 import { Box, Typography } from '@material-ui/core';
-import { blue, green, orange, red, yellow } from '@material-ui/core/colors';
+import { green, orange, red, yellow } from '@material-ui/core/colors';
 import {
   createStyles,
   Theme,
@@ -53,7 +53,7 @@ const styles: Styles<Theme, FrameworkScoreIndicatorProps> = (theme: Theme) =>
     },
   });
 
-function LinearProgressRaw(
+function FrameworkScoreIndicatorRaw(
   props: WithStyles<typeof styles> & FrameworkScoreIndicatorProps,
 ) {
   const { classes, score } = props;
@@ -68,4 +68,6 @@ function LinearProgressRaw(
   );
 }
 
-export const FrameworkScoreIndicator = withStyles(styles)(LinearProgressRaw);
+export const FrameworkScoreIndicator = withStyles(styles)(
+  FrameworkScoreIndicatorRaw,
+);

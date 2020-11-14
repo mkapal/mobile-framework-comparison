@@ -5,7 +5,7 @@ import React from 'react';
 import { Tooltip } from './Tooltip';
 
 type Props = {
-  weight: number;
+  similarity: number;
 };
 
 const getSimilarityColor = (similarity: number): string => {
@@ -29,15 +29,15 @@ const getSimilarityColor = (similarity: number): string => {
   }, blue['100']);
 };
 
-export function SimilarityIndicator({ weight }: Props) {
-  const title = `Similarity: ${(weight * 100).toFixed(0)} %`;
+export function SimilarityIndicator({ similarity }: Props) {
+  const title = `Similarity: ${(similarity * 100).toFixed(0)} %`;
 
   return (
     <Tooltip title={title} aria-label={title}>
       <Brightness1
         style={{
-          fontSize: 8 + 16 * weight,
-          color: getSimilarityColor(weight),
+          fontSize: 8 + 16 * similarity,
+          color: getSimilarityColor(similarity),
         }}
       />
     </Tooltip>
