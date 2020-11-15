@@ -22,6 +22,10 @@ jobs:
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
+    - name: Prettier
+      uses: CultureHQ/actions-yarn@master
+      with:
+        args: ci:prettier
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:

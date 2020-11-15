@@ -12,7 +12,7 @@ export type WhichPlatformsWillBeUsedForDevelopment = [Linux | MacOS | Windows, .
 export type Linux = "linux";
 export type MacOS = "macos";
 export type Windows = "windows";
-export type SoftwareLicenseType = boolean;
+export type FreeLicense = boolean;
 export type PricingPolicy = "free" | "free-paid" | "paid";
 export type SupportForInAppPurchases = boolean;
 export type SupportForInternationalization = boolean;
@@ -92,6 +92,7 @@ export type Performance = number;
 
 export interface Frameworks {
   name: string;
+  url: string;
   criteria: {
     infrastructure: Infrastructure;
     development: Development;
@@ -101,7 +102,7 @@ export interface Frameworks {
 export interface Infrastructure {
   "mobile-os": WhichMobilePlatformsShouldBeSupported;
   "development-platforms": WhichPlatformsWillBeUsedForDevelopment;
-  "free-license": SoftwareLicenseType;
+  "free-license": FreeLicense;
   pricing: PricingPolicy;
   microtransactions: SupportForInAppPurchases;
   internationalization: SupportForInternationalization;
