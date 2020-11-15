@@ -1,14 +1,9 @@
-import { Box, Button, Container, Typography } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ArrowBackIos } from '@material-ui/icons';
 import React, { ReactNode } from 'react';
-import { Link, LinkProps } from 'react-router-dom';
 
 type Props = {
-  backButton?: {
-    label: string;
-    to: LinkProps['to'];
-  };
+  header?: ReactNode;
   children?: ReactNode;
   title?: string;
   description?: string;
@@ -23,12 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function PageLayout({
-  backButton,
-  children,
-  description,
-  title,
-}: Props) {
+export function PageLayout({ children, description, header, title }: Props) {
   const classes = useStyles();
 
   return (
@@ -40,18 +30,7 @@ export function PageLayout({
       padding={4}
     >
       <Container maxWidth="xl">
-        {backButton && (
-          <Box mb={2}>
-            <Button
-              component={Link}
-              color="primary"
-              to={backButton.to}
-              startIcon={<ArrowBackIos />}
-            >
-              {backButton.label}
-            </Button>
-          </Box>
-        )}
+        {header && <Box mb={2}>{header}</Box>}
         {title && (
           <Typography variant="h1" className={classes.title}>
             {title}

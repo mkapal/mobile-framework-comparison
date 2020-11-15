@@ -1,11 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useLocation,
-} from 'react-router-dom';
+import React, { useState } from 'react';
 
 import { CriteriaFormContext } from './context';
 import './global.css';
@@ -45,17 +39,7 @@ function App() {
           setIsSubmitted,
         }}
       >
-        <Router>
-          <ScrollToTop />
-          <Switch>
-            <Route exact path="/">
-              <Form />
-            </Route>
-            <Route exact path="/results">
-              <Results />
-            </Route>
-          </Switch>
-        </Router>
+        {isSubmitted ? <Results /> : <Form />}
       </CriteriaFormContext.Provider>
     </ThemeProvider>
   );

@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@material-ui/core';
-import { BubbleChart, List } from '@material-ui/icons';
+import { ArrowBackIos, BubbleChart, List } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 
 import { PageLayout } from '../components/layouts/PageLayout';
@@ -19,7 +19,9 @@ import {
 
 export function Results() {
   const [showData, setShowData] = useState(true);
-  const { formData, isSubmitted, weights } = useContext(CriteriaFormContext);
+  const { formData, isSubmitted, setIsSubmitted, weights } = useContext(
+    CriteriaFormContext,
+  );
   const pageTitle = 'Framework rankings';
 
   if (!isSubmitted) {
@@ -42,10 +44,15 @@ export function Results() {
     <PageLayout
       title={pageTitle}
       description="Frameworks are ranked based on your filled in criteria and weights."
-      backButton={{
-        label: 'Show form',
-        to: '/',
-      }}
+      header={
+        <Button
+          color="primary"
+          startIcon={<ArrowBackIos />}
+          onClick={() => setIsSubmitted(false)}
+        >
+          Show form
+        </Button>
+      }
     >
       <Box mb={4}>
         <FrameworkRankings frameworkData={frameworkData} rankings={rankings} />

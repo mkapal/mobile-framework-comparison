@@ -10,7 +10,6 @@ import { IChangeEvent, utils, Widget } from '@rjsf/core';
 import MuiForm from '@rjsf/material-ui';
 import { JSONSchema7 } from 'json-schema';
 import React, { useContext, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { PageLayout } from '../components/layouts/PageLayout';
 import { CheckboxesWidget, HiddenWidget } from '../components/molecules';
@@ -43,8 +42,6 @@ export function Form() {
   const { formData, setFormData, setIsSubmitted, weights } = useContext(
     CriteriaFormContext,
   );
-  const h = useHistory();
-
   const totalWeights = getTotalWeights(weights);
 
   const formSchema = useMemo(
@@ -67,14 +64,9 @@ export function Form() {
     [errors.length, totalWeights],
   );
 
-  const handleChange = (e: IChangeEvent) => {
-    setFormData(e.formData);
-  };
+  const handleChange = (e: IChangeEvent) => setFormData(e.formData);
 
-  const handleSubmit = () => {
-    setIsSubmitted(true);
-    h.push('/results');
-  };
+  const handleSubmit = () => setIsSubmitted(true);
 
   return (
     <PageLayout>
