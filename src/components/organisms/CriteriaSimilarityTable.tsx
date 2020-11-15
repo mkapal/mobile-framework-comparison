@@ -44,7 +44,7 @@ export function CriteriaSimilarityTable({
         <TableHead>
           <TableRow>
             <TableCell>Criterion</TableCell>
-            <TableCell align="center">Relevance</TableCell>
+            <TableCell align="center">Weight</TableCell>
             {showValues && <TableCell align="center">Entered value</TableCell>}
             {rankings.map(({ framework }) => {
               const similarity = rankings.find(

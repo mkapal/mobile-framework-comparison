@@ -10,6 +10,7 @@ import {
 } from './utils/similarity';
 
 export const DEFAULT_MAX_RATING = 5;
+export const DEFAULT_MAX_WEIGHT = 2;
 
 export const getFrameworkIds = (): string[] => [
   'cordova',
@@ -27,12 +28,14 @@ type UiWidgetSchema = {
 export const getUiWidgetSchema = (
   widget: string,
   criteria: string[],
+  options?: UiSchema['ui:options'],
 ): UiWidgetSchema =>
   criteria.reduce(
     (uiSchema, criterion) => ({
       ...uiSchema,
       [criterion]: {
         'ui:widget': widget,
+        'ui:options': options ?? {},
       },
     }),
     {} as UiWidgetSchema,
@@ -46,7 +49,9 @@ export const uiSchema: CriteriaCategoryData<UiSchema> = {
     ...getUiWidgetSchema('radio', ['custom-ide']),
   },
   'application-usage': {
-    ...getUiWidgetSchema('radio', ['free-license', 'pricing']),
+    ...getUiWidgetSchema('checkboxes', ['hardware'], {
+      inline: true,
+    }),
   },
 };
 

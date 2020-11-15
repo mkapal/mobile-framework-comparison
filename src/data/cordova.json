@@ -3,14 +3,14 @@
   "url": "https://cordova.apache.org",
   "criteria": {
     "infrastructure": {
-      "mobile-os": ["android", "ios"],
+      "mobile-os": ["android"],
       "development-platforms": ["linux", "macos", "windows"],
       "free-license": true,
       "pricing": "free",
-      "microtransactions": true,
-      "internationalization": true,
-      "ads": 5,
-      "long-term-feasibility": 3
+      "microtransactions": false,
+      "internationalization": false,
+      "ads": 1,
+      "long-term-feasibility": 1
     },
     "development": {
       "configuration-management": 0,

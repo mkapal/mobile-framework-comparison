@@ -9,11 +9,11 @@
       "pricing": "free",
       "microtransactions": true,
       "internationalization": true,
-      "ads": 3,
-      "long-term-feasibility": 3
+      "ads": 4,
+      "long-term-feasibility": 4
     },
     "development": {
-      "configuration-management": 1,
+      "configuration-management": 4,
       "continuous-deployment": 4,
       "custom-code-integration": true,
       "custom-ide": false,
@@ -22,7 +22,7 @@
       "initial-config": 3,
       "scalability": 3,
       "technologies": ["dart"],
-      "testing": 3,
+      "testing": 5,
       "wysiwyg-editor": false
     },
     "application-usage": {
@@ -30,7 +30,7 @@
       "hardware": ["accelerometer", "bluetooth", "camera", "temperature"],
       "offline": true,
       "performance": 4,
-      "security": 3,
+      "security": 5,
       "software": ["browser", "call-history", "contacts"],
       "touch-gestures": 4,
       "user-interface": 3

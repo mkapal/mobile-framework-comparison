@@ -4,6 +4,7 @@ import { utils } from '@rjsf/core';
 import { JSONSchema7 } from 'json-schema';
 import React from 'react';
 
+import { DEFAULT_MAX_WEIGHT } from '../../config';
 import {
   DisplayStringMap,
   FrameworkData,
@@ -62,7 +63,11 @@ export function CriteriaSimilarityTableRow({
         {displayStrings[criterion]}
       </TableCell>
       <TableCell align="center">
-        <RatingIndicator rating={weight} label={`Relevance: ${weight}`} />
+        <RatingIndicator
+          rating={weight}
+          maxRating={DEFAULT_MAX_WEIGHT}
+          label={`Weight: ${weight}`}
+        />
       </TableCell>
       {showValues && (
         <TableCell

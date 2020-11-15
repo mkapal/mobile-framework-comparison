@@ -28,6 +28,7 @@ const filterCriteriaInCategory = (
 const generateUiWidgetSchema = (
   criteriaFilter: (criterionSchema: JSONSchema7) => boolean,
   widget: string,
+  options?: UiSchema['ui:options'],
 ): CriteriaCategoryData<UiSchema> =>
   getCriteriaCategories().reduce(
     (uiSchema, category) => ({
@@ -35,6 +36,7 @@ const generateUiWidgetSchema = (
       [category]: getUiWidgetSchema(
         widget,
         filterCriteriaInCategory(category, criteriaFilter),
+        options,
       ),
     }),
     {} as CriteriaCategoryData<UiSchema>,
@@ -99,23 +101,26 @@ export const getRatedCriteriaInitialValues = (): RatedCriteriaCategoryData =>
 
 const getInitialWeightsForCategory = (
   categoryId: string,
+  initialWeight: number,
 ): CriterionData<number> => {
   const criteriaIds = Object.keys(getCriteriaSchema()[categoryId].properties!);
 
   return criteriaIds.reduce(
     (weights, criterionId) => ({
       ...weights,
-      [criterionId]: 0,
+      [criterionId]: initialWeight,
     }),
     {},
   );
 };
 
-export const getInitialWeights = (): CriteriaCategoryData<number> =>
+export const getInitialWeights = (
+  initialWeight: number,
+): CriteriaCategoryData<number> =>
   getCriteriaCategories().reduce(
     (criteriaValues, categoryId) => ({
       ...criteriaValues,
-      [categoryId]: getInitialWeightsForCategory(categoryId),
+      [categoryId]: getInitialWeightsForCategory(categoryId, initialWeight),
     }),
     {} as CriteriaCategoryData<number>,
   );

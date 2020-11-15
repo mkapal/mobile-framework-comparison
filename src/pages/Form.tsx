@@ -14,7 +14,7 @@ import React, { useContext, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { PageLayout } from '../components/layouts/PageLayout';
-import { HiddenWidget } from '../components/molecules';
+import { CheckboxesWidget, HiddenWidget } from '../components/molecules';
 import { FieldTemplate } from '../components/organisms';
 import { uiSchema } from '../config';
 import { CriteriaFormContext } from '../context';
@@ -45,6 +45,7 @@ const uiSchemaWithMultiSelectWidgets = utils.mergeObjects(
 
 const widgets: { [name: string]: Widget } = {
   HiddenWidget,
+  CheckboxesWidget,
 };
 
 export function Form() {
@@ -118,17 +119,17 @@ export function Form() {
             </Typography>
           </Box>
         </Box>
-        <MuiForm
-          schema={formSchema as JSONSchema7}
-          uiSchema={uiSchemaWithMultiSelectWidgets}
-          FieldTemplate={FieldTemplate}
-          widgets={widgets}
-          showErrorList={false}
-          formData={formData}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-        >
-          <Box mt={4} display="flex" justifyContent="flex-end">
+        <Container maxWidth="md">
+          <MuiForm
+            schema={formSchema as JSONSchema7}
+            uiSchema={uiSchemaWithMultiSelectWidgets}
+            FieldTemplate={FieldTemplate}
+            widgets={widgets}
+            showErrorList={false}
+            formData={formData}
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+          >
             <Button
               disabled={submitDisabled}
               type="submit"
@@ -137,8 +138,8 @@ export function Form() {
             >
               Submit
             </Button>
-          </Box>
-        </MuiForm>
+          </MuiForm>
+        </Container>
       </Container>
     </PageLayout>
   );

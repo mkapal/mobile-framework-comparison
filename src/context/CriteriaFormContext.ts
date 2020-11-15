@@ -13,7 +13,7 @@ export const CriteriaFormContext = createContext<{
 }>({
   formData: {} as CriteriaCategories,
   isSubmitted: false,
-  weights: getInitialWeights(),
+  weights: getInitialWeights(1),
   setFormData: () => {},
   setIsSubmitted: () => {},
   setWeights: () => {},

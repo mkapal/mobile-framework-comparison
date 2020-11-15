@@ -3,14 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import range from 'lodash/range';
 import React from 'react';
 
-import { DEFAULT_MAX_RATING } from '../../config';
-
 import { Tooltip } from './Tooltip';
 
 type Props = {
   rating: number;
   label: string;
-  maxRating?: number;
+  maxRating: number;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -25,11 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export function RatingIndicator({
-  label,
-  rating,
-  maxRating = DEFAULT_MAX_RATING,
-}: Props) {
+export function RatingIndicator({ label, maxRating, rating }: Props) {
   const classes = useStyles();
 
   return (
