@@ -11,16 +11,6 @@ import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
 const initialValues = getRatedCriteriaInitialValues();
 const initialWeights = getInitialWeights(1);
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
-
 function App() {
   const [formData, setFormData] = useState<CriteriaCategories>(initialValues);
   const [weights, setWeights] = useState<Weights>(initialWeights);
