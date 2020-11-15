@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "ci:prettier": "run-s \"prettier:no-write --list-different\"",
     "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "build:analyze": "run-s build analyze",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "lint:fix": "run-s \"lint --fix\"",
     "schema:ts": "json2ts -i src/schemas/frameworks.json -o src/types/frameworks.ts",
-    "prettier": "prettier --write src/**/*.{js,json,ts,tsx}"
+    "prettier": "run-s \"prettier:no-write --write\"",
+    "prettier:no-write": "prettier \"src/**/*.{js,json,ts,tsx}\""
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -22,9 +22,7 @@
     "@rjsf/material-ui": "^2.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "json-schema": "^0.2.5",
-    "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -34,22 +32,23 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
+    "@types/jest-json-schema": "^2.1.3",
     "@types/lodash": "^4.14.164",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "ajv": "^6.12.6",
-    "better-ajv-errors": "^0.6.7",
     "cross-env": "^7.0.2",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-sort-destructure-keys": "^1.3.5",
+    "glob": "^7.1.6",
     "husky": "^4.3.0",
+    "jest-json-schema": "^2.1.0",
     "json-schema-to-typescript": "^9.1.1",
     "lint-staged": "^10.5.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.1",
-    "source-map-explorer": "^2.5.0"
+    "prettier": "^2.1.1"
   },
   "browserslist": {
     "production": [
@@ -69,7 +68,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "lint-staged && yarn schema:ts",
       "pre-push": "cross-env CI=true yarn test"
     }
   },

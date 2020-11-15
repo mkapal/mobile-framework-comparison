@@ -1,6 +1,5 @@
 import { Box, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import range from 'lodash/range';
 import React from 'react';
 
 import { Tooltip } from './Tooltip';
@@ -29,7 +28,7 @@ export function RatingIndicator({ label, maxRating, rating }: Props) {
   return (
     <Tooltip title={label} aria-label={label}>
       <Box display="flex" justifyContent="center" className={classes.root}>
-        {range(maxRating).map((number) => (
+        {Array.from(Array(maxRating).keys()).map((number) => (
           <div
             className={classes[number < rating ? 'icon' : 'iconEmpty']}
             key={number}
