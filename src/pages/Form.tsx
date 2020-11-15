@@ -8,7 +8,6 @@ import {
 } from '@material-ui/icons';
 import { IChangeEvent, utils, Widget } from '@rjsf/core';
 import MuiForm from '@rjsf/material-ui';
-import Ajv from 'ajv';
 import { JSONSchema7 } from 'json-schema';
 import React, { useContext, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -23,16 +22,8 @@ import {
   getMultiSelectWidgets,
   getRatedCriteriaWidgets,
   getTotalWeights,
+  validateSchema,
 } from '../utils';
-
-function validateSchema(schema: object, formData: object) {
-  const ajv = new Ajv({ allErrors: true, useDefaults: true });
-  const validator = ajv.compile(schema);
-
-  validator(formData);
-
-  return validator.errors?.length ? validator.errors : [];
-}
 
 const uiSchemaWithRatedWidgets = utils.mergeObjects(
   uiSchema,
