@@ -5,10 +5,10 @@ import { utils } from '@rjsf/core';
 import { JSONSchema7 } from 'json-schema';
 import React from 'react';
 
-import { DEFAULT_MAX_RATING } from '../../config';
-import { getCriteriaSchema } from '../../utils';
+import { DEFAULT_MAX_RATING } from '../../../../config';
+import { getCriteriaSchema } from '../../../../utils';
 
-import { RatingIndicator } from './RatingIndicator';
+import { Rating } from './Rating';
 
 type Props = {
   category: string;
@@ -56,7 +56,7 @@ export function FormattedCriterionValue({ category, criterion, value }: Props) {
         const integerValue = value as number;
 
         return (
-          <RatingIndicator
+          <Rating
             rating={integerValue}
             maxRating={DEFAULT_MAX_RATING}
             label={`Rating: ${integerValue.toFixed(0)}`}

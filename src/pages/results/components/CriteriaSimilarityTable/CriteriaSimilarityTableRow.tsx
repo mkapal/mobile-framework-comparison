@@ -4,16 +4,17 @@ import { utils } from '@rjsf/core';
 import { JSONSchema7 } from 'json-schema';
 import React from 'react';
 
-import { DEFAULT_MAX_WEIGHT } from '../../config';
+import { DEFAULT_MAX_WEIGHT } from '../../../../config';
 import {
   DisplayStringMap,
   FrameworkData,
   FrameworkSimilarity,
-} from '../../types';
-import { getCriteriaSchema } from '../../utils';
-import { FormattedCriterionValue, RatingIndicator } from '../atoms';
+} from '../../../../types';
+import { getCriteriaSchema } from '../../../../utils';
 
 import { CriteriaSimilarityTableCell } from './CriteriaSimilarityTableCell';
+import { FormattedCriterionValue } from './FormattedCriterionValue';
+import { Rating } from './Rating';
 
 const schema = getCriteriaSchema();
 
@@ -63,7 +64,7 @@ export function CriteriaSimilarityTableRow({
         {displayStrings[criterion]}
       </TableCell>
       <TableCell align="center">
-        <RatingIndicator
+        <Rating
           rating={weight}
           maxRating={DEFAULT_MAX_WEIGHT}
           label={`Weight: ${weight}`}

@@ -1,5 +1,6 @@
 import { createMuiTheme } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
+import { blue, grey } from '@material-ui/core/colors';
+import shadows from '@material-ui/core/styles/shadows';
 
 export const theme = createMuiTheme({
   typography: {
@@ -29,10 +30,21 @@ export const theme = createMuiTheme({
     },
   },
   overrides: {
-    MuiStepper: {
+    // @ts-ignore
+    MuiToggleButton: {
       root: {
-        background: 'none',
-        border: 'none',
+        color: grey['700'],
+        '&$selected': {
+          color: 'black',
+        },
+      },
+    },
+    MuiTooltip: {
+      tooltip: {
+        backgroundColor: grey.A700,
+        color: 'white',
+        boxShadow: shadows[1],
+        fontSize: 13,
       },
     },
   },

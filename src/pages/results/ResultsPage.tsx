@@ -2,22 +2,21 @@ import { Box, Button, Typography } from '@material-ui/core';
 import { ArrowBackIos, BubbleChart, List } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 
-import { PageLayout } from '../components/layouts/PageLayout';
-import {
-  CriteriaSimilarityTable,
-  FrameworkRankings,
-} from '../components/organisms';
-import { similarityFunctions } from '../config';
-import { CriteriaFormContext } from '../context';
+import { similarityFunctions } from '../../config';
+import { CriteriaFormContext } from '../../context';
 import {
   getCriteriaSchema,
   getDisplayStrings,
   getFrameworkCriteriaData,
   getFrameworkData,
   getFrameworkRankings,
-} from '../utils';
+} from '../../utils';
+import { PageLayout } from '../PageLayout';
 
-export function Results() {
+import { CriteriaSimilarityTable } from './components/CriteriaSimilarityTable';
+import { FrameworkRankings } from './components/FrameworkRankings';
+
+export function ResultsPage() {
   const [showData, setShowData] = useState(true);
   const { formData, isSubmitted, setIsSubmitted, weights } = useContext(
     CriteriaFormContext,

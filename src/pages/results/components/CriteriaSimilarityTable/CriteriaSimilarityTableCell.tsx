@@ -2,7 +2,8 @@ import { TableCell } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-import { FormattedCriterionValue, SimilarityIndicator } from '../atoms';
+import { FormattedCriterionValue } from './FormattedCriterionValue';
+import { Similarity } from './Similarity';
 
 type Props = {
   category: string;
@@ -51,7 +52,7 @@ export function CriteriaSimilarityTableCell({
           value={frameworkValue}
         />
       ) : (
-        <SimilarityIndicator similarity={normalizedScore} />
+        <Similarity similarity={normalizedScore} />
       )}
     </TableCell>
   );

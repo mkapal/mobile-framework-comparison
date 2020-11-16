@@ -9,7 +9,7 @@ import {
 import { Styles } from '@material-ui/core/styles/withStyles';
 import React from 'react';
 
-import { formatFrameworkScore } from '../../utils';
+import { formatFrameworkScore } from '../../../../utils';
 
 interface FrameworkScoreIndicatorProps {
   similarity: number;
@@ -70,6 +70,4 @@ function FrameworkScoreIndicatorRaw(
   );
 }
 
-export const FrameworkScoreIndicator = withStyles(styles)(
-  FrameworkScoreIndicatorRaw,
-);
+export const FrameworkScoreBar = withStyles(styles)(FrameworkScoreIndicatorRaw);

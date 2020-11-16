@@ -15,9 +15,10 @@ import {
   FrameworkData,
   FrameworkSimilarity,
   Weights,
-} from '../../types';
-import { formatFrameworkScore } from '../../utils';
-import { CriteriaSimilarityTableRow } from '../molecules';
+} from '../../../../types';
+import { formatFrameworkScore } from '../../../../utils';
+
+import { CriteriaSimilarityTableRow } from './CriteriaSimilarityTableRow';
 
 type Props = {
   displayStrings: DisplayStringMap;

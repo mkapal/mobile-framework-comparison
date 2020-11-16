@@ -1,2 +1,2 @@
-export { Form } from './Form';
-export { Results } from './Results';
+export { FormPage } from './form/FormPage';
+export { ResultsPage } from './results/ResultsPage';

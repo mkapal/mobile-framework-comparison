@@ -1,0 +1,1 @@
+export { CriteriaSimilarityTable } from './CriteriaSimilarityTable';

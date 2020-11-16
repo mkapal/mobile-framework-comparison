@@ -11,18 +11,18 @@ import MuiForm from '@rjsf/material-ui';
 import { JSONSchema7 } from 'json-schema';
 import React, { useContext, useMemo } from 'react';
 
-import { PageLayout } from '../components/layouts/PageLayout';
-import { CheckboxesWidget, HiddenWidget } from '../components/molecules';
-import { FieldTemplate } from '../components/organisms';
-import { uiSchema } from '../config';
-import { CriteriaFormContext } from '../context';
-import schema from '../schemas/frameworks.json';
+import { uiSchema } from '../../config';
+import { CriteriaFormContext } from '../../context';
+import schema from '../../schemas/frameworks.json';
 import {
   getMultiSelectWidgets,
   getRatedCriteriaWidgets,
   getTotalWeights,
   validateSchema,
-} from '../utils';
+} from '../../utils';
+import { PageLayout } from '../PageLayout';
+
+import { CheckboxesWidget, FieldTemplate, HiddenWidget } from './components';
 
 const uiSchemaWithRatedWidgets = utils.mergeObjects(
   uiSchema,
@@ -38,7 +38,7 @@ const widgets: { [name: string]: Widget } = {
   CheckboxesWidget,
 };
 
-export function Form() {
+export function FormPage() {
   const { formData, setFormData, setIsSubmitted, weights } = useContext(
     CriteriaFormContext,
   );

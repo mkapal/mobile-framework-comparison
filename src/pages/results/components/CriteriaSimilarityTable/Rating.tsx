@@ -1,8 +1,6 @@
-import { Box, Theme } from '@material-ui/core';
+import { Box, Theme, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-
-import { Tooltip } from './Tooltip';
 
 type Props = {
   rating: number;
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export function RatingIndicator({ label, maxRating, rating }: Props) {
+export function Rating({ label, maxRating, rating }: Props) {
   const classes = useStyles();
 
   return (

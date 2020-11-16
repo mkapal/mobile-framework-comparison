@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { CriteriaFormContext } from './context';
 import './global.css';
-import { Form, Results } from './pages';
+import { FormPage, ResultsPage } from './pages';
 import { theme } from './theme';
 import { CriteriaCategories, Weights } from './types';
 import { getInitialWeights, getRatedCriteriaInitialValues } from './utils';
@@ -29,7 +29,7 @@ function App() {
           setIsSubmitted,
         }}
       >
-        {isSubmitted ? <Results /> : <Form />}
+        {isSubmitted ? <ResultsPage /> : <FormPage />}
       </CriteriaFormContext.Provider>
     </ThemeProvider>
   );

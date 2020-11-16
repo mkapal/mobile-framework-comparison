@@ -11,7 +11,7 @@ import { createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
 import { ExpandMore, Language as WebsiteIcon } from '@material-ui/icons';
 import React from 'react';
 
-import { FrameworkScoreIndicator } from '../atoms';
+import { FrameworkScoreBar } from './FrameworkScoreBar';
 
 type Props = {
   id: string;
@@ -64,7 +64,7 @@ export function FrameworkRankingCard({
   url,
 }: Props) {
   const classes = useStyles();
-  const logo = require(`../../assets/logos/${id}.svg`);
+  const logo = require(`../../../../assets/logos/${id}.svg`);
 
   return (
     <Accordion key={name} expanded={expanded} onChange={onToggleExpand}>
@@ -75,7 +75,7 @@ export function FrameworkRankingCard({
       >
         <img src={logo.default} alt={name} className={classes.logo} />
         <FrameworkTitle>{name}</FrameworkTitle>
-        <FrameworkScoreIndicator similarity={similarity} />
+        <FrameworkScoreBar similarity={similarity} />
       </AccordionSummary>
       <AccordionDetails>
         <Typography>

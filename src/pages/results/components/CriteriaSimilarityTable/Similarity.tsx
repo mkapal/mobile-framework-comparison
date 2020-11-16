@@ -1,8 +1,7 @@
+import { Tooltip } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 import { Brightness1 } from '@material-ui/icons';
 import React from 'react';
-
-import { Tooltip } from './Tooltip';
 
 type Props = {
   similarity: number;
@@ -29,7 +28,7 @@ const getSimilarityColor = (similarity: number): string => {
   }, blue['100']);
 };
 
-export function SimilarityIndicator({ similarity }: Props) {
+export function Similarity({ similarity }: Props) {
   const title = `Similarity: ${(similarity * 100).toFixed(0)} %`;
 
   return (

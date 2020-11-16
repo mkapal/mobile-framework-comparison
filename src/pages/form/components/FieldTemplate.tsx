@@ -2,7 +2,7 @@ import { Box } from '@material-ui/core';
 import { FieldTemplateProps } from '@rjsf/core';
 import React from 'react';
 
-import { CriterionWeightSelector } from '../atoms';
+import { CriterionWeightSelect } from './CriterionWeightSelect';
 
 export function FieldTemplate({
   children,
@@ -23,7 +23,7 @@ export function FieldTemplate({
       {children}
       {errors}
       {help}
-      <CriterionWeightSelector category={categoryId} criterion={criterionId} />
+      <CriterionWeightSelect category={categoryId} criterion={criterionId} />
     </Box>
   );
 }

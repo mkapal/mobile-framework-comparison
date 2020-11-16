@@ -2,7 +2,7 @@ import { Mark, styled } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import React, { useContext } from 'react';
 
-import { CriteriaFormContext } from '../../context';
+import { CriteriaFormContext } from '../../../context';
 
 type Props = {
   category: string;
@@ -27,7 +27,7 @@ const FixedToggleButton = styled(ToggleButton)({
   width: 120,
 });
 
-export function CriterionWeightSelector({ category, criterion }: Props) {
+export function CriterionWeightSelect({ category, criterion }: Props) {
   const { setWeights, weights } = useContext(CriteriaFormContext);
 
   const handleChange = (
