@@ -32,9 +32,9 @@ export function CriterionWeightSelect({ category, criterion }: Props) {
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newWeight: number,
+    newWeight: number | null,
   ) => {
-    if (weights[category][criterion] === newWeight) {
+    if (newWeight === null || weights[category][criterion] === newWeight) {
       return;
     }
 
