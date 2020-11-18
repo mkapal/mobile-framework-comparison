@@ -94,14 +94,14 @@
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "long-term-feasibility": {
               "title": "Long-term feasibility",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             }
           },
           "propertyNames": {
@@ -177,49 +177,49 @@
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "scalability": {
               "title": "Scalability",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "initial-config": {
               "title": "Initial project configuration",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "testing": {
               "title": "Testing",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "extensibility": {
               "title": "Extensibility",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "continuous-deployment": {
               "title": "Support for continuous integration & deployment",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "configuration-management": {
               "title": "Configuration management",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             }
           },
           "propertyNames": {
@@ -390,35 +390,35 @@
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "app-lifecycle": {
               "title": "Support for application lifecycle",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "security": {
               "title": "Security",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "user-interface": {
               "title": "User interface",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             },
             "performance": {
               "title": "Performance",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
-              "maximum": 5
+              "maximum": 3
             }
           },
           "propertyNames": {

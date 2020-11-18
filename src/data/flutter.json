@@ -9,29 +9,29 @@
       "pricing": "free",
       "microtransactions": true,
       "internationalization": 2,
-      "long-term-feasibility": 4
+      "long-term-feasibility": 3
     },
     "development": {
-      "configuration-management": 4,
-      "continuous-deployment": 4,
+      "configuration-management": 3,
+      "continuous-deployment": 3,
       "custom-code-integration": true,
       "custom-ide": false,
-      "documentation": 4,
-      "extensibility": 4,
+      "documentation": 2,
+      "extensibility": 2,
       "initial-config": 3,
       "scalability": 3,
       "technologies": ["dart"],
-      "testing": 5,
+      "testing": 3,
       "wysiwyg-editor": false
     },
     "application-usage": {
-      "app-lifecycle": 4,
+      "app-lifecycle": 2,
       "hardware": ["accelerometer", "bluetooth", "camera", "temperature"],
       "offline": true,
-      "performance": 4,
-      "security": 5,
+      "performance": 2,
+      "security": 3,
       "software": ["browser", "call-history", "contacts"],
-      "touch-gestures": 4,
+      "touch-gestures": 3,
       "user-interface": 3
     }
   }

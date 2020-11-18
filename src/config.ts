@@ -9,7 +9,7 @@ import {
   pricingSimilarity,
 } from './utils/similarity';
 
-export const DEFAULT_MAX_RATING = 5;
+export const DEFAULT_MAX_RATING = 3;
 export const DEFAULT_MAX_WEIGHT = 2;
 
 export const getFrameworkIds = (): string[] => [

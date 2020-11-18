@@ -9,15 +9,15 @@
       "pricing": "free",
       "microtransactions": true,
       "internationalization": 2,
-      "long-term-feasibility": 4
+      "long-term-feasibility": 2
     },
     "development": {
       "configuration-management": 0,
       "continuous-deployment": 3,
       "custom-code-integration": true,
       "custom-ide": false,
-      "documentation": 4,
-      "extensibility": 4,
+      "documentation": 3,
+      "extensibility": 2,
       "initial-config": 3,
       "scalability": 3,
       "technologies": ["javascript"],
@@ -25,14 +25,14 @@
       "wysiwyg-editor": false
     },
     "application-usage": {
-      "app-lifecycle": 4,
+      "app-lifecycle": 2,
       "hardware": ["accelerometer"],
       "offline": true,
       "performance": 4,
       "security": 0,
       "software": ["browser", "call-history", "contacts"],
-      "touch-gestures": 4,
-      "user-interface": 4
+      "touch-gestures": 2,
+      "user-interface": 2
     }
   }
 }

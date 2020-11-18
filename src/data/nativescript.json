@@ -18,7 +18,7 @@
       "custom-ide": true,
       "documentation": 3,
       "extensibility": 2,
-      "initial-config": 4,
+      "initial-config": 2,
       "scalability": 2,
       "technologies": ["xml"],
       "testing": 2,

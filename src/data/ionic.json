@@ -16,7 +16,7 @@
       "continuous-deployment": 0,
       "custom-code-integration": false,
       "custom-ide": false,
-      "documentation": 4,
+      "documentation": 3,
       "extensibility": 0,
       "initial-config": 0,
       "scalability": 0,
@@ -32,7 +32,7 @@
       "security": 3,
       "software": ["browser", "contacts"],
       "touch-gestures": 3,
-      "user-interface": 4
+      "user-interface": 3
     }
   }
 }
