@@ -16,6 +16,10 @@ function App() {
   const [weights, setWeights] = useState<Weights>(initialWeights);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [isSubmitted]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
