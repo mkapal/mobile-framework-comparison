@@ -62,8 +62,7 @@ export const similarityFunctions: SimilarityFunctions = {
     pricing: pricingSimilarity,
     'development-platforms': jaccardSimilarity,
     'long-term-feasibility': normalizedRating,
-    ads: normalizedRating,
-    internationalization: booleanSimilarity,
+    internationalization: normalizedRating,
     microtransactions: booleanSimilarity,
   },
   development: {

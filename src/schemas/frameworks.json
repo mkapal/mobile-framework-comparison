@@ -23,7 +23,6 @@
             "pricing",
             "microtransactions",
             "internationalization",
-            "ads",
             "long-term-feasibility"
           ],
           "properties": {
@@ -92,18 +91,13 @@
             },
             "internationalization": {
               "title": "Support for internationalization",
-              "type": "boolean",
-              "readOnly": true
-            },
-            "ads": {
-              "title": "Support for mobile ads",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
               "maximum": 5
             },
             "long-term-feasibility": {
-              "title": "Long term feasibility",
+              "title": "Long-term feasibility",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,

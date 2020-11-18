@@ -8,8 +8,7 @@
       "free-license": true,
       "pricing": "free",
       "microtransactions": false,
-      "internationalization": false,
-      "ads": 1,
+      "internationalization": 1,
       "long-term-feasibility": 1
     },
     "development": {
