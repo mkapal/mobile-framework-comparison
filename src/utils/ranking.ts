@@ -1,5 +1,5 @@
 import {
-  CriteriaCategories,
+  CriteriaData,
   CriterionData,
   FrameworkCriteriaData,
   FrameworkSimilarity,
@@ -15,7 +15,7 @@ export const formatFrameworkScore = (similarity: number): string =>
   (similarity * 100).toFixed(1);
 
 export const getFrameworkRankings = (
-  formData: CriteriaCategories,
+  formData: CriteriaData,
   frameworkData: FrameworkCriteriaData,
   criteriaWeights: Weights,
   similarityFunctions: {

@@ -1,5 +1,5 @@
 import {
-  CriteriaCategories,
+  CriteriaData,
   FrameworkCriteriaData,
   SimilarityFunctions,
   Weights,
@@ -9,7 +9,7 @@ import { getFrameworkRankings } from '../ranking';
 describe('Ranking utilities', () => {
   describe('getFrameworkRankings', () => {
     it('uses the similarity function of each criterion to calculate the criteria similarities', () => {
-      const formData: CriteriaCategories = {
+      const formData: CriteriaData = {
         category1: {
           quality: 'good',
         },
@@ -71,7 +71,7 @@ describe('Ranking utilities', () => {
     });
 
     it('takes the weights into account when calculating the criteria similarities', () => {
-      const formData: CriteriaCategories = {
+      const formData: CriteriaData = {
         category1: {
           quality: 'good',
           support: true,
@@ -157,7 +157,7 @@ describe('Ranking utilities', () => {
     });
 
     it('returns total similarity of 0 of the weights add up to 0', () => {
-      const formData: CriteriaCategories = {
+      const formData: CriteriaData = {
         category1: {
           quality: 'good',
         },
@@ -219,7 +219,7 @@ describe('Ranking utilities', () => {
     });
 
     it('passes correct data in similarity functions', () => {
-      const formData: CriteriaCategories = {
+      const formData: CriteriaData = {
         category1: {
           booleanCriterion: true,
           arrayCriterion: ['a', 'b'],

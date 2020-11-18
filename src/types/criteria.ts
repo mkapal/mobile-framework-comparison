@@ -1,11 +1,11 @@
-export type CriteriaCategories = CriteriaCategoryData<unknown>;
-
-export type CriterionData<T> = {
-  [criterion: string]: T;
-};
+export type CriteriaData = CriteriaCategoryData<unknown>;
 
 export type CriteriaCategoryData<T> = {
   [category: string]: CriterionData<T>;
+};
+
+export type CriterionData<T> = {
+  [criterion: string]: T;
 };
 
 export type DisplayStringMap = {
@@ -18,17 +18,16 @@ export type FrameworkSimilarity = {
   totalSimilarity: number;
 };
 
-// TODO: Use frameworks.ts types
 export type FrameworkData = {
   [framework: string]: {
     name: string;
     url: string;
-    criteria: CriteriaCategories;
+    criteria: CriteriaData;
   };
 };
 
 export type FrameworkCriteriaData = {
-  [framework: string]: CriteriaCategories;
+  [framework: string]: CriteriaData;
 };
 
 export type RatedCriterionData = CriterionData<number | boolean>;

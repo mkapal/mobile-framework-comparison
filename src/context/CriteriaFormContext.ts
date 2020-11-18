@@ -1,17 +1,17 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
-import { CriteriaCategories, Weights } from '../types';
+import { CriteriaData, Weights } from '../types';
 import { getInitialWeights } from '../utils';
 
 export const CriteriaFormContext = createContext<{
-  formData: CriteriaCategories;
+  formData: CriteriaData;
   isSubmitted: boolean;
   weights: Weights;
-  setFormData: Dispatch<SetStateAction<CriteriaCategories>>;
+  setFormData: Dispatch<SetStateAction<CriteriaData>>;
   setIsSubmitted: (submitted: boolean) => void;
   setWeights: (weights: Weights) => void;
 }>({
-  formData: {} as CriteriaCategories,
+  formData: {} as CriteriaData,
   isSubmitted: false,
   weights: getInitialWeights(1),
   setFormData: () => {},

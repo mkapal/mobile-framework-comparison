@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import {
-  CriteriaCategories,
+  CriteriaData,
   DisplayStringMap,
   FrameworkData,
   FrameworkSimilarity,
@@ -22,7 +22,7 @@ import { CriteriaSimilarityTableRow } from './CriteriaSimilarityTableRow';
 
 type Props = {
   displayStrings: DisplayStringMap;
-  formData: CriteriaCategories;
+  formData: CriteriaData;
   frameworkData: FrameworkData;
   rankings: FrameworkSimilarity[];
   weights: Weights;
