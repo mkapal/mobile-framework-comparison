@@ -75,11 +75,13 @@ export function CriteriaSimilarityTableRow({
           align="center"
           style={schemaType === 'array' ? { verticalAlign: 'top' } : {}}
         >
-          <FormattedCriterionValue
-            category={category}
-            criterion={criterion}
-            value={value}
-          />
+          {schemaType !== 'integer' && (
+            <FormattedCriterionValue
+              category={category}
+              criterion={criterion}
+              value={value}
+            />
+          )}
         </TableCell>
       )}
       {rankings.map(({ criteria, framework }) => {
