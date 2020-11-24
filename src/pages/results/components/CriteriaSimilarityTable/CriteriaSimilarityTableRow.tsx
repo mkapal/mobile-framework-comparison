@@ -54,9 +54,10 @@ export function CriteriaSimilarityTableRow({
 }: Props) {
   const classes = useStyles();
 
-  const schemaType = utils.getSchemaType(
-    schema[category].properties![criterion] as JSONSchema7,
-  );
+  const schemaProperties = schema[category].properties![
+    criterion
+  ] as JSONSchema7;
+  const schemaType = utils.getSchemaType(schemaProperties);
 
   return (
     <TableRow className={classes.row} key={criterion} hover>
@@ -75,7 +76,7 @@ export function CriteriaSimilarityTableRow({
           align="center"
           style={schemaType === 'array' ? { verticalAlign: 'top' } : {}}
         >
-          {schemaType !== 'integer' && (
+          {!schemaProperties.readOnly && (
             <FormattedCriterionValue
               category={category}
               criterion={criterion}
