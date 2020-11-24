@@ -18,7 +18,6 @@ export const getFrameworkIds = (): string[] => [
   'ionic',
   'nativescript',
   'react-native',
-  'xamarin',
 ];
 
 type UiWidgetSchema = {
@@ -74,6 +73,7 @@ export const similarityFunctions: SimilarityFunctions = {
     'wysiwyg-editor': booleanSimilarity,
     documentation: normalizedRating,
     extensibility: normalizedRating,
+    maintainability: normalizedRating,
     scalability: normalizedRating,
     technologies: jaccardSimilarity,
     testing: normalizedRating,

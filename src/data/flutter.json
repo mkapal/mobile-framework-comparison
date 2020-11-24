@@ -8,17 +8,17 @@
       "free-license": true,
       "pricing": "free",
       "microtransactions": true,
-      "internationalization": 2,
-      "long-term-feasibility": 3
+      "internationalization": 3,
+      "long-term-feasibility": 2
     },
     "development": {
-      "configuration-management": 3,
       "continuous-deployment": 3,
       "custom-code-integration": true,
       "custom-ide": false,
       "documentation": 2,
-      "extensibility": 2,
-      "initial-config": 3,
+      "extensibility": 3,
+      "initial-config": 2,
+      "maintainability": 2,
       "scalability": 3,
       "technologies": ["dart"],
       "testing": 3,
@@ -26,13 +26,34 @@
     },
     "application-usage": {
       "app-lifecycle": 2,
-      "hardware": ["accelerometer", "bluetooth", "camera", "temperature"],
-      "offline": true,
-      "performance": 2,
+      "hardware": [
+        "accelerometer",
+        "gyro",
+        "geolocation",
+        "magnet",
+        "pedometer",
+        "proximity",
+        "pressure",
+        "light",
+        "camera",
+        "microphone",
+        "nfc",
+        "bluetooth",
+        "wifi",
+        "biometrics",
+        "vibration"
+      ],
       "security": 3,
-      "software": ["browser", "call-history", "contacts"],
+      "software": [
+        "local-storage",
+        "file-system",
+        "contacts",
+        "call-history",
+        "push-notifications",
+        "browser"
+      ],
       "touch-gestures": 3,
-      "user-interface": 3
+      "user-interface": 2
     }
   }
 }

@@ -18,10 +18,15 @@ export type SupportForInAppPurchases = boolean;
 export type SupportForInternationalization = number;
 export type LongTermFeasibility = number;
 export type CustomIntegratedDevelopmentEnvironmentIDE = boolean;
-export type WhichTechnologiesShouldItUse = [C | Dart | JavaScript | XML, ...(C | Dart | JavaScript | XML)[]];
-export type C = "c#";
+export type WhichTechnologiesShouldItUse = [
+  CSS | Dart | HTML | JavaScript | TypeScript | XML,
+  ...(CSS | Dart | HTML | JavaScript | TypeScript | XML)[]
+];
+export type CSS = "css";
 export type Dart = "dart";
+export type HTML = "html";
 export type JavaScript = "javascript";
+export type TypeScript = "typescript";
 export type XML = "xml";
 export type WYSIWYGEditorForGUIDesign = boolean;
 export type CustomCodeIntegration = boolean;
@@ -30,16 +35,14 @@ export type Scalability = number;
 export type InitialProjectConfiguration = number;
 export type Testing = number;
 export type Extensibility = number;
+export type Maintainability = number;
 export type SupportForContinuousIntegrationDeployment = number;
-export type ConfigurationManagement = number;
 export type Accelerometer = "accelerometer";
 export type Gyroscope = "gyro";
-export type Rotation = "rotation";
 export type Pedometer = "pedometer";
 export type Geolocation = "geolocation";
 export type MagneticField = "magnet";
 export type ProximitySensor = "proximity";
-export type Temperature = "temperature";
 export type LightIntensity = "light";
 export type AtmosphericPressure = "pressure";
 export type Camera = "camera";
@@ -52,12 +55,10 @@ export type Vibrations = "vibration";
 export type WhichHardwareFeaturesShouldItHaveAccessTo = (
   | Accelerometer
   | Gyroscope
-  | Rotation
   | Pedometer
   | Geolocation
   | MagneticField
   | ProximitySensor
-  | Temperature
   | LightIntensity
   | AtmosphericPressure
   | Camera
@@ -82,12 +83,10 @@ export type WhichSoftwareFeaturesShouldItHaveAccessTo = (
   | PushNotifications
   | InAppBrowser
 )[];
-export type OfflineModeSupport = boolean;
 export type SupportForTouchGestures = number;
 export type SupportForApplicationLifecycle = number;
 export type Security = number;
 export type UserInterface = number;
-export type Performance = number;
 
 export interface Frameworks {
   name: string;
@@ -117,16 +116,14 @@ export interface Development {
   "initial-config": InitialProjectConfiguration;
   testing: Testing;
   extensibility: Extensibility;
+  maintainability: Maintainability;
   "continuous-deployment": SupportForContinuousIntegrationDeployment;
-  "configuration-management": ConfigurationManagement;
 }
 export interface ApplicationUsage {
   hardware: WhichHardwareFeaturesShouldItHaveAccessTo;
   software: WhichSoftwareFeaturesShouldItHaveAccessTo;
-  offline: OfflineModeSupport;
   "touch-gestures": SupportForTouchGestures;
   "app-lifecycle": SupportForApplicationLifecycle;
   security: Security;
   "user-interface": UserInterface;
-  performance: Performance;
 }

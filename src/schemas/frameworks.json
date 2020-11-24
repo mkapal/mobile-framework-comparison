@@ -113,12 +113,12 @@
           "title": "Development",
           "type": "object",
           "required": [
-            "configuration-management",
             "continuous-deployment",
             "custom-code-integration",
             "custom-ide",
             "documentation",
             "extensibility",
+            "maintainability",
             "initial-config",
             "scalability",
             "technologies",
@@ -140,8 +140,8 @@
                 "anyOf": [
                   {
                     "type": "string",
-                    "title": "C#",
-                    "enum": ["c#"]
+                    "title": "CSS",
+                    "enum": ["css"]
                   },
                   {
                     "type": "string",
@@ -150,8 +150,18 @@
                   },
                   {
                     "type": "string",
+                    "title": "HTML",
+                    "enum": ["html"]
+                  },
+                  {
+                    "type": "string",
                     "title": "JavaScript",
                     "enum": ["javascript"]
+                  },
+                  {
+                    "type": "string",
+                    "title": "TypeScript",
+                    "enum": ["typescript"]
                   },
                   {
                     "type": "string",
@@ -207,15 +217,15 @@
               "minimum": 0,
               "maximum": 3
             },
-            "continuous-deployment": {
-              "title": "Support for continuous integration & deployment",
+            "maintainability": {
+              "title": "Maintainability",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
               "maximum": 3
             },
-            "configuration-management": {
-              "title": "Configuration management",
+            "continuous-deployment": {
+              "title": "Support for continuous integration & deployment",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,
@@ -233,8 +243,6 @@
           "required": [
             "app-lifecycle",
             "hardware",
-            "offline",
-            "performance",
             "security",
             "software",
             "touch-gestures",
@@ -261,11 +269,6 @@
                   },
                   {
                     "type": "string",
-                    "title": "rotation",
-                    "enum": ["rotation"]
-                  },
-                  {
-                    "type": "string",
                     "title": "pedometer",
                     "enum": ["pedometer"]
                   },
@@ -283,11 +286,6 @@
                     "type": "string",
                     "title": "proximity sensor",
                     "enum": ["proximity"]
-                  },
-                  {
-                    "type": "string",
-                    "title": "temperature",
-                    "enum": ["temperature"]
                   },
                   {
                     "type": "string",
@@ -380,11 +378,6 @@
               },
               "uniqueItems": true
             },
-            "offline": {
-              "title": "Offline mode support",
-              "type": "boolean",
-              "readOnly": true
-            },
             "touch-gestures": {
               "title": "Support for touch gestures",
               "readOnly": true,
@@ -408,13 +401,6 @@
             },
             "user-interface": {
               "title": "User interface",
-              "readOnly": true,
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 3
-            },
-            "performance": {
-              "title": "Performance",
               "readOnly": true,
               "type": "integer",
               "minimum": 0,

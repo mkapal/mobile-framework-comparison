@@ -4,35 +4,56 @@
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],
-      "development-platforms": ["windows"],
+      "development-platforms": ["linux", "macos", "windows"],
       "free-license": true,
       "pricing": "free",
       "microtransactions": true,
-      "internationalization": 2,
+      "internationalization": 3,
       "long-term-feasibility": 2
     },
     "development": {
-      "configuration-management": 0,
-      "continuous-deployment": 0,
-      "custom-code-integration": false,
-      "custom-ide": true,
-      "documentation": 3,
+      "continuous-deployment": 2,
+      "custom-code-integration": true,
+      "custom-ide": false,
+      "documentation": 1,
       "extensibility": 2,
-      "initial-config": 2,
+      "initial-config": 3,
+      "maintainability": 1,
       "scalability": 2,
-      "technologies": ["xml"],
+      "technologies": ["javascript", "typescript", "xml"],
       "testing": 2,
-      "wysiwyg-editor": true
+      "wysiwyg-editor": false
     },
     "application-usage": {
-      "app-lifecycle": 0,
-      "hardware": ["accelerometer", "biometrics", "geolocation"],
-      "offline": true,
-      "performance": 2,
-      "security": 3,
-      "software": ["browser", "contacts"],
-      "touch-gestures": 3,
-      "user-interface": 3
+      "app-lifecycle": 2,
+      "hardware": [
+        "accelerometer",
+        "gyro",
+        "geolocation",
+        "magnet",
+        "pedometer",
+        "proximity",
+        "pressure",
+        "light",
+        "camera",
+        "microphone",
+        "nfc",
+        "bluetooth",
+        "wifi",
+        "biometrics",
+        "vibration"
+      ],
+      "security": 1,
+      "software": [
+        "local-storage",
+        "file-system",
+        "contacts",
+        "call-history",
+        "push-notifications",
+        "browser"
+      ],
+      "touch-gestures": 2,
+      "user-interface": 2
     }
   }
 }

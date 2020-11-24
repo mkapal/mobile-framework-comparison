@@ -12,27 +12,45 @@
       "long-term-feasibility": 2
     },
     "development": {
-      "configuration-management": 0,
-      "continuous-deployment": 3,
+      "continuous-deployment": 2,
       "custom-code-integration": true,
       "custom-ide": false,
       "documentation": 3,
-      "extensibility": 2,
+      "extensibility": 3,
       "initial-config": 3,
+      "maintainability": 3,
       "scalability": 3,
       "technologies": ["javascript"],
-      "testing": 3,
+      "testing": 2,
       "wysiwyg-editor": false
     },
     "application-usage": {
       "app-lifecycle": 2,
-      "hardware": ["accelerometer"],
-      "offline": true,
-      "performance": 4,
-      "security": 0,
-      "software": ["browser", "call-history", "contacts"],
+      "hardware": [
+        "accelerometer",
+        "gyro",
+        "geolocation",
+        "magnet",
+        "pedometer",
+        "pressure",
+        "camera",
+        "microphone",
+        "bluetooth",
+        "wifi",
+        "biometrics",
+        "vibration"
+      ],
+      "security": 1,
+      "software": [
+        "local-storage",
+        "browser",
+        "call-history",
+        "contacts",
+        "file-system",
+        "push-notifications"
+      ],
       "touch-gestures": 2,
-      "user-interface": 2
+      "user-interface": 3
     }
   }
 }

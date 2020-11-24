@@ -41,7 +41,7 @@ describe('Similarity functions', () => {
 
   describe('Rating similarity', () => {
     it('returns a normalized rating', () => {
-      expect(normalizedRating(1, 2)).toEqual(0.4);
+      expect(normalizedRating(1, 2)).toEqual(0.6666666666666666);
       expect(normalizedRating(3, 2, 10)).toEqual(0.2);
       expect(normalizedRating(3, 2, 0)).toEqual(0);
     });
