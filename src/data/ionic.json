@@ -20,7 +20,7 @@
       "initial-config": 2,
       "maintainability": 1,
       "scalability": 2,
-      "technologies": ["javascript"],
+      "technologies": ["html", "css", "javascript"],
       "testing": 2,
       "wysiwyg-editor": false
     },
@@ -43,6 +43,7 @@
         "biometrics",
         "vibration"
       ],
+      "offline": true,
       "security": 1,
       "software": [
         "local-storage",

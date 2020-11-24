@@ -43,6 +43,7 @@
         "biometrics",
         "vibration"
       ],
+      "offline": true,
       "security": 1,
       "software": [
         "local-storage",

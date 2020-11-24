@@ -243,6 +243,7 @@
           "required": [
             "app-lifecycle",
             "hardware",
+            "offline",
             "security",
             "software",
             "touch-gestures",
@@ -377,6 +378,11 @@
                 ]
               },
               "uniqueItems": true
+            },
+            "offline": {
+              "title": "Offline mode support",
+              "type": "boolean",
+              "readOnly": true
             },
             "touch-gestures": {
               "title": "Support for touch gestures",
