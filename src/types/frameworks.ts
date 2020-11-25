@@ -83,6 +83,7 @@ export type WhichSoftwareFeaturesShouldItHaveAccessTo = (
   | PushNotifications
   | InAppBrowser
 )[];
+export type OfflineModeSupport = boolean;
 export type SupportForTouchGestures = number;
 export type SupportForApplicationLifecycle = number;
 export type Security = number;
@@ -122,6 +123,7 @@ export interface Development {
 export interface ApplicationUsage {
   hardware: WhichHardwareFeaturesShouldItHaveAccessTo;
   software: WhichSoftwareFeaturesShouldItHaveAccessTo;
+  offline: OfflineModeSupport;
   "touch-gestures": SupportForTouchGestures;
   "app-lifecycle": SupportForApplicationLifecycle;
   security: Security;
