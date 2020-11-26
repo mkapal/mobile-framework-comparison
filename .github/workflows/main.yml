@@ -9,36 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: install
-      - name: Prettier
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: ci:prettier
-      - name: Lint
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: lint
-      - name: Test
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: test
-      - name: Build
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: build
+          node-version: '12.x'
+      - run: yarn install
+      - run: yarn ci:prettier
+      - run: yarn lint
+      - run: yarn test
+      - run: yarn build
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
