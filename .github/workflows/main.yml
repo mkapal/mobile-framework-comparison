@@ -14,11 +14,31 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: '12.x'
-      - run: yarn install
-      - run: yarn ci:prettier
-      - run: yarn lint
-      - run: yarn test
-      - run: yarn build
+      - name: Install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
+      - name: Prettier
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: ci:prettier
+      - name: Lint
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: lint
+      - name: Test
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: test
+      - name: Build
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: build
+      - name: Save app
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: build
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -27,8 +47,10 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: '12.x'
-      - run: yarn install --production --non-interactive --no-progress
-      - run: yarn build
+      - name: Use app
+        uses: actions/download-artifact@v2
+        with:
+          name: app
       - uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting --project arduino-remote
