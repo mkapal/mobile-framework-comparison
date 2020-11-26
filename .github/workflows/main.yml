@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
@@ -13,28 +13,42 @@ jobs:
       matrix:
         node-version: [12.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: install
-    - name: Prettier
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: ci:prettier
-    - name: Lint
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: lint
-    - name: Test
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: test
-    - name: Build
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: build
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
+      - name: Prettier
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: ci:prettier
+      - name: Lint
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: lint
+      - name: Test
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: test
+      - name: Build
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: build
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: '12.x'
+      - run: yarn install --production --non-interactive --no-progress
+      - run: yarn build
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting --project arduino-remote
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "build",
+    "ignore": ["firebase.json", "README.md", "**/.*"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
