@@ -1,6 +1,7 @@
 {
   "name": "NativeScript",
   "url": "https://nativescript.org/",
+  "description": "NativeScript description",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

@@ -92,6 +92,7 @@ export type UserInterface = number;
 export interface Frameworks {
   name: string;
   url: string;
+  description: string;
   criteria: {
     infrastructure: Infrastructure;
     development: Development;

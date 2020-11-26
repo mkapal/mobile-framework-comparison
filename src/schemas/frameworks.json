@@ -1,12 +1,15 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "required": ["name", "url", "criteria"],
+  "required": ["name", "url", "description", "criteria"],
   "properties": {
     "name": {
       "type": "string"
     },
     "url": {
+      "type": "string"
+    },
+    "description": {
       "type": "string"
     },
     "criteria": {

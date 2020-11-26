@@ -1,6 +1,7 @@
 {
   "name": "Ionic",
   "url": "https://ionicframework.com",
+  "description": "Ionic description",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

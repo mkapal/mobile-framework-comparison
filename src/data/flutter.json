@@ -1,6 +1,7 @@
 {
   "name": "Flutter",
   "url": "https://flutter.dev",
+  "description": "Flutter description",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

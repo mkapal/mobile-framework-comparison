@@ -1,6 +1,7 @@
 {
   "name": "Cordova",
   "url": "https://cordova.apache.org",
+  "description": "Cordova description",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

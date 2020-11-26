@@ -1,6 +1,7 @@
 {
   "name": "React Native",
   "url": "https://reactnative.dev",
+  "description": "React Native description",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],
