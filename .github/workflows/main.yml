@@ -54,6 +54,6 @@ jobs:
           path: build
       - uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting --project arduino-remote
+          args: deploy --only hosting --project mobile-framework-recommender
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
