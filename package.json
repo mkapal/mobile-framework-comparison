@@ -1,7 +1,7 @@
 {
   "name": "mobile-framework-comparison",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "ci:prettier": "run-s \"prettier:no-write --list-different\"",
     "start": "BROWSER=none react-scripts start",
