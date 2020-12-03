@@ -3,15 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
 import { FormattedCriterionValue } from './FormattedCriterionValue';
-import { Similarity } from './Similarity';
 
 type Props = {
   category: string;
   criterion: string;
   frameworkValue: unknown;
-  normalizedScore: number;
   schemaType: string;
-  showValues: boolean;
 };
 
 const useStyles = makeStyles({
@@ -31,9 +28,7 @@ export function CriteriaSimilarityTableCell({
   category,
   criterion,
   frameworkValue,
-  normalizedScore,
   schemaType,
-  showValues,
 }: Props) {
   const classes = useStyles();
 
@@ -41,19 +36,13 @@ export function CriteriaSimilarityTableCell({
     <TableCell
       className={classes.frameworkCell}
       align="center"
-      style={
-        showValues && schemaType === 'array' ? { verticalAlign: 'top' } : {}
-      }
+      style={schemaType === 'array' ? { verticalAlign: 'top' } : {}}
     >
-      {showValues ? (
-        <FormattedCriterionValue
-          category={category}
-          criterion={criterion}
-          value={frameworkValue}
-        />
-      ) : (
-        <Similarity similarity={normalizedScore} />
-      )}
+      <FormattedCriterionValue
+        category={category}
+        criterion={criterion}
+        value={frameworkValue}
+      />
     </TableCell>
   );
 }

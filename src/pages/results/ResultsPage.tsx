@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@material-ui/core';
-import { ArrowBackIos, BubbleChart, List } from '@material-ui/icons';
-import React, { useContext, useState } from 'react';
+import { ArrowBackIos } from '@material-ui/icons';
+import React, { useContext } from 'react';
 
 import { similarityFunctions } from '../../config';
 import { CriteriaFormContext } from '../../context';
@@ -17,7 +17,6 @@ import { CriteriaSimilarityTable } from './components/CriteriaSimilarityTable';
 import { FrameworkRankings } from './components/FrameworkRankings';
 
 export function ResultsPage() {
-  const [showData, setShowData] = useState(true);
   const { formData, isSubmitted, setIsSubmitted, weights } = useContext(
     CriteriaFormContext,
   );
@@ -63,14 +62,6 @@ export function ResultsPage() {
         justifyContent="space-between"
       >
         <Typography variant="h2">Criteria comparison</Typography>
-        <Button
-          variant="outlined"
-          size="small"
-          onClick={() => setShowData(!showData)}
-          startIcon={showData ? <BubbleChart /> : <List />}
-        >
-          {showData ? 'Show similarities' : 'Show data'}
-        </Button>
       </Box>
       <CriteriaSimilarityTable
         displayStrings={displayStrings}
@@ -78,7 +69,6 @@ export function ResultsPage() {
         frameworkData={frameworkData}
         rankings={rankings}
         weights={weights}
-        showValues={showData}
       />
     </PageLayout>
   );

@@ -26,7 +26,6 @@ type Props = {
   frameworkData: FrameworkData;
   rankings: FrameworkSimilarity[];
   weights: Weights;
-  showValues: boolean;
 };
 
 export function CriteriaSimilarityTable({
@@ -34,7 +33,6 @@ export function CriteriaSimilarityTable({
   formData,
   frameworkData,
   rankings,
-  showValues,
   weights,
 }: Props) {
   const frameworks = Object.keys(frameworkData);
@@ -46,7 +44,7 @@ export function CriteriaSimilarityTable({
           <TableRow>
             <TableCell>Criterion</TableCell>
             <TableCell align="center">Weight</TableCell>
-            {showValues && <TableCell align="center">Entered value</TableCell>}
+            <TableCell align="center">Entered value</TableCell>
             {rankings.map(({ framework }) => {
               const similarity = rankings.find(
                 (ranking) => ranking.framework === framework,
@@ -84,7 +82,6 @@ export function CriteriaSimilarityTable({
                       displayStrings={displayStrings}
                       frameworkData={frameworkData}
                       rankings={rankings}
-                      showValues={showValues}
                       value={value}
                       weight={weight}
                     />

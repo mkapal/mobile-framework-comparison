@@ -24,7 +24,6 @@ type Props = {
   displayStrings: DisplayStringMap;
   frameworkData: FrameworkData;
   rankings: FrameworkSimilarity[];
-  showValues: boolean;
   value: unknown;
   weight: number;
 };
@@ -48,7 +47,6 @@ export function CriteriaSimilarityTableRow({
   displayStrings,
   frameworkData,
   rankings,
-  showValues,
   value,
   weight,
 }: Props) {
@@ -71,25 +69,21 @@ export function CriteriaSimilarityTableRow({
           label={`Weight: ${weight}`}
         />
       </TableCell>
-      {showValues && (
-        <TableCell
-          align="center"
-          style={schemaType === 'array' ? { verticalAlign: 'top' } : {}}
-        >
-          {!schemaProperties.readOnly && (
-            <FormattedCriterionValue
-              category={category}
-              criterion={criterion}
-              value={value}
-            />
-          )}
-        </TableCell>
-      )}
-      {rankings.map(({ criteria, framework }) => {
+      <TableCell
+        align="center"
+        style={schemaType === 'array' ? { verticalAlign: 'top' } : {}}
+      >
+        {!schemaProperties.readOnly && (
+          <FormattedCriterionValue
+            category={category}
+            criterion={criterion}
+            value={value}
+          />
+        )}
+      </TableCell>
+      {rankings.map(({ framework }) => {
         const frameworkValue =
           frameworkData[framework].criteria[category][criterion];
-        const criterionScore = criteria[category][criterion] ?? 0;
-        const normalizedScore = weight === 0 ? 0 : criterionScore / weight;
 
         return (
           <CriteriaSimilarityTableCell
@@ -97,9 +91,7 @@ export function CriteriaSimilarityTableRow({
             category={category}
             criterion={criterion}
             frameworkValue={frameworkValue}
-            normalizedScore={normalizedScore}
             schemaType={schemaType}
-            showValues={showValues}
           />
         );
       })}
