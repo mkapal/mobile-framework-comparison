@@ -1,7 +1,7 @@
 {
   "name": "React Native",
   "url": "https://reactnative.dev",
-  "description": "React Native description",
+  "description": "React Native is a cross-platform mobile framework founded and maintained by Facebook. It is based on React, a web UI building library.",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

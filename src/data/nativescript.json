@@ -1,7 +1,7 @@
 {
   "name": "NativeScript",
   "url": "https://nativescript.org/",
-  "description": "NativeScript description",
+  "description": "NativeScript is a cross-platform framework owned by Telerik. Mobile applications are developed using XML and languages based on JavaScript. UI components created by this framework are able to communicate with mobile device APIs.",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

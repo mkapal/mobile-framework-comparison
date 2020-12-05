@@ -1,7 +1,7 @@
 {
   "name": "Ionic",
   "url": "https://ionicframework.com",
-  "description": "Ionic description",
+  "description": "Ionic Framework is a library of UI components, which can be used on both web and mobile platforms. These components are created using web technologies. Native API can be accessed by third party tools, such as Capacior or Cordova.",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

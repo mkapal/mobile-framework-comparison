@@ -1,7 +1,7 @@
 {
   "name": "Flutter",
   "url": "https://flutter.dev",
-  "description": "Flutter description",
+  "description": "Flutter is a cross-platform framework developed by Google, which allows the development of mobile applications compiled to native code. All source code is written in Dart.",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],

@@ -1,7 +1,7 @@
 {
   "name": "Cordova",
   "url": "https://cordova.apache.org",
-  "description": "Cordova description",
+  "description": "Cordova is a hybrid cross-platform framework owned by Apache Software Foundation. It does not contain any UI creation toolkit - it is a native mobile application runtime.",
   "criteria": {
     "infrastructure": {
       "mobile-os": ["android", "ios"],
