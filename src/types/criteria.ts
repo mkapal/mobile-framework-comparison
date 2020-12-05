@@ -22,6 +22,7 @@ export type FrameworkData = {
   [framework: string]: {
     name: string;
     url: string;
+    description: string;
     criteria: CriteriaData;
   };
 };

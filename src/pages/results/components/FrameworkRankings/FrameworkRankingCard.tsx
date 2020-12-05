@@ -16,6 +16,7 @@ import { FrameworkScoreBar } from './FrameworkScoreBar';
 type Props = {
   id: string;
   name: string;
+  description: string;
   similarity: number;
   expanded: boolean;
   onToggleExpand: (e: React.ChangeEvent<{}>, isExpanded: boolean) => void;
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export function FrameworkRankingCard({
+  description,
   expanded,
   id,
   name,
@@ -78,10 +80,7 @@ export function FrameworkRankingCard({
         <FrameworkScoreBar similarity={similarity} />
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>
-          Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-          Aliquam eget maximus est, id dignissim quam.
-        </Typography>
+        <Typography>{description}</Typography>
       </AccordionDetails>
       <AccordionActions>
         <Button
